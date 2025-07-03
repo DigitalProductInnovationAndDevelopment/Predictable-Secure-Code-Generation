@@ -1,0 +1,22 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "OPENAI_API_KEY": "",
+    "OPENAI_MODEL": "gpt-4",
+    "AI_MAX_TOKENS": "4000",
+    "AI_TEMPERATURE": "0.1",
+    "REQUIREMENTS_FILE": "data/requirements.csv",
+    "METADATA_FILE": "data/metadata.json",
+    "STATUS_LOG_FILE": "data/status_log.json",
+    "CODEBASE_ROOT": ".",
+    "MAX_RETRIES": "3",
+    "VALIDATION_TIMEOUT": "300",
+    "PYTHON_FORMATTER": "black",
+    "LINTER": "flake8",
+    "TEST_COMMAND": "pytest",
+    "AZURE_FUNCTION_TIMEOUT": "600"
+  },
+  "ConnectionStrings": {}
+}
