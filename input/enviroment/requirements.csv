@@ -1,8 +1,13 @@
 id,description
-REQ-001,add two numbers 
+REQ-001,add two numbers
 REQ-002,subtract two numbers
 REQ-003,multiply two numbers
 REQ-004,divide two numbers
-REQ-005,add two numbers then multiply by two
-REQ-006,given a list sum the elements 
-REQ-007,given a string say it is balindrom or not 
+REQ-005,add two numbers then multiply the result by two
+REQ-006,given a list, sum the elements
+REQ-007,given a string, determine if it is a palindrome
+REQ-008,validate input types for all operations and raise errors for invalid input
+REQ-009,raise an error when dividing by zero
+REQ-010,raise an error when summing an empty list
+REQ-011,raise an error when summing a list with non-numeric elements
+REQ-012,provide a command-line interface to demonstrate all calculator operations
