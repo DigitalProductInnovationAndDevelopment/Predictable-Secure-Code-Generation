@@ -1,8 +1,15 @@
 import sys
+import os
 import logging
 import argparse
 from typing import Optional, Dict, Any
 from openai import AzureOpenAI
+
+# Add root directory to path to import config
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
+
 from config import Config
 
 

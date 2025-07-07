@@ -3,13 +3,16 @@ import os
 import csv
 import re
 
-# Add parent directory to path to import config
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Add root directory and src directory to path to import modules
+root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+src_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(root_dir)
+sys.path.append(src_dir)
 
 from CheckCodeRequirements.adapters.readRequirementsFromCSV import read_requirements_csv
 from CodeManagement.readCode import list_code_files
 from config import Config
-from ai import AzureOpenAIClient
+from AIBrain.ai import AzureOpenAIClient
 
 # Create config instance
 config = Config()
