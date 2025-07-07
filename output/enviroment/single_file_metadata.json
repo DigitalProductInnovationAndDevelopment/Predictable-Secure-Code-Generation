@@ -1,0 +1,27 @@
+{
+  "entry_points": [],
+  "files": [
+    {
+      "classes": [],
+      "functions": [
+        {
+          "args": [],
+          "docstring": "Main function to demonstrate calculator operations.",
+          "end_line": 100,
+          "name": "main",
+          "start_line": 9
+        }
+      ],
+      "imports": [
+        "calculator.Calculator"
+      ],
+      "path": "main.py"
+    }
+  ],
+  "project_info": {
+    "generation_time": 0.001135110855102539,
+    "source_path": "/Users/abdullahhesham/Documents/GitHub/Predictable-Secure-Code-Generation/input/code/main.py",
+    "total_files": 1,
+    "type": "single_file"
+  }
+}

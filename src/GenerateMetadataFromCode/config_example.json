@@ -1,0 +1,46 @@
+{
+  "include_patterns": ["*.py"],
+  "exclude_patterns": [
+    "__pycache__/*",
+    "*.pyc",
+    ".git/*",
+    ".pytest_cache/*",
+    "htmlcov/*",
+    ".coverage*",
+    "build/*",
+    "dist/*",
+    "*.egg-info/*",
+    ".venv/*",
+    "venv/*",
+    "*.bak",
+    "*.tmp"
+  ],
+  "entry_point_functions": [
+    "main",
+    "__main__",
+    "run",
+    "start",
+    "execute",
+    "app"
+  ],
+  "entry_point_files": [
+    "main.py",
+    "app.py",
+    "run.py",
+    "start.py",
+    "__main__.py",
+    "server.py",
+    "client.py"
+  ],
+  "extract_docstrings": true,
+  "extract_type_hints": true,
+  "extract_decorators": true,
+  "extract_base_classes": true,
+  "include_private_methods": false,
+  "include_magic_methods": true,
+  "output_filename": "metadata.json",
+  "indent_json": 2,
+  "sort_keys": true,
+  "log_level": "INFO",
+  "log_format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+} 

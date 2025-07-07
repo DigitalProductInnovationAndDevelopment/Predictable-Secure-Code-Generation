@@ -1,0 +1,686 @@
+{
+  "dependencies": {
+    "external_dependencies": [
+      "pytest"
+    ],
+    "internal_dependencies": [
+      "calculator.Calculator",
+      "calculator.calculator.Calculator"
+    ],
+    "total_external": 1,
+    "total_internal": 2
+  },
+  "entry_points": [
+    "main.py -> main()"
+  ],
+  "files": [
+    {
+      "classes": [],
+      "functions": [
+        {
+          "args": [
+            "a",
+            "b"
+          ],
+          "docstring": "Return the sum of two numbers.\n\nArgs:\n    a (int/float): First number\n    b (int/float): Second number\n\nReturns:\n    int/float: Sum of a and b",
+          "end_line": 12,
+          "name": "addition",
+          "start_line": 1
+        },
+        {
+          "args": [
+            "a",
+            "b"
+          ],
+          "docstring": "Return the difference of two numbers.\n\nArgs:\n    a (int/float): First number\n    b (int/float): Second number\n\nReturns:\n    int/float: Difference of a and b (a - b)",
+          "end_line": 26,
+          "name": "subtraction",
+          "start_line": 15
+        },
+        {
+          "args": [
+            "num1",
+            "num2"
+          ],
+          "docstring": "Multiplies two numbers and returns the result.\n\nArgs:\n    num1 (float or int): The first number to be multiplied.\n    num2 (float or int): The second number to be multiplied.\n\nReturns:\n    float or int: The product of the two numbers.\n\nRaises:\n    TypeError: If either of the inputs is not a number (int or float).",
+          "end_line": 51,
+          "name": "multiply_two_numbers",
+          "start_line": 30
+        },
+        {
+          "args": [
+            "numerator",
+            "denominator"
+          ],
+          "docstring": "Divides two numbers and returns the result.\n\nArgs:\n    numerator (float): The number to be divided (the dividend).\n    denominator (float): The number by which to divide (the divisor).\n\nReturns:\n    float: The result of the division.\n\nRaises:\n    ValueError: If the denominator is zero.\n    TypeError: If either numerator or denominator is not a number.",
+          "end_line": 80,
+          "name": "divide_two_numbers",
+          "start_line": 54
+        },
+        {
+          "args": [
+            "num1",
+            "num2"
+          ],
+          "docstring": "Adds two numbers and multiplies the result by two.\n\nArgs:\n    num1 (float or int): The first number to be added.\n    num2 (float or int): The second number to be added.\n\nReturns:\n    float: The result of adding the two numbers and multiplying by two.\n\nRaises:\n    TypeError: If either num1 or num2 is not a number (int or float).",
+          "end_line": 105,
+          "name": "add_and_multiply_by_two",
+          "start_line": 83
+        },
+        {
+          "args": [
+            "numbers"
+          ],
+          "docstring": "Calculate the sum of all elements in a given list.\n\nArgs:\n    numbers (list): A list of numeric values to be summed.\n\nReturns:\n    float: The sum of all elements in the list.\n\nRaises:\n    TypeError: If the input is not a list or if the list contains non-numeric elements.\n    ValueError: If the list is empty.",
+          "end_line": 135,
+          "name": "sum_list_elements",
+          "start_line": 108
+        },
+        {
+          "args": [
+            "input_string"
+          ],
+          "docstring": "Determines whether a given string is a palindrome or not.\n\nA palindrome is a string that reads the same backward as forward, \nignoring case and non-alphanumeric characters.\n\nArgs:\n    input_string (str): The string to check for palindrome property.\n\nReturns:\n    bool: True if the input string is a palindrome, False otherwise.\n\nRaises:\n    TypeError: If the input is not a string.",
+          "end_line": 162,
+          "name": "is_palindrome",
+          "start_line": 138
+        }
+      ],
+      "imports": [],
+      "path": "code.py"
+    },
+    {
+      "classes": [],
+      "functions": [
+        {
+          "args": [],
+          "docstring": "Main function to demonstrate calculator operations.",
+          "end_line": 100,
+          "name": "main",
+          "start_line": 9
+        }
+      ],
+      "imports": [
+        "calculator.Calculator"
+      ],
+      "path": "main.py"
+    },
+    {
+      "classes": [],
+      "functions": [],
+      "imports": [
+        "calculator.Calculator"
+      ],
+      "path": "calculator/__init__.py"
+    },
+    {
+      "classes": [
+        {
+          "docstring": "A simple calculator class for basic mathematical operations.",
+          "end_line": 145,
+          "methods": [
+            {
+              "args": [
+                "self",
+                "a",
+                "b"
+              ],
+              "docstring": "Return the sum of two numbers.\n\nArgs:\n    a (int/float): First number\n    b (int/float): Second number\n\nReturns:\n    int/float: Sum of a and b",
+              "end_line": 20,
+              "name": "add",
+              "start_line": 9
+            },
+            {
+              "args": [
+                "self",
+                "a",
+                "b"
+              ],
+              "docstring": "Return the difference of two numbers.\n\nArgs:\n    a (int/float): First number\n    b (int/float): Second number\n\nReturns:\n    int/float: Difference of a and b (a - b)",
+              "end_line": 33,
+              "name": "subtract",
+              "start_line": 22
+            },
+            {
+              "args": [
+                "self",
+                "num1",
+                "num2"
+              ],
+              "docstring": "Multiplies two numbers and returns the result.\n\nArgs:\n    num1 (float or int): The first number to be multiplied.\n    num2 (float or int): The second number to be multiplied.\n\nReturns:\n    float or int: The product of the two numbers.\n\nRaises:\n    TypeError: If either of the inputs is not a number (int or float).",
+              "end_line": 60,
+              "name": "multiply",
+              "start_line": 35
+            },
+            {
+              "args": [
+                "self",
+                "numerator",
+                "denominator"
+              ],
+              "docstring": "Divides two numbers and returns the result.\n\nArgs:\n    numerator (float): The number to be divided (the dividend).\n    denominator (float): The number by which to divide (the divisor).\n\nReturns:\n    float: The result of the division.\n\nRaises:\n    ValueError: If the denominator is zero.\n    TypeError: If either numerator or denominator is not a number.",
+              "end_line": 88,
+              "name": "divide",
+              "start_line": 62
+            },
+            {
+              "args": [
+                "self",
+                "num1",
+                "num2"
+              ],
+              "docstring": "Adds two numbers and multiplies the result by two.\n\nArgs:\n    num1 (float or int): The first number to be added.\n    num2 (float or int): The second number to be added.\n\nReturns:\n    float: The result of adding the two numbers and multiplying by two.\n\nRaises:\n    TypeError: If either num1 or num2 is not a number (int or float).",
+              "end_line": 116,
+              "name": "add_and_multiply_by_two",
+              "start_line": 90
+            },
+            {
+              "args": [
+                "self",
+                "numbers"
+              ],
+              "docstring": "Calculate the sum of all elements in a given list.\n\nArgs:\n    numbers (list): A list of numeric values to be summed.\n\nReturns:\n    float: The sum of all elements in the list.\n\nRaises:\n    TypeError: If the input is not a list or if the list contains non-numeric elements.\n    ValueError: If the list is empty.",
+              "end_line": 145,
+              "name": "sum_list",
+              "start_line": 118
+            }
+          ],
+          "name": "Calculator",
+          "start_line": 6
+        }
+      ],
+      "functions": [
+        {
+          "args": [
+            "self",
+            "a",
+            "b"
+          ],
+          "docstring": "Return the sum of two numbers.\n\nArgs:\n    a (int/float): First number\n    b (int/float): Second number\n\nReturns:\n    int/float: Sum of a and b",
+          "end_line": 20,
+          "name": "add",
+          "start_line": 9
+        },
+        {
+          "args": [
+            "self",
+            "a",
+            "b"
+          ],
+          "docstring": "Return the difference of two numbers.\n\nArgs:\n    a (int/float): First number\n    b (int/float): Second number\n\nReturns:\n    int/float: Difference of a and b (a - b)",
+          "end_line": 33,
+          "name": "subtract",
+          "start_line": 22
+        },
+        {
+          "args": [
+            "self",
+            "num1",
+            "num2"
+          ],
+          "docstring": "Multiplies two numbers and returns the result.\n\nArgs:\n    num1 (float or int): The first number to be multiplied.\n    num2 (float or int): The second number to be multiplied.\n\nReturns:\n    float or int: The product of the two numbers.\n\nRaises:\n    TypeError: If either of the inputs is not a number (int or float).",
+          "end_line": 60,
+          "name": "multiply",
+          "start_line": 35
+        },
+        {
+          "args": [
+            "self",
+            "numerator",
+            "denominator"
+          ],
+          "docstring": "Divides two numbers and returns the result.\n\nArgs:\n    numerator (float): The number to be divided (the dividend).\n    denominator (float): The number by which to divide (the divisor).\n\nReturns:\n    float: The result of the division.\n\nRaises:\n    ValueError: If the denominator is zero.\n    TypeError: If either numerator or denominator is not a number.",
+          "end_line": 88,
+          "name": "divide",
+          "start_line": 62
+        },
+        {
+          "args": [
+            "self",
+            "num1",
+            "num2"
+          ],
+          "docstring": "Adds two numbers and multiplies the result by two.\n\nArgs:\n    num1 (float or int): The first number to be added.\n    num2 (float or int): The second number to be added.\n\nReturns:\n    float: The result of adding the two numbers and multiplying by two.\n\nRaises:\n    TypeError: If either num1 or num2 is not a number (int or float).",
+          "end_line": 116,
+          "name": "add_and_multiply_by_two",
+          "start_line": 90
+        },
+        {
+          "args": [
+            "self",
+            "numbers"
+          ],
+          "docstring": "Calculate the sum of all elements in a given list.\n\nArgs:\n    numbers (list): A list of numeric values to be summed.\n\nReturns:\n    float: The sum of all elements in the list.\n\nRaises:\n    TypeError: If the input is not a list or if the list contains non-numeric elements.\n    ValueError: If the list is empty.",
+          "end_line": 145,
+          "name": "sum_list",
+          "start_line": 118
+        }
+      ],
+      "imports": [],
+      "path": "calculator/calculator.py"
+    },
+    {
+      "classes": [],
+      "functions": [],
+      "imports": [],
+      "path": "tests/__init__.py"
+    },
+    {
+      "classes": [
+        {
+          "docstring": "Test cases for Calculator class.",
+          "end_line": 130,
+          "methods": [
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Set up test fixtures.",
+              "end_line": 14,
+              "name": "setup_method",
+              "start_line": 12
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test addition with integers.",
+              "end_line": 20,
+              "name": "test_add_integers",
+              "start_line": 16
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test addition with floats.",
+              "end_line": 26,
+              "name": "test_add_floats",
+              "start_line": 22
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test subtraction with integers.",
+              "end_line": 32,
+              "name": "test_subtract_integers",
+              "start_line": 28
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test subtraction with floats.",
+              "end_line": 38,
+              "name": "test_subtract_floats",
+              "start_line": 34
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test multiplication with integers.",
+              "end_line": 44,
+              "name": "test_multiply_integers",
+              "start_line": 40
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test multiplication with floats.",
+              "end_line": 50,
+              "name": "test_multiply_floats",
+              "start_line": 46
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test multiplication with invalid types.",
+              "end_line": 57,
+              "name": "test_multiply_type_error",
+              "start_line": 52
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test division with integers.",
+              "end_line": 63,
+              "name": "test_divide_integers",
+              "start_line": 59
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test division with floats.",
+              "end_line": 69,
+              "name": "test_divide_floats",
+              "start_line": 65
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test division by zero.",
+              "end_line": 74,
+              "name": "test_divide_by_zero",
+              "start_line": 71
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test division with invalid types.",
+              "end_line": 81,
+              "name": "test_divide_type_error",
+              "start_line": 76
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test add_and_multiply_by_two method.",
+              "end_line": 87,
+              "name": "test_add_and_multiply_by_two",
+              "start_line": 83
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test add_and_multiply_by_two with invalid types.",
+              "end_line": 94,
+              "name": "test_add_and_multiply_by_two_type_error",
+              "start_line": 89
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test sum_list with integers.",
+              "end_line": 100,
+              "name": "test_sum_list_integers",
+              "start_line": 96
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test sum_list with floats.",
+              "end_line": 106,
+              "name": "test_sum_list_floats",
+              "start_line": 102
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test sum_list with mixed integer and float values.",
+              "end_line": 111,
+              "name": "test_sum_list_mixed",
+              "start_line": 108
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test sum_list with empty list.",
+              "end_line": 116,
+              "name": "test_sum_list_empty",
+              "start_line": 113
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test sum_list with non-list input.",
+              "end_line": 123,
+              "name": "test_sum_list_not_list",
+              "start_line": 118
+            },
+            {
+              "args": [
+                "self"
+              ],
+              "docstring": "Test sum_list with non-numeric elements.",
+              "end_line": 130,
+              "name": "test_sum_list_non_numeric",
+              "start_line": 125
+            }
+          ],
+          "name": "TestCalculator",
+          "start_line": 9
+        }
+      ],
+      "functions": [
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Set up test fixtures.",
+          "end_line": 14,
+          "name": "setup_method",
+          "start_line": 12
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test addition with integers.",
+          "end_line": 20,
+          "name": "test_add_integers",
+          "start_line": 16
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test addition with floats.",
+          "end_line": 26,
+          "name": "test_add_floats",
+          "start_line": 22
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test subtraction with integers.",
+          "end_line": 32,
+          "name": "test_subtract_integers",
+          "start_line": 28
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test subtraction with floats.",
+          "end_line": 38,
+          "name": "test_subtract_floats",
+          "start_line": 34
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test multiplication with integers.",
+          "end_line": 44,
+          "name": "test_multiply_integers",
+          "start_line": 40
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test multiplication with floats.",
+          "end_line": 50,
+          "name": "test_multiply_floats",
+          "start_line": 46
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test multiplication with invalid types.",
+          "end_line": 57,
+          "name": "test_multiply_type_error",
+          "start_line": 52
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test division with integers.",
+          "end_line": 63,
+          "name": "test_divide_integers",
+          "start_line": 59
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test division with floats.",
+          "end_line": 69,
+          "name": "test_divide_floats",
+          "start_line": 65
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test division by zero.",
+          "end_line": 74,
+          "name": "test_divide_by_zero",
+          "start_line": 71
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test division with invalid types.",
+          "end_line": 81,
+          "name": "test_divide_type_error",
+          "start_line": 76
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test add_and_multiply_by_two method.",
+          "end_line": 87,
+          "name": "test_add_and_multiply_by_two",
+          "start_line": 83
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test add_and_multiply_by_two with invalid types.",
+          "end_line": 94,
+          "name": "test_add_and_multiply_by_two_type_error",
+          "start_line": 89
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test sum_list with integers.",
+          "end_line": 100,
+          "name": "test_sum_list_integers",
+          "start_line": 96
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test sum_list with floats.",
+          "end_line": 106,
+          "name": "test_sum_list_floats",
+          "start_line": 102
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test sum_list with mixed integer and float values.",
+          "end_line": 111,
+          "name": "test_sum_list_mixed",
+          "start_line": 108
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test sum_list with empty list.",
+          "end_line": 116,
+          "name": "test_sum_list_empty",
+          "start_line": 113
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test sum_list with non-list input.",
+          "end_line": 123,
+          "name": "test_sum_list_not_list",
+          "start_line": 118
+        },
+        {
+          "args": [
+            "self"
+          ],
+          "docstring": "Test sum_list with non-numeric elements.",
+          "end_line": 130,
+          "name": "test_sum_list_non_numeric",
+          "start_line": 125
+        }
+      ],
+      "imports": [
+        "pytest",
+        "calculator.calculator.Calculator"
+      ],
+      "path": "tests/test_calculator.py"
+    }
+  ],
+  "metrics": {
+    "average_class_complexity": 131.0,
+    "average_function_complexity": 13.91,
+    "classes_per_file": 0.33,
+    "estimated_lines_of_code": 735,
+    "functions_per_file": 5.67,
+    "total_classes": 2,
+    "total_files": 6,
+    "total_functions": 34,
+    "total_methods": 26
+  },
+  "project_info": {
+    "config": {
+      "exclude_patterns": [
+        "__pycache__/*",
+        "*.pyc",
+        ".git/*",
+        ".pytest_cache/*",
+        "htmlcov/*",
+        ".coverage*",
+        "build/*",
+        "dist/*",
+        "*.egg-info/*",
+        ".venv/*",
+        "venv/*"
+      ],
+      "extract_docstrings": true,
+      "extract_type_hints": true,
+      "include_patterns": [
+        "*.py"
+      ],
+      "include_private_methods": false
+    },
+    "generation_time": 0.0065500736236572266,
+    "generator_version": "1.0.0",
+    "source_path": "/Users/abdullahhesham/Documents/GitHub/Predictable-Secure-Code-Generation/input/code",
+    "total_files": 6
+  }
+}
