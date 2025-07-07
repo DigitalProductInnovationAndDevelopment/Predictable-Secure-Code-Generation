@@ -1,0 +1,14 @@
+# Basic project analysis
+python src/GenerateMetadataFromCode/main.py input/code output/enviroment
+
+# Single file analysis
+python src/GenerateMetadataFromCode/main.py input/code/main.py output/enviroment --single-file
+
+# With AI enhancement (when configured)
+python src/GenerateMetadataFromCode/main.py input/code output/enviroment --ai-enhance
+
+# Custom configuration
+python src/GenerateMetadataFromCode/main.py input/code output/enviroment --include-private --exclude-docstrings
+
+# Dry run to preview
+python src/GenerateMetadataFromCode/main.py input/code output/enviroment --dry-run
