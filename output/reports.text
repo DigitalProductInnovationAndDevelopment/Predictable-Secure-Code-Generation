@@ -1,0 +1,27 @@
+VALIDATION REPORT
+==================================================
+
+Overall Status: invalid
+Valid: False
+Total Errors: 3
+Total Warnings: 1
+
+Step: Syntax Validation
+Status: valid
+Valid: True
+
+Step: Test Validation
+Status: invalid
+Valid: False
+Problems:
+  [ERROR] Tests failed with exit code 1
+  [ERROR] Test failure: tests/test_calculator.py::TestCalculator::test_multiply_floats FAILED    [ 31%]
+  [ERROR] Test failure: FAILED tests/test_calculator.py::TestCalculator::test_multiply_floats - asser...
+  [INFO] Test coverage: 100.0%
+
+Step: AI Logic Validation
+Status: skipped
+Valid: True
+Problems:
+  [WARNING] AI client not available - skipping AI validation
+
