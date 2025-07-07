@@ -134,6 +134,33 @@ def sum_list_elements(numbers):
     # Calculate and return the sum
     return sum(numbers)
 
+
+def is_palindrome(input_string):
+    """
+    Determines whether a given string is a palindrome or not.
+    
+    A palindrome is a string that reads the same backward as forward, 
+    ignoring case and non-alphanumeric characters.
+    
+    Args:
+        input_string (str): The string to check for palindrome property.
+    
+    Returns:
+        bool: True if the input string is a palindrome, False otherwise.
+    
+    Raises:
+        TypeError: If the input is not a string.
+    """
+    # Validate input
+    if not isinstance(input_string, str):
+        raise TypeError("Input must be a string.")
+    
+    # Normalize the string: remove non-alphanumeric characters and convert to lowercase
+    normalized_string = ''.join(char.lower() for char in input_string if char.isalnum())
+    
+    # Check if the normalized string is equal to its reverse
+    return normalized_string == normalized_string[::-1]
+
 # Example usage
 if __name__ == "__main__":
     # Test the functions

@@ -5,3 +5,4 @@ REQ-003,multiply two numbers
 REQ-004,divide two numbers
 REQ-005,add two numbers then multiply by two
 REQ-006,given a list sum the elements
+REQ-007,given a string say it is balindrom or not
