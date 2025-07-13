@@ -16,10 +16,10 @@ class Config:
     STATUS_LOG_FILE = os.getenv("STATUS_LOG_FILE", "data/status_log.json")
     IMPLEMENTED_REQUIREMENTS_FILE = os.getenv(
         "IMPLEMENTED_REQUIREMENTS_FILE",
-        "./input/enviroment/implementedRequirements.csv",
+        ".../output/environment/implementedRequirements.csv",
     )
     REQUIREMENTS_FILE = os.getenv(
-        "REQUIREMENTS_FILE", "./input/enviroment/requirements.csv"
+        "REQUIREMENTS_FILE", "./input/environment/requirements.csv"
     )
     CODEBASE_ROOT = os.getenv("CODEBASE_ROOT", "./input/code/")
 
