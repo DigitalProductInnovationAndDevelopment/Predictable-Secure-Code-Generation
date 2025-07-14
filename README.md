@@ -1,8 +1,8 @@
-# Automated Code Update System
+# Collaborative Programming Tool - Prototype 2
 
 An intelligent Azure Functions-based system that automatically processes requirement updates and generates/modifies code using AI.
 
-## 🌟 Features
+## Features
 
 - **Daily Automated Processing**: Runs on a schedule to check for new requirements
 - **Requirements Management**: Supports CSV/Excel files for requirement tracking
@@ -12,7 +12,7 @@ An intelligent Azure Functions-based system that automatically processes require
 - **Comprehensive Logging**: Detailed status tracking and metadata management
 - **RESTful API**: HTTP endpoints for manual triggers and status checking
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
@@ -48,7 +48,8 @@ automated-code-update-system/
 └── tests/                     # Test files
 ```
 
-## 🚀 Getting Started
+## USER GUIDE - How to start?
+Please follow the steps as follows to use this tool. 
 
 ### Prerequisites
 
