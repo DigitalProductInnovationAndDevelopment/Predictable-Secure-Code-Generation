@@ -1,0 +1,59 @@
+{
+  "status": "success",
+  "timestamp": "2025-07-15T08:21:48.506087",
+  "requirements_analyzed": 8,
+  "requirements_implemented": 8,
+  "requirements_failed": 0,
+  "files_created": [
+    "../../output/generated_code/test_req001.py",
+    "../../output/generated_code/test_req002.py",
+    "../../output/generated_code/test_req003.py",
+    "../../output/generated_code/test_req004.py",
+    "../../output/generated_code/test_req005.py",
+    "../../output/generated_code/test_req006.py",
+    "../../output/generated_code/test_req007.py",
+    "../../output/generated_code/test_req008.py"
+  ],
+  "files_modified": [
+    "../../output/generated_code/calculator/calculator.py",
+    "../../output/generated_code/tests/test_calculator.py",
+    "../../output/generated_code/code.py",
+    "../../output/generated_code/main.py"
+  ],
+  "tests_generated": [
+    "../../output/generated_code/test_req001.py",
+    "../../output/generated_code/test_req002.py",
+    "../../output/generated_code/test_req003.py",
+    "../../output/generated_code/test_req004.py",
+    "../../output/generated_code/test_req005.py",
+    "../../output/generated_code/test_req006.py",
+    "../../output/generated_code/test_req007.py",
+    "../../output/generated_code/test_req008.py"
+  ],
+  "problems": [
+    {
+      "severity": "warning",
+      "category": "metadata",
+      "message": "Metadata update failed: Command '['/opt/anaconda3/bin/python', '/Users/abdullahhesham/Documents/GitHub/Predictable-Secure-Code-Generation/src/GenerateMetadataFromCode/main.py', '--project-path', '../../output/generated_code', '--output-path', '../../output/environment', '--format', 'json']' returned non-zero exit status 2.",
+      "file_path": null,
+      "line_number": null,
+      "requirement_id": null
+    },
+    {
+      "severity": "warning",
+      "category": "validation",
+      "message": "Validation failed: Traceback (most recent call last):\n  File \"/Users/abdullahhesham/Documents/GitHub/Predictable-Secure-Code-Generation/src/ValidationUnit/main.py\", line 19, in <module>\n    from .core.validator import CodebaseValidator\nImportError: attempted relative import with no known parent package\n",
+      "file_path": null,
+      "line_number": null,
+      "requirement_id": null
+    }
+  ],
+  "metadata_updated": false,
+  "validation_passed": false,
+  "execution_time": 176.69057297706604,
+  "ai_tokens_used": 25917,
+  "source_path": "../../input/code",
+  "output_path": "../../output/generated_code",
+  "requirements_path": "../../input/environment/test_requirements.csv",
+  "metadata_path": "../../output/environment/metadata.json"
+}
