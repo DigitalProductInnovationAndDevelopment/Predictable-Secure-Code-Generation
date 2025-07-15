@@ -1,0 +1,40 @@
+{
+  "use_ai": true,
+  "ai_max_tokens": 2000,
+  "ai_temperature": 0.3,
+  "ai_timeout": 30,
+
+  "max_file_size": 10000,
+  "include_docstrings": true,
+  "include_type_hints": true,
+  "include_error_handling": true,
+  "follow_pep8": true,
+
+  "generate_tests": true,
+  "test_coverage_threshold": 0.8,
+  "include_edge_cases": true,
+  "include_error_tests": true,
+
+  "backup_original": true,
+  "validate_syntax": true,
+  "run_tests_after_generation": true,
+  "update_metadata": true,
+
+  "exclude_patterns": [
+    "__pycache__/*",
+    "*.pyc",
+    ".git/*",
+    ".pytest_cache/*",
+    "*.egg-info/*",
+    ".venv/*",
+    "venv/*"
+  ],
+
+  "include_patterns": [
+    "*.py"
+  ],
+
+  "output_format": "json",
+  "verbose_logging": false,
+  "save_intermediate_results": true
+}

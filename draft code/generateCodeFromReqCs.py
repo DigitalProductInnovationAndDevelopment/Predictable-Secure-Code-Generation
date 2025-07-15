@@ -9,10 +9,10 @@ src_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(root_dir)
 sys.path.append(src_dir)
 
-from CheckCodeRequirements.adapters.readRequirementsFromCSV import read_requirements_csv
+from src.CheckCodeRequirements.adapters.readRequirementsFromCSV import read_requirements_csv
 from CodeManagement.readCode import list_code_files
 from config import Config
-from AIBrain.ai import AzureOpenAIClient
+from src.AIBrain.ai import AzureOpenAIClient
 
 # Create config instance
 config = Config()
@@ -64,44 +64,21 @@ def update_implemented_requirements(file_path, req_id, description):
         return False
 
 
-def extract_function_from_ai_response(ai_response):
-    """Extract Python function code from AI response"""
-    # Look for code blocks first
-    code_block_pattern = r"```python\s*(.*?)\s*```"
-    match = re.search(code_block_pattern, ai_response, re.DOTALL)
+def extract_cs_from_ai_response(ai_response):
+    match = re.search(r"```cs\s*(.*?)```", ai_response, re.DOTALL)
     if match:
         return match.group(1).strip()
-
-    # Look for function definitions
-    function_pattern = r"(def\s+\w+\(.*?\):.*?)(?=\n\n|def\s+|\Z)"
-    match = re.search(function_pattern, ai_response, re.DOTALL)
-    if match:
-        return match.group(1).strip()
-
-    # If no specific pattern found, return the response (may need manual cleanup)
     return ai_response.strip()
 
 
-def inject_code_into_file(file_path, new_code):
-    """Inject new code into the target file before the main execution block"""
+def inject_cs_code(file_path, new_code):
     try:
         current_content = read_file_content(file_path)
 
-        # Find the position to inject (before "# Example usage" or "__main__")
-        injection_patterns = [
-            r"\n# Example usage",
-            r'\nif __name__ == "__main__":',
-            r"\n\n$",  # End of file
-        ]
+        # Inject before last closing brace if exists
+        match = re.search(r"\n}\s*$", current_content)
+        injection_pos = match.start() if match else len(current_content)
 
-        injection_pos = len(current_content)
-        for pattern in injection_patterns:
-            match = re.search(pattern, current_content)
-            if match:
-                injection_pos = match.start()
-                break
-
-        # Inject the new code
         new_content = (
             current_content[:injection_pos]
             + "\n\n"
@@ -114,14 +91,10 @@ def inject_code_into_file(file_path, new_code):
             print(f"✅ Successfully injected code into {file_path}")
             return True
         else:
-            print(f"❌ Failed to write to {file_path}")
             return False
-
     except Exception as e:
         print(f"❌ Error injecting code: {e}")
         return False
-
-
 def generateCodeFromRequirements():
     print("🚀 Starting Code Generation from Requirements")
     print("=" * 60)
@@ -138,15 +111,14 @@ def generateCodeFromRequirements():
     implementedRequirements = config.IMPLEMENTED_REQUIREMENTS_FILE
     requirements = config.REQUIREMENTS_FILE
     codeBase = config.CODEBASE_ROOT
+    target_cs_file = os.path.join(codeBase, "code.cs")
 
     print(f"📁 Reading requirements from: {requirements}")
     print(f"📁 Reading implemented from: {implementedRequirements}")
     print(f"📁 Code base location: {codeBase}")
+    print(f"🎯 Target file: {target_cs_file}")
 
-    # List code files
-    codeFiles = list_code_files(codeBase)
-    target_code_file = os.path.join(codeBase, "code.py")
-    print(f"🎯 Target code file: {target_code_file}")
+
 
     # Read current and new requirements
     try:
@@ -198,39 +170,32 @@ def generateCodeFromRequirements():
 
         # Prepare AI prompt
         prompt = f"""
-You are a Python code generator. Generate a Python function that implements the following requirement:
+        You are a C# code generator. Generate a C# method that implements the following requirement:
 
-Requirement ID: {req_id}
-Description: {desc}
+        Requirement ID: {req_id}
+        Description: {desc}
 
-Requirements:
-1. Generate ONLY the function definition with proper docstring
-2. Include parameter validation if needed
-3. Add proper error handling
-4. Follow Python best practices
-5. Make the function name descriptive based on the requirement
+        Requirements:
+        1. Generate ONLY the method definition with proper XML documentation comments
+        2. Include parameter validation if needed
+        3. Add proper error handling (e.g., exceptions)
+        4. Follow C# best practices
+        5. Use descriptive method names based on the requirement
 
-Current existing functions in the codebase include: addition, subtraction
+        Example format:
+        /// <summary>
+        /// Description of what the method does.
+        /// </summary>
+        /// <param name="param1">Description</param>
+        /// <param name="param2">Description</param>
+        /// <returns>Description of return value</returns>
+        public static ReturnType MethodName(Type1 param1, Type2 param2)
+        {{
+            // Implementation
+        }}
 
-Example format:
-```python
-def function_name(param1, param2):
-    \"\"\"
-    Description of what the function does.
-    
-    Args:
-        param1 (type): Description
-        param2 (type): Description
-    
-    Returns:
-        type: Description of return value
-    \"\"\"
-    # Implementation here
-    return result
-```
-
-Generate the function:
-"""
+        Generate the function:
+        """
 
         print("🤖 Generating code with AI...")
 
@@ -238,7 +203,7 @@ Generate the function:
         try:
             result = ai_client.ask_question(
                 question=prompt,
-                system_prompt="You are a Python code generator. Generate clean, efficient, and well-documented code.",
+                system_prompt="You are a C# code generator. Generate clean, efficient, and well-documented C# code.",
                 max_tokens=1000,
                 temperature=0.1,
             )
@@ -250,7 +215,7 @@ Generate the function:
                 )
 
                 # Extract function code
-                function_code = extract_function_from_ai_response(ai_response)
+                function_code = extract_cs_from_ai_response(ai_response)
                 print("📄 Generated function:")
                 print("-" * 40)
                 print(function_code)
@@ -258,7 +223,7 @@ Generate the function:
 
                 # Inject code into target file
                 print("💉 Injecting code into target file...")
-                if inject_code_into_file(target_code_file, function_code):
+                if inject_cs_code(target_cs_file, function_code):
                     print("✅ Code injection successful")
 
                     # Update implemented requirements
@@ -285,7 +250,7 @@ Generate the function:
         print("-" * 60)
 
     print(f"\n🎉 Code generation process completed!")
-    print(f"📄 Check {target_code_file} for the generated functions")
+    print(f"📄 Check {target_cs_file} for the generated functions")
     print(f"📄 Check {implementedRequirements} for updated requirements")
 
 

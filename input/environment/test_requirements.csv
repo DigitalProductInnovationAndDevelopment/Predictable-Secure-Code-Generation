@@ -1,0 +1,9 @@
+id,description
+REQ001,Add function to calculate factorial of a number
+REQ002,Implement power function to calculate x raised to power y
+REQ003,Add function to calculate percentage (value as percentage of total)
+REQ004,Create memory storage functions to store recall and clear calculator memory
+REQ005,Add function to calculate square root of a number
+REQ006,Implement input validation with proper error messages for all functions
+REQ007,Add logging functionality to track all calculator operations
+REQ008,Create CLI menu interface with numbered options for user interaction 

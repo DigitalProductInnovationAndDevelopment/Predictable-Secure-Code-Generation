@@ -1,8 +1,8 @@
-# Automated Code Update System
+# Collaborative Programming Tool - Prototype 2
 
 An intelligent Azure Functions-based system that automatically processes requirement updates and generates/modifies code using AI.
 
-## 🌟 Features
+## Features
 
 - **Daily Automated Processing**: Runs on a schedule to check for new requirements
 - **Requirements Management**: Supports CSV/Excel files for requirement tracking
@@ -12,7 +12,7 @@ An intelligent Azure Functions-based system that automatically processes require
 - **Comprehensive Logging**: Detailed status tracking and metadata management
 - **RESTful API**: HTTP endpoints for manual triggers and status checking
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
@@ -48,7 +48,9 @@ automated-code-update-system/
 └── tests/                     # Test files
 ```
 
-## 🚀 Getting Started
+# USER GUIDE 
+## I. How to get started?
+Please follow this step to set up your local equipment for the Collaorative Programming Tool
 
 ### Prerequisites
 
@@ -103,7 +105,7 @@ automated-code-update-system/
    - Status: `GET http://localhost:7071/api/status`
    - Manual trigger: `POST http://localhost:7071/api/trigger-manual`
 
-## 📋 Usage
+## II. How to use the Collaborative Programming Tool?
 
 ### Requirements File Format
 
@@ -130,7 +132,7 @@ The system expects a CSV or Excel file with the following columns:
 6. **Retry Logic**: Retries up to 3 times on validation failures
 7. **Update Metadata**: Tracks processing results and system state
 
-## 🔧 Configuration
+## III. How to configure the tool
 
 ### Environment Variables
 
@@ -151,7 +153,7 @@ The system expects a CSV or Excel file with the following columns:
 - C++ (.cpp)
 - C# (.cs)
 
-## 🧪 Testing
+## IV. Testing
 
 Run the test suite:
 
@@ -166,7 +168,7 @@ pytest --cov=. --cov-report=html
 pytest tests/test_requirements_checker.py
 ```
 
-## 📊 Monitoring
+## V. Monitoring
 
 ### Status Endpoint
 
@@ -189,7 +191,7 @@ The system maintains detailed logs in:
 - `data/metadata.json` - System metadata and statistics
 - Azure Functions logs - Runtime information
 
-## 🛠️ Development
+## VI. Development
 
 ### Adding New Requirement Categories
 
@@ -209,21 +211,21 @@ The system maintains detailed logs in:
 1. Extend `code_validator.py`
 2. Add new validation methods to `_validate_single_file`
 
-## 🔒 Security
+## VII. Security (More Function to come)
 
 - Environment variables for sensitive data
 - Input validation for all external data
 - Backup creation before file modifications
 - Sandboxed code execution for validation
 
-## 📈 Performance
+## VIII. Performance
 
 - Parallel processing where possible
 - Intelligent caching of analysis results
 - Configurable timeouts and retry limits
 - Automatic cleanup of old data
 
-## 🤝 Contributing
+## IX. How to contribute?
 
 1. Fork the repository
 2. Create a feature branch
@@ -231,11 +233,11 @@ The system maintains detailed logs in:
 4. Ensure all tests pass
 5. Submit a pull request
 
-## 📄 License
+## X. License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🆘 Troubleshooting
+## XI. Troubleshooting
 
 ### Common Issues
 
@@ -256,7 +258,7 @@ Set logging level to DEBUG in `local.settings.json`:
 }
 ```
 
-## 📞 Support
+## Support
 
 For questions and support:
 

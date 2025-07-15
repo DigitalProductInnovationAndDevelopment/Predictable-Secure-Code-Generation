@@ -1,0 +1,176 @@
+import sys
+import os
+import csv
+import re
+import subprocess
+
+# Add root directory and src directory to path to import modules
+root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+src_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(root_dir)
+sys.path.append(src_dir)
+
+from CheckCodeRequirements.adapters.readRequirementsFromCSV import read_requirements_csv
+from CodeManagement.readCode import list_code_files
+from config import Config
+from AIBrain.ai import AzureOpenAIClient
+
+config = Config()
+
+def read_file_content(file_path):
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            return f.read()
+    except Exception as e:
+        print(f"Error reading file {file_path}: {e}")
+        return ""
+
+def write_file_content(file_path, content):
+    try:
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(content)
+        return True
+    except Exception as e:
+        print(f"Error writing file {file_path}: {e}")
+        return False
+
+def update_implemented_requirements(file_path, req_id, description):
+    try:
+        existing_reqs = {}
+        if os.path.exists(file_path):
+            existing_reqs = read_requirements_csv(file_path)
+
+        existing_reqs[req_id] = description
+
+        with open(file_path, "w", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f)
+            writer.writerow(["id", "description"])
+            for req_id, desc in existing_reqs.items():
+                writer.writerow([req_id, desc])
+
+        print(f"✅ Updated {file_path} with {req_id}")
+        return True
+    except Exception as e:
+        print(f"❌ Error updating implemented requirements: {e}")
+        return False
+
+def extract_cpp_from_ai_response(ai_response):
+    match = re.search(r"```cpp\s*(.*?)```", ai_response, re.DOTALL)
+    if match:
+        return match.group(1).strip()
+    return ai_response.strip()
+
+def inject_cpp_code(file_path, new_code):
+    try:
+        current_content = read_file_content(file_path)
+
+        # Inject before last closing brace if exists
+        match = re.search(r"\n}\s*$", current_content)
+        injection_pos = match.start() if match else len(current_content)
+
+        new_content = (
+            current_content[:injection_pos]
+            + "\n\n"
+            + new_code
+            + "\n"
+            + current_content[injection_pos:]
+        )
+
+        if write_file_content(file_path, new_content):
+            print(f"✅ Successfully injected code into {file_path}")
+            return True
+        else:
+            return False
+    except Exception as e:
+        print(f"❌ Error injecting code: {e}")
+        return False
+
+def generate_cpp_code_from_requirements():
+    print("🚀 Starting C++ Code Generation from Requirements")
+    print("=" * 60)
+
+    try:
+        ai_client = AzureOpenAIClient(config)
+        print("✅ AI Client initialized successfully")
+    except Exception as e:
+        print(f"❌ Failed to initialize AI client: {e}")
+        return
+
+    implemented_file = config.IMPLEMENTED_REQUIREMENTS_FILE
+    requirements_file = config.REQUIREMENTS_FILE
+    code_dir = config.CODEBASE_ROOT
+    target_cpp_file = os.path.join(code_dir, "code.cpp")
+
+    print(f"📁 Reading requirements from: {requirements_file}")
+    print(f"📁 Reading implemented from: {implemented_file}")
+    print(f"📁 Code base location: {code_dir}")
+    print(f"🎯 Target file: {target_cpp_file}")
+
+    try:
+        current = read_requirements_csv(implemented_file)
+        new = read_requirements_csv(requirements_file)
+    except Exception as e:
+        print(f"❌ Failed to read requirements: {e}")
+        return
+
+    added = {k: v for k, v in new.items() if k not in current or current[k] != v}
+
+    if not added:
+        print("✅ No new or changed requirements found.")
+        return
+
+    print(f"\n📋 {len(added)} requirements to generate C++ for.")
+
+    for i, (req_id, desc) in enumerate(added.items(), 1):
+        print(f"\n🧠 [{i}/{len(added)}] Processing {req_id}: {desc}")
+
+        prompt = f"""
+
+You are a C++ code generator. Generate a modern, secure C++ function based on this requirement:
+
+Requirement ID: {req_id}
+Description: {desc}
+
+Instructions:
+1. Use modern C++ best practices (e.g., smart pointers, error handling)
+2. Include inline comments
+3. Output only valid, compilable C++ code in a ```cpp block
+
+Example:
+```cpp
+int add(int a, int b) {{
+    // Adds two numbers
+    return a + b;
+}}
+
+```cpp
+    try:
+        result = ai_client.ask_question(
+            question=prompt,
+            system_prompt="You are a C++ code generator. Generate clean, secure and documented C++ functions.",
+            max_tokens=1000,
+            temperature=0.1,
+        )
+
+        if result["status"] != "success":
+            print(f"❌ AI failed: {result.get('error', 'unknown error')}")
+            continue
+
+        cpp_code = extract_cpp_from_ai_response(result["answer"])
+        print("📄 Generated code:\n" + "-" * 40 + f"\n{cpp_code}\n" + "-" * 40)
+
+        if inject_cpp_code(target_cpp_file, cpp_code):
+            update_implemented_requirements(implemented_file, req_id, desc)
+            print(f"✅ Requirement {req_id} completed.")
+        else:
+            print(f"❌ Failed to inject code for {req_id}")
+
+    except Exception as e:
+        print(f"❌ Exception during generation: {e}")
+
+print("\n🎉 C++ Code Generation Complete!")
+
+
+if __name__ == "__main__":
+    generate_cpp_code_from_requirements()
+# This script generates C++ code from requirements using AI, injects it into a target file, and updates the implemented requirements CSV.
