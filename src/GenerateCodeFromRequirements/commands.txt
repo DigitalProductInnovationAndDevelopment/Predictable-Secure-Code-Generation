@@ -1,0 +1,139 @@
+# GenerateCodeFromRequirements - Command Reference
+
+## Installation and Setup
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Validate installation
+python main.py validate
+
+# Create sample configuration
+python main.py create-config
+```
+
+## Basic Usage
+```bash
+# Basic code generation
+python main.py \
+  --project-path /path/to/source/project \
+  --requirements /path/to/requirements.csv \
+  --metadata /path/to/metadata.json \
+  --output /path/to/output/directory
+
+# Using the calculator example
+python main.py \
+  --project-path ../../input/code \
+  --requirements ../../input/environment/requirements.csv \
+  --metadata ../../output/environment/metadata.json \
+  --output ../../output/code
+```
+
+## Advanced Usage
+```bash
+# With existing requirements comparison
+python main.py \
+  --project-path /path/to/project \
+  --requirements new_requirements.csv \
+  --existing-requirements old_requirements.csv \
+  --metadata metadata.json \
+  --output /path/to/output
+
+# With custom configuration
+python main.py \
+  --project-path /path/to/project \
+  --requirements requirements.csv \
+  --metadata metadata.json \
+  --output /path/to/output \
+  --config custom_config.json
+
+# Verbose output with specific format
+python main.py \
+  --project-path /path/to/project \
+  --requirements requirements.csv \
+  --metadata metadata.json \
+  --output /path/to/output \
+  --verbose \
+  --format json \
+  --output-result results.json
+
+# Dry run (analysis only)
+python main.py \
+  --project-path /path/to/project \
+  --requirements requirements.csv \
+  --metadata metadata.json \
+  --output /path/to/output \
+  --dry-run
+
+# Skip specific steps
+python main.py \
+  --project-path /path/to/project \
+  --requirements requirements.csv \
+  --metadata metadata.json \
+  --output /path/to/output \
+  --no-tests \
+  --no-validation \
+  --no-metadata-update
+```
+
+## Integration with Other Systems
+```bash
+# Full workflow: Requirements → Code → Metadata → Validation
+# 1. Check requirements
+cd ../CheckCodeRequirements
+python checkNewRequirements.py
+
+# 2. Generate code
+cd ../GenerateCodeFromRequirements
+python main.py --project-path ../../input/code --requirements requirements.csv --metadata metadata.json --output ../../output/code
+
+# 3. Update metadata
+cd ../GenerateMetadataFromCode
+python main.py --project-path ../../output/code --output-path ../../output/environment
+
+# 4. Validate generated code
+cd ../ValidationUnit
+python main.py --project-path ../../output/code
+```
+
+## Configuration Options
+```bash
+# View current configuration
+python -c "from utils.config import GenerationConfig; print(GenerationConfig().get_summary())"
+
+# Create custom configuration
+cat > my_config.json << EOF
+{
+  "use_ai": true,
+  "ai_max_tokens": 1500,
+  "ai_temperature": 0.2,
+  "generate_tests": true,
+  "include_docstrings": true,
+  "verbose_logging": true
+}
+EOF
+```
+
+## Output Formats
+```bash
+# JSON output (default)
+python main.py ... --format json
+
+# YAML output
+python main.py ... --format yaml
+
+# Text summary
+python main.py ... --format text
+```
+
+## Troubleshooting
+```bash
+# Check installation
+python main.py validate
+
+# Verbose logging for debugging
+python main.py ... --verbose
+
+# Test configuration
+python -c "from utils.config import GenerationConfig; config = GenerationConfig.load_from_file('config.json'); print(config.validate())"
+``` 
