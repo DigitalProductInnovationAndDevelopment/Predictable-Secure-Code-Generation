@@ -12,7 +12,7 @@ Expected result:
 ⚠️ AI validation skipped (no AI client available)
 
 
-python -m src.ValidtaionUnit.main input/code output/enviroment/metadata.json
+python -m src.ValidtaionUnit.main input/PythonExample/code output/PythonExample/enviroment/metadata.json
 
 2. Syntax Validation Only (Success Case)
 
@@ -25,12 +25,12 @@ Expected result:
 Exit code 0 (success)
 Report shows no errors or warnings
 
-python -m src.ValidtaionUnit.main input/code output/enviroment/metadata.json --steps syntax
+python -m src.ValidtaionUnit.main input/PythonExample/code output/PythonExample/enviroment/metadata.json --steps syntax
 
 3. Custom Output Directory with Verbose Logging
 
 What it does:
-Saves detailed report to output/validation/validation_report.json
+Saves detailed report to output/PythonExample/validation/validation_report.json
 Shows verbose logging with timestamps and debug info
 Displays step-by-step validation progress
 Expected result:
@@ -38,7 +38,7 @@ Detailed console output with DEBUG level logs
 Report saved to specified directory
 Shows execution time for each validation step
 
-python -m src.ValidtaionUnit.main input/code output/enviroment/metadata.json --output/enviroment -dir output/validation --verbose
+python -m src.ValidtaionUnit.main input/PythonExample/code output/PythonExample/enviroment/metadata.json --output/PythonExample/enviroment -dir output/PythonExample/validation --verbose
 
 
 
@@ -53,7 +53,7 @@ Expected result:
 Displays pytest output with exact assertion error
 Shows test coverage information (100%)
 
-python -m src.ValidtaionUnit.main input/code output/enviroment/metadata.json --steps test --verbose
+python -m src.ValidtaionUnit.main input/PythonExample/code output/PythonExample/enviroment/metadata.json --steps test --verbose
 
 
 
@@ -69,7 +69,7 @@ Creates validation_report.json or validation_report.txt
 Different formatting but same validation results
 
 # JSON format (default)
-python -m src.ValidtaionUnit.main input/code output/enviroment/metadata.json --output-format json --output-dir output/reports
+python -m src.ValidtaionUnit.main input/PythonExample/code output/PythonExample/enviroment/metadata.json --output-format json --output-dir output/PythonExample/reports
 
 # Text format (human-readable)
-python -m src.ValidtaionUnit.main input/code output/enviroment/metadata.json --output-format text --output-dir output/reports
+python -m src.ValidtaionUnit.main input/PythonExample/code output/PythonExample/enviroment/metadata.json --output-format text --output-dir output/PythonExample/reports

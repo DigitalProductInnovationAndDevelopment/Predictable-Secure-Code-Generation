@@ -19,14 +19,14 @@ python main.py \
   --project-path /path/to/source/project \
   --requirements /path/to/requirements.csv \
   --metadata /path/to/metadata.json \
-  --output /path/to/output/directory
+  --output /path/to/output/PythonExample/directory
 
 # Using the calculator example
 python main.py \
-  --project-path ../../input/code \
-  --requirements ../../input/environment/requirements.csv \
-  --metadata ../../output/environment/metadata.json \
-  --output ../../output/code
+  --project-path ../../input/PythonExample/code \
+  --requirements ../../input/PythonExample/environment/requirements.csv \
+  --metadata ../../output/PythonExample/environment/metadata.json \
+  --output ../../output/PythonExample/code
 ```
 
 ## Advanced Usage
@@ -85,15 +85,15 @@ python checkNewRequirements.py
 
 # 2. Generate code
 cd ../GenerateCodeFromRequirements
-python main.py --project-path ../../input/code --requirements requirements.csv --metadata metadata.json --output ../../output/code
+python main.py --project-path ../../input/PythonExample/code --requirements requirements.csv --metadata metadata.json --output ../../output/PythonExample/code
 
 # 3. Update metadata
 cd ../GenerateMetadataFromCode
-python main.py --project-path ../../output/code --output-path ../../output/environment
+python main.py --project-path ../../output/PythonExample/code --output-path ../../output/PythonExample/environment
 
 # 4. Validate generated code
 cd ../ValidationUnit
-python main.py --project-path ../../output/code
+python main.py --project-path ../../output/PythonExample/code
 ```
 
 ## Configuration Options

@@ -1,34 +1,34 @@
 # Basic project analysis
 What it does:
-Scans all Python files in the input/code directory, extracts metadata (functions, classes, imports, entry points, etc.), and saves the result as metadata.
+Scans all Python files in the input/PythonExample/code directory, extracts metadata (functions, classes, imports, entry points, etc.), and saves the result as metadata.
 
-python src/GenerateMetadataFromCode/main.py input/code output/enviroment
+python src/GenerateMetadataFromCode/main.py input/PythonExample/code output/PythonExample/enviroment
 
 # Single file analysis
 What it does:
-Analyzes only the file input/code/main.py, extracts its metadata, and saves the result as metadata.json in the output/enviroment directory.
+Analyzes only the file input/PythonExample/code/main.py, extracts its metadata, and saves the result as metadata.json in the output/PythonExample/enviroment directory.
 
-python src/GenerateMetadataFromCode/main.py input/code/main.py output/enviroment --single-file
+python src/GenerateMetadataFromCode/main.py input/PythonExample/code/main.py output/PythonExample/enviroment --single-file
 
 # With AI enhancement (when configured)
 What it does:
 Performs a full project analysis (like command 1), then (if your Azure OpenAI is configured) sends the metadata to the AI for further insights 
-(such as codebase summary, patterns, improvements, etc.), and saves the enhanced metadata in output/enviroment/metadata.json.
+(such as codebase summary, patterns, improvements, etc.), and saves the enhanced metadata in output/PythonExample/enviroment/metadata.json.
 
-python src/GenerateMetadataFromCode/main.py input/code output/enviroment --ai-enhance
+python src/GenerateMetadataFromCode/main.py input/PythonExample/code output/PythonExample/enviroment --ai-enhance
 
 # Custom configuration
 What it does:
 Analyzes the whole project, but:
 Includes private methods and classes (those starting with _)
 Does NOT extract docstrings
-The result is saved as metadata.json in output/enviroment.
+The result is saved as metadata.json in output/PythonExample/enviroment.
 
-python src/GenerateMetadataFromCode/main.py input/code output/enviroment --include-private --exclude-docstrings
+python src/GenerateMetadataFromCode/main.py input/PythonExample/code output/PythonExample/enviroment --include-private --exclude-docstrings
 
 # Dry run to preview
 Does NOT actually analyze or write any files.
 Instead, it prints out the current configuration and what would be processed (project path, output path, mode, etc.).
 Useful for checking your settings before running a real analysis.
 
-python src/GenerateMetadataFromCode/main.py input/code output/enviroment --dry-run
+python src/GenerateMetadataFromCode/main.py input/PythonExample/code output/PythonExample/enviroment --dry-run
