@@ -1,0 +1,14 @@
+C:\Users\Linfe\source\repos\Code\Code\obj\Debug\net8.0\Code.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Linfe\source\repos\Code\Code\obj\Debug\net8.0\Code.AssemblyInfoInputs.cache
+C:\Users\Linfe\source\repos\Code\Code\obj\Debug\net8.0\Code.AssemblyInfo.cs
+C:\Users\Linfe\source\repos\Code\Code\obj\Debug\net8.0\Code.csproj.CoreCompileInputs.cache
+C:\Users\Linfe\source\repos\Code\Code\bin\Debug\net8.0\Code.exe
+C:\Users\Linfe\source\repos\Code\Code\bin\Debug\net8.0\Code.deps.json
+C:\Users\Linfe\source\repos\Code\Code\bin\Debug\net8.0\Code.runtimeconfig.json
+C:\Users\Linfe\source\repos\Code\Code\bin\Debug\net8.0\Code.dll
+C:\Users\Linfe\source\repos\Code\Code\bin\Debug\net8.0\Code.pdb
+C:\Users\Linfe\source\repos\Code\Code\obj\Debug\net8.0\Code.dll
+C:\Users\Linfe\source\repos\Code\Code\obj\Debug\net8.0\refint\Code.dll
+C:\Users\Linfe\source\repos\Code\Code\obj\Debug\net8.0\Code.pdb
+C:\Users\Linfe\source\repos\Code\Code\obj\Debug\net8.0\Code.genruntimeconfig.cache
+C:\Users\Linfe\source\repos\Code\Code\obj\Debug\net8.0\ref\Code.dll
