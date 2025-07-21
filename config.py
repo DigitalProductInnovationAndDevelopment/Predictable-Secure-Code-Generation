@@ -16,12 +16,12 @@ class Config:
     STATUS_LOG_FILE = os.getenv("STATUS_LOG_FILE", "data/status_log.json")
     IMPLEMENTED_REQUIREMENTS_FILE = os.getenv(
         "IMPLEMENTED_REQUIREMENTS_FILE",
-        ".../output/environment/implementedRequirements.csv",
+        ".../output/PythonExample/environment/implementedRequirements.csv",
     )
     REQUIREMENTS_FILE = os.getenv(
-        "REQUIREMENTS_FILE", "./input/environment/requirements.csv"
+        "REQUIREMENTS_FILE", "./input/PythonExample/environment/requirements.csv"
     )
-    CODEBASE_ROOT = os.getenv("CODEBASE_ROOT", "./input/code/")
+    CODEBASE_ROOT = os.getenv("CODEBASE_ROOT", "./input/PythonExample/code/")
 
     # AI Service Configuration - Azure OpenAI
     # NOTE: These must be set in environment variables or .env file
