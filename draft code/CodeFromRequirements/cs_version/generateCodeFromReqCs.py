@@ -10,7 +10,7 @@ sys.path.append(root_dir)
 sys.path.append(src_dir)
 
 from src.CheckCodeRequirements.adapters.readRequirementsFromCSV import read_requirements_csv
-from CodeManagement.readCode import list_code_files
+
 from config import Config
 from src.AIBrain.ai import AzureOpenAIClient
 
@@ -80,11 +80,11 @@ def inject_cs_code(file_path, new_code):
         injection_pos = match.start() if match else len(current_content)
 
         new_content = (
-            current_content[:injection_pos]
-            + "\n\n"
-            + new_code
-            + "\n"
-            + current_content[injection_pos:]
+                current_content[:injection_pos]
+                + "\n\n"
+                + new_code
+                + "\n"
+                + current_content[injection_pos:]
         )
 
         if write_file_content(file_path, new_content):
@@ -95,6 +95,9 @@ def inject_cs_code(file_path, new_code):
     except Exception as e:
         print(f"❌ Error injecting code: {e}")
         return False
+
+
+
 def generateCodeFromRequirements():
     print("🚀 Starting Code Generation from Requirements")
     print("=" * 60)
@@ -117,8 +120,6 @@ def generateCodeFromRequirements():
     print(f"📁 Reading implemented from: {implementedRequirements}")
     print(f"📁 Code base location: {codeBase}")
     print(f"🎯 Target file: {target_cs_file}")
-
-
 
     # Read current and new requirements
     try:
@@ -229,7 +230,7 @@ def generateCodeFromRequirements():
                     # Update implemented requirements
                     print("📝 Updating implemented requirements...")
                     if update_implemented_requirements(
-                        implementedRequirements, req_id, desc
+                            implementedRequirements, req_id, desc
                     ):
                         print(f"✅ Requirement {req_id} completed successfully!")
                     else:
@@ -256,6 +257,5 @@ def generateCodeFromRequirements():
 
 if __name__ == "__main__":
     generateCodeFromRequirements()
-
 
 # Example usage:
