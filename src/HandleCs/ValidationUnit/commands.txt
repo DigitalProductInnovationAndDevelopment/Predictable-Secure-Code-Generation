@@ -1,0 +1,75 @@
+
+1. Basic Full Validation
+
+What it does:
+Runs all 3 validation stages (syntax, test, AI)
+Uses the calculator project as input
+Uses the generated metadata.json file
+Saves report to current directory as validation_report.json
+Expected result:
+✅ Syntax validation passes (6 files checked)
+❌ Test validation fails (1 floating-point precision test failure)
+⚠️ AI validation skipped (no AI client available)
+
+
+python -m src.HandlePython.ValidationUnit.main input/PythonExample/code output/PythonExample/environment/metadata.json
+
+2. Syntax Validation Only (Success Case)
+
+What it does:
+Runs only syntax validation
+Skips test and AI validation
+Shows a successful validation case
+Expected result:
+✅ All files pass syntax validation
+Exit code 0 (success)
+Report shows no errors or warnings
+
+python -m src.HandlePython.ValidtaionUnit.main input/PythonExample/code output/PythonExample/enviroment/metadata.json --steps syntax
+
+3. Custom Output Directory with Verbose Logging
+
+What it does:
+Saves detailed report to output/PythonExample/validation/validation_report.json
+Shows verbose logging with timestamps and debug info
+Displays step-by-step validation progress
+Expected result:
+Detailed console output with DEBUG level logs
+Report saved to specified directory
+Shows execution time for each validation step
+
+python -m src.HandlePython.ValidtaionUnit.main input/PythonExample/code output/PythonExample/enviroment/metadata.json --output/PythonExample/enviroment -dir output/PythonExample/validation --verbose
+
+
+
+4. Test Validation Only
+
+What it does:
+Runs only test validation
+Shows detailed test execution output
+Identifies the specific failing test
+Expected result:
+❌ Shows test failure in test_multiply_floats
+Displays pytest output with exact assertion error
+Shows test coverage information (100%)
+
+python -m src.HandlePython.ValidtaionUnit.main input/PythonExample/code output/PythonExample/enviroment/metadata.json --steps test --verbose
+
+
+
+
+5. Multiple Output Formats
+
+What it does:
+Generates reports in different formats
+JSON: Machine-readable structured data
+Text: Human-readable summary format
+Expected result:
+Creates validation_report.json or validation_report.txt
+Different formatting but same validation results
+
+# JSON format (default)
+python -m src.HandlePython.ValidtaionUnit.main input/PythonExample/code output/PythonExample/enviroment/metadata.json --output-format json --output-dir output/PythonExample/reports
+
+# Text format (human-readable)
+python -m src.HandlePython.ValidtaionUnit.main input/PythonExample/code output/PythonExample/enviroment/metadata.json --output-format text --output-dir output/PythonExample/reports

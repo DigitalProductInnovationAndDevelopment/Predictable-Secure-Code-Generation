@@ -1,0 +1,41 @@
+{
+  "description": "Example configuration for ValidationUnit system",
+  
+  "enable_syntax_validation": true,
+  "enable_test_validation": true,
+  "enable_ai_validation": true,
+  "stop_on_first_failure": false,
+  
+  "syntax_check_imports": true,
+  "syntax_check_indentation": true,
+  "syntax_python_version": "3.7",
+  
+  "test_timeout": 300,
+  "test_patterns": [
+    "test_*.py",
+    "*_test.py", 
+    "tests.py"
+  ],
+  "test_directories": [
+    "tests",
+    "test"
+  ],
+  "required_test_coverage": 80.0,
+  "pytest_args": [
+    "-v",
+    "--tb=short",
+    "--cov=.",
+    "--cov-report=html"
+  ],
+  
+  "ai_validation_prompt_template": "\nAnalyze this Python codebase and validate the logic implementation:\n\nFiles and Functions:\n{file_functions}\n\nRequirements:\n{requirements}\n\nPlease check:\n1. Does the implementation correctly fulfill each requirement?\n2. Are there any logical errors in the algorithms?\n3. Are edge cases properly handled?\n4. Is error handling appropriate?\n5. Are there any security concerns?\n\nReturn a JSON response with:\n- \"valid\": boolean\n- \"problems\": list of issues found\n- \"suggestions\": list of improvements\n",
+  "ai_max_tokens": 2000,
+  "ai_temperature": 0.1,
+  
+  "output_format": "json",
+  "save_report": true,
+  "report_filename": "validation_report.json",
+  
+  "log_level": "INFO",
+  "verbose_output": false
+} 
