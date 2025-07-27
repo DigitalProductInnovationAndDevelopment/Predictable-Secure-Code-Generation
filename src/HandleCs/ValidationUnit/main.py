@@ -1,12 +1,12 @@
-#!/usr/bin/env python3
+#!/usr/bin/env csharp3
 """
 Main CLI interface for the validation system.
 
 Usage:
-    python -m src.ValidtaionUnit.main <codebase_path> <metadata_path> [options]
+    csharp -m src.ValidtaionUnit.main <codebase_path> <metadata_path> [options]
 
 Example:
-    python -m src.ValidtaionUnit.main input/code output/enviroment/metadata.json --output-dir output/validation
+    csharp -m src.ValidtaionUnit.main input/code output/enviroment/metadata.json --output-dir output/validation
 """
 
 import argparse
@@ -29,19 +29,19 @@ def create_parser() -> argparse.ArgumentParser:
         epilog="""
 Examples:
   # Basic validation
-  python -m src.ValidtaionUnit.main input/code output/enviroment/metadata.json
+  csharp -m src.ValidtaionUnit.main input/code output/enviroment/metadata.json
   
   # With custom output directory
-  python -m src.ValidtaionUnit.main input/code metadata.json --output-dir validation_results
+  csharp -m src.ValidtaionUnit.main input/code metadata.json --output-dir validation_results
   
   # Only run syntax validation
-  python -m src.ValidtaionUnit.main input/code metadata.json --steps syntax
+  csharp -m src.ValidtaionUnit.main input/code metadata.json --steps syntax
   
   # Run with custom configuration
-  python -m src.ValidtaionUnit.main input/code metadata.json --config validation_config.json
+  csharp -m src.ValidtaionUnit.main input/code metadata.json --config validation_config.json
   
   # Verbose output
-  python -m src.ValidtaionUnit.main input/code metadata.json --verbose
+  csharp -m src.ValidtaionUnit.main input/code metadata.json --verbose
         """,
     )
 

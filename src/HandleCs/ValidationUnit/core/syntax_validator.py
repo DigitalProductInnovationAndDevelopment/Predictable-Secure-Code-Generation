@@ -3,14 +3,16 @@ Syntax validation component for Python code.
 """
 
 import ast
+import re
+import subprocess
 import time
 import logging
 from typing import Dict, Any, List
 from pathlib import Path
 
-from ..models.validation_result import ValidationResult, ValidationStatus
-from ..utils.helpers import ValidationHelper
-from ..utils.config import ValidationConfig
+from src.HandleCs.ValidationUnit.models.validation_result import ValidationResult, ValidationStatus
+from src.HandleCs.ValidationUnit.utils.helpers import ValidationHelper
+from src.HandleCs.ValidationUnit.utils.config import ValidationConfig
 
 
 class SyntaxValidator:
@@ -19,6 +21,10 @@ class SyntaxValidator:
     def __init__(self, config: ValidationConfig):
         self.config = config
         self.logger = logging.getLogger(__name__)
+
+        #check for import
+        self.using_directive_pattern = re.compile(r'^\s*using\s+([\w.]+)(\s*=\s*[\w.]+)?\s*;')
+        self.namespace_pattern = re.compile(r'^\s*namespace\s+([\w.]+)\s*{?')
 
     def validate(
         self, codebase_path: str, metadata: Dict[str, Any]
@@ -42,10 +48,10 @@ class SyntaxValidator:
             self.logger.info("Starting syntax validation")
 
             # Get Python files from metadata
-            python_files = self._get_files_from_metadata(metadata, codebase_path)
+            cs_file = self._get_files_from_metadata(metadata, codebase_path)
 
-            if not python_files:
-                result.add_warning("No Python files found for syntax validation")
+            if not cs_file:
+                result.add_warning("No C# files found for syntax validation")
                 result.metadata["files_checked"] = 0
                 return result
 
@@ -53,7 +59,7 @@ class SyntaxValidator:
             files_checked = 0
             syntax_errors = 0
 
-            for file_path in python_files:
+            for file_path in cs_file:
                 try:
                     self._validate_file_syntax(file_path, result)
                     files_checked += 1
@@ -66,10 +72,10 @@ class SyntaxValidator:
 
             # Additional checks if enabled
             if self.config.syntax_check_imports:
-                self._validate_imports(python_files, result, codebase_path)
+                self._validate_imports(cs_file, result, codebase_path)
 
             if self.config.syntax_check_indentation:
-                self._validate_indentation(python_files, result)
+                self._validate_indentation(cs_file, result)
 
             # Set metadata
             result.metadata.update(
@@ -115,59 +121,198 @@ class SyntaxValidator:
 
         return files
 
+    import subprocess
+
     def _validate_file_syntax(self, file_path: str, result: ValidationResult):
         """Validate syntax of a single file."""
         try:
             with open(file_path, "r", encoding="utf-8") as f:
-                content = f.read()
+                lines = f.readlines()
 
-            # Parse with AST
-            try:
-                ast.parse(content, filename=file_path)
-                self.logger.debug(f"Syntax OK: {file_path}")
-            except SyntaxError as e:
-                error_msg = f"Syntax error: {e.msg}"
-                result.add_error(
-                    error_msg,
-                    file_path=file_path,
-                    line_number=e.lineno,
-                    column=e.offset,
-                    error_code="SYNTAX_ERROR",
-                )
-                self.logger.warning(f"Syntax error in {file_path}: {error_msg}")
+            brace_stack = []
+            in_multiline_comment = False
+
+            for i, line in enumerate(lines, start=1):
+                stripped = line.strip()
+
+                # Handle multiline comments
+                if '/*' in line and '*/' not in line:
+                    in_multiline_comment = True
+                    continue
+                if '*/' in line:
+                    in_multiline_comment = False
+                    continue
+                if in_multiline_comment:
+                    continue
+
+                # Skip empty lines or single-line comments
+                if not stripped or stripped.startswith("//"):
+                    continue
+
+                # Check for balanced braces
+                for char in stripped:
+                    if char == '{':
+                        brace_stack.append((i, '{'))
+                    elif char == '}':
+                        if brace_stack:
+                            brace_stack.pop()
+                        else:
+                            result.add_error(
+                                "Unmatched closing brace '}'",
+                                file_path=file_path,
+                                line_number=i,
+                                error_code="CS_BRACE_ERROR"
+                            )
+
+                # Check if line ends with semicolon (with exceptions)
+                if stripped and not (
+                        stripped.endswith(";") or
+                        stripped.endswith("{") or
+                        stripped.endswith("}") or
+                        stripped.endswith(")") or  # method declarations or control flow
+                        stripped.endswith(":") or  # labels or switch cases
+                        stripped.startswith("[") or  # attributes
+                        stripped.startswith("#")  # preprocessor directives
+                ):
+                    # Also ignore lines that are using directives or class/interface definitions
+                    if not (
+                            stripped.startswith("using ") or
+                            stripped.startswith("namespace ") or
+                            stripped.startswith("class ") or
+                            stripped.startswith("interface ") or
+                            stripped.startswith("enum ") or
+                            stripped.startswith("public ") or
+                            stripped.startswith("private ") or
+                            stripped.startswith("protected ") or
+                            stripped.startswith("internal ") or
+                            stripped.startswith("static ") or
+                            stripped.startswith("abstract ") or
+                            stripped.startswith("sealed ") or
+                            stripped.startswith("partial ") or
+                            stripped.startswith("readonly ") or
+                            stripped.startswith("const ") or
+                            stripped.startswith("async ") or
+                            stripped.startswith("override ") or
+                            stripped.startswith("virtual ") or
+                            stripped.startswith("extern ") or
+                            stripped.startswith("unsafe ") or
+                            stripped.startswith("volatile ") or
+                            stripped.startswith("fixed ") or
+                            stripped.startswith("delegate ") or
+                            stripped.startswith("event ") or
+                            stripped.startswith("operator ") or
+                            stripped.startswith("implicit ") or
+                            stripped.startswith("explicit ") or
+                            stripped.startswith("get;") or
+                            stripped.startswith("set;") or
+                            stripped.startswith("return") or
+                            stripped.startswith("throw") or
+                            stripped.startswith("try") or
+                            stripped.startswith("catch") or
+                            stripped.startswith("finally") or
+                            stripped.startswith("if") or
+                            stripped.startswith("else") or
+                            stripped.startswith("for") or
+                            stripped.startswith("while") or
+                            stripped.startswith("do") or
+                            stripped.startswith("switch") or
+                            stripped.startswith("case") or
+                            stripped.startswith("default") or
+                            stripped.startswith("break") or
+                            stripped.startswith("continue") or
+                            stripped.startswith("goto") or
+                            stripped.startswith("lock") or
+                            stripped.startswith("using") or
+                            stripped.startswith("foreach") or
+                            stripped.startswith("yield") or
+                            stripped.startswith("await") or
+                            re.match(r'^\w+\s+\w+\s*\(.*\)\s*$', stripped)  # Method declaration
+                    ):
+                        result.add_error(
+                            "Possible missing semicolon or incomplete statement",
+                            file_path=file_path,
+                            line_number=i,
+                            error_code="CS_MISSING_SEMICOLON"
+                        )
+
+            if brace_stack:
+                for line_num, _ in brace_stack:
+                    result.add_error(
+                        "Unmatched opening brace '{'",
+                        file_path=file_path,
+                        line_number=line_num,
+                        error_code="CS_BRACE_ERROR"
+                    )
+
+            if not result.errors:
+                self.logger.debug(f"Basic syntax heuristic OK: {file_path}")
 
         except UnicodeDecodeError as e:
             result.add_error(
                 f"Encoding error: {str(e)}",
                 file_path=file_path,
-                error_code="ENCODING_ERROR",
+                error_code="ENCODING_ERROR"
             )
         except Exception as e:
             result.add_error(
                 f"Unexpected error: {str(e)}",
                 file_path=file_path,
-                error_code="UNEXPECTED_ERROR",
+                error_code="UNEXPECTED_ERROR"
             )
 
     def _validate_imports(
-        self, python_files: List[str], result: ValidationResult, codebase_path: str
+        self, cs_files: List[str], result: ValidationResult, codebase_path: str
     ):
-        """Validate import statements."""
+
+        """Validate using directives in C# files."""
         import_errors = 0
 
-        for file_path in python_files:
+        for file_path in cs_files:
             try:
                 with open(file_path, "r", encoding="utf-8") as f:
-                    content = f.read()
+                    content = f.readlines()
 
-                tree = ast.parse(content, filename=file_path)
+                namespace_declared = False
+                using_directives = []
+                first_non_using_line = None
 
-                for node in ast.walk(tree):
-                    if isinstance(node, (ast.Import, ast.ImportFrom)):
-                        self._check_import_node(node, file_path, result, codebase_path)
+                for i, line in enumerate(content, 1):
+                    stripped = line.strip()
+
+                    # Skip empty lines and comments
+                    if not stripped or stripped.startswith("//"):
+                        continue
+
+                    # Check for namespace declaration
+                    if not namespace_declared and self.namespace_pattern.match(stripped):
+                        namespace_declared = True
+                        continue
+
+                    # Check for using directives
+                    if not namespace_declared and self.using_directive_pattern.match(stripped):
+                        using_directives.append((i, stripped))
+                        continue
+
+                    # First non-using, non-namespace, non-comment line
+                    if first_non_using_line is None:
+                        first_non_using_line = i
+                        break
+
+                # Check if all using directives are at the top
+                if first_non_using_line and using_directives:
+                    last_using_line = using_directives[-1][0]
+                    if last_using_line > first_non_using_line:
+                        result.add_warning(
+                            "Using directives should be placed before namespace declaration and other code",
+                            file_path=file_path,
+                            line_number=last_using_line,
+                            error_code="CS_USING_PLACEMENT"
+                        )
+
+                
 
             except Exception as e:
-                self.logger.debug(f"Could not check imports in {file_path}: {e}")
+                self.logger.debug(f"Could not check using directives in {file_path}: {e}")
                 import_errors += 1
 
         result.metadata["import_errors"] = import_errors
@@ -228,9 +373,9 @@ class SyntaxValidator:
         except Exception as e:
             self.logger.debug(f"Could not validate relative import in {file_path}: {e}")
 
-    def _validate_indentation(self, python_files: List[str], result: ValidationResult):
+    def _validate_indentation(self, cs_file: List[str], result: ValidationResult):
         """Validate indentation consistency."""
-        for file_path in python_files:
+        for file_path in cs_file:
             try:
                 with open(file_path, "r", encoding="utf-8") as f:
                     lines = f.readlines()
@@ -274,3 +419,19 @@ class SyntaxValidator:
                 file_path=file_path,
                 error_code="INCONSISTENT_INDENTATION",
             )
+
+
+if __name__ == "__main__":
+    import sys
+
+    validator = SyntaxValidator("")
+
+    result = ValidationResult(step_name="SyntaxCheck", status="pending", is_valid=True)
+    # Replace with your test .cs file
+    test_file_path = "C:\Creatum fortiss\Predictable-Secure-Code-Generation\input\CsExample\Code\Caculator.cs"
+
+    validator._validate_file_syntax(test_file_path, result)
+    print(result.get_errors())
+
+
+
