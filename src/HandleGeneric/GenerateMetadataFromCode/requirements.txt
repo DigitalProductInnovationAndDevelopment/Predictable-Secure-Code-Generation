@@ -1,0 +1,17 @@
+# Core dependencies for metadata generation
+# No external dependencies required for basic functionality
+
+# Optional: For enhanced JSON handling (already included in Python 3.7+)
+# json5>=0.9.0
+
+# Optional: For better progress reporting
+# tqdm>=4.64.0
+
+# Optional: For enhanced AST analysis
+# typed-ast>=1.5.0; python_version < "3.8"
+
+# Development dependencies (optional)
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=4.0.0
+# mypy>=0.950 
