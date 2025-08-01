@@ -15,6 +15,7 @@ from .providers import (
     TypeScriptProvider,
     JavaProvider,
     CSharpProvider,
+    CppProvider,
 )
 
 
@@ -33,6 +34,7 @@ def initialize_language_providers() -> Dict[str, Any]:
         TypeScriptProvider(),
         JavaProvider(),
         CSharpProvider(),
+        CppProvider()
     ]
 
     registered_count = 0

@@ -10,6 +10,8 @@ from .javascript_provider import JavaScriptProvider
 from .typescript_provider import TypeScriptProvider
 from .java_provider import JavaProvider
 from .csharp_provider import CSharpProvider
+from .cpp_provider import CppProvider
+
 
 __all__ = [
     "PythonProvider",
