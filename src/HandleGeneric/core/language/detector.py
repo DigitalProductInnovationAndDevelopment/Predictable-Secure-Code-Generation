@@ -12,7 +12,7 @@ from typing import Dict, List, Set, Optional, Generator, Tuple
 from collections import defaultdict
 import logging
 
-from .language_registry import get_global_registry
+from .registry import get_global_registry
 
 
 class FileDetector:
@@ -57,6 +57,7 @@ class FileDetector:
             ".next/*",
             ".nuxt/*",
             "coverage/*",
+            "htmlcov/*",
         ]
 
         self.exclude_patterns = exclude_patterns or default_excludes

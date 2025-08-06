@@ -9,7 +9,7 @@ from typing import Dict, Optional, Set, List
 from pathlib import Path
 import logging
 
-from .language_provider import LanguageProvider
+from .provider import LanguageProvider
 
 
 class LanguageRegistry:

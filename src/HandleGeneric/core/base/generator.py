@@ -11,9 +11,9 @@ from pathlib import Path
 from typing import Dict, Any, Optional, List
 import json
 
-from .core.file_detector import FileDetector
-from .core.language_registry import get_global_registry
-from .language_init import ensure_initialized
+from ..language.registry import get_global_registry
+from ..initialization import ensure_initialized
+from ..language.detector import FileDetector
 
 
 class GenericMetadataGenerator:

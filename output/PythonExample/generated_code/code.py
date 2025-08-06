@@ -3,10 +3,36 @@ from typing import List, Union
 import datetime
 import logging
 import sys
+
 # File: code.py
 
 # Global variable to simulate calculator memory storage
 _calculator_memory: float = 0.0
+
+
+def power(base: float, exponent: float) -> float:
+    """
+    Calculate base raised to the power of exponent.
+
+    Args:
+        base (float): Base number
+        exponent (float): Exponent
+
+    Returns:
+        float: base^exponent
+
+    Raises:
+        ValueError: For invalid combinations like 0^0
+        TypeError: If inputs are not numbers
+    """
+    if not isinstance(base, (int, float)) or not isinstance(exponent, (int, float)):
+        raise TypeError("Both base and exponent must be numbers")
+
+    # Handle special case of 0^0 which is mathematically undefined
+    if base == 0 and exponent == 0:
+        raise ValueError("0 raised to the power of 0 is undefined")
+
+    return base**exponent
 
 
 def store_in_memory(value: float) -> None:
@@ -53,4 +79,6 @@ if __name__ == "__main__":
 
     # Clearing memory
     clear_memory()
-    print(f"Memory after clearing: {recall_memory()}")  # Output: Memory after clearing: 0.0
+    print(
+        f"Memory after clearing: {recall_memory()}"
+    )  # Output: Memory after clearing: 0.0

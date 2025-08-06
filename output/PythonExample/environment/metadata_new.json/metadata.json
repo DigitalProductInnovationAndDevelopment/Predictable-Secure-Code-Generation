@@ -938,29 +938,17 @@
     {
       "path": "code.py",
       "language": "python",
-      "size": 2066,
-      "lines_of_code": 55,
+      "size": 1345,
+      "lines_of_code": 36,
       "classes": [],
       "functions": [
-        {
-          "name": "power",
-          "parameters": [
-            "base: float",
-            "exponent: float"
-          ],
-          "start_line": 13,
-          "end_line": 35,
-          "visibility": "public",
-          "docstring": "\n    Calculate base raised to the power of exponent.\n\n    Args:\n        base (float): Base number\n        exponent (float): Exponent\n\n    Returns:\n        float: base^exponent\n\n    Raises:\n        ValueError: For invalid combinations like 0^0\n        TypeError: If inputs are not numbers\n    ",
-          "return_type": "float"
-        },
         {
           "name": "store_in_memory",
           "parameters": [
             "value: float"
           ],
-          "start_line": 38,
-          "end_line": 53,
+          "start_line": 12,
+          "end_line": 27,
           "visibility": "public",
           "docstring": "\n    Stores a given value in the calculator's memory.\n\n    Args:\n        value (float): The value to store in memory.\n\n    Raises:\n        ValueError: If the provided value is not a valid float.\n    ",
           "return_type": "None"
@@ -968,8 +956,8 @@
         {
           "name": "recall_memory",
           "parameters": [],
-          "start_line": 56,
-          "end_line": 63,
+          "start_line": 30,
+          "end_line": 37,
           "visibility": "public",
           "docstring": "\n    Recalls the value stored in the calculator's memory.\n\n    Returns:\n        float: The value currently stored in memory.\n    ",
           "return_type": "float"
@@ -977,8 +965,8 @@
         {
           "name": "clear_memory",
           "parameters": [],
-          "start_line": 66,
-          "end_line": 71,
+          "start_line": 40,
+          "end_line": 45,
           "visibility": "public",
           "docstring": "\n    Clears the value stored in the calculator's memory.\n    ",
           "return_type": "None"
@@ -996,7 +984,6 @@
       "comments": [
         "File: code.py",
         "Global variable to simulate calculator memory storage",
-        "Handle special case of 0^0 which is mathematically undefined",
         "Example usage of the memory functions",
         "Storing a value in memory",
         "Clearing memory"
@@ -1515,179 +1502,15 @@
     {
       "path": "calculator/calculator.py",
       "language": "python",
-      "size": 9452,
-      "lines_of_code": 271,
-      "classes": [
-        {
-          "name": "Calculator",
-          "start_line": 10,
-          "end_line": 222,
-          "methods": [
-            {
-              "name": "add",
-              "parameters": [
-                "a: float",
-                "b: float"
-              ],
-              "start_line": 16,
-              "end_line": 27,
-              "visibility": "public",
-              "docstring": "\n        Add two numbers.\n\n        Args:\n            a (float): First number\n            b (float): Second number\n\n        Returns:\n            float: Sum of a and b\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "float",
-              "is_static": true
-            },
-            {
-              "name": "subtract",
-              "parameters": [
-                "a: float",
-                "b: float"
-              ],
-              "start_line": 30,
-              "end_line": 41,
-              "visibility": "public",
-              "docstring": "\n        Subtract two numbers.\n\n        Args:\n            a (float): First number\n            b (float): Second number\n\n        Returns:\n            float: Difference of a and b (a - b)\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "float",
-              "is_static": true
-            },
-            {
-              "name": "multiply",
-              "parameters": [
-                "a: float",
-                "b: float"
-              ],
-              "start_line": 44,
-              "end_line": 60,
-              "visibility": "public",
-              "docstring": "\n        Multiply two numbers.\n\n        Args:\n            a (float): First number\n            b (float): Second number\n\n        Returns:\n            float: Product of a and b\n\n        Raises:\n            TypeError: If inputs are not numbers\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "float",
-              "is_static": true
-            },
-            {
-              "name": "divide",
-              "parameters": [
-                "a: float",
-                "b: float"
-              ],
-              "start_line": 63,
-              "end_line": 79,
-              "visibility": "public",
-              "docstring": "\n        Divide two numbers.\n\n        Args:\n            a (float): First number\n            b (float): Second number\n\n        Returns:\n            float: Division of a by b\n\n        Raises:\n            ValueError: If b is zero\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "float",
-              "is_static": true
-            },
-            {
-              "name": "add_and_multiply_by_two",
-              "parameters": [
-                "a: float",
-                "b: float"
-              ],
-              "start_line": 82,
-              "end_line": 93,
-              "visibility": "public",
-              "docstring": "\n        Add two numbers and multiply the result by 2.\n\n        Args:\n            a (float): First number\n            b (float): Second number\n\n        Returns:\n            float: (a + b) * 2\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "float",
-              "is_static": true
-            },
-            {
-              "name": "sum_list",
-              "parameters": [
-                "numbers: List[float]"
-              ],
-              "start_line": 96,
-              "end_line": 121,
-              "visibility": "public",
-              "docstring": "\n        Calculate the sum of a list of numbers.\n\n        Args:\n            numbers (List[float]): List of numbers to sum\n\n        Returns:\n            float: Sum of all numbers in the list\n\n        Raises:\n            TypeError: If input is not a list or contains non-numeric elements\n            ValueError: If list is empty\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "float",
-              "is_static": true
-            },
-            {
-              "name": "factorial",
-              "parameters": [
-                "n: int"
-              ],
-              "start_line": 124,
-              "end_line": 153,
-              "visibility": "public",
-              "docstring": "\n        Calculate the factorial of a number.\n\n        Args:\n            n (int): Non-negative integer\n\n        Returns:\n            int: Factorial of n\n\n        Raises:\n            ValueError: If n is negative or not an integer\n            TypeError: If n is not a number\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "int",
-              "is_static": true
-            },
-            {
-              "name": "power",
-              "parameters": [
-                "base: float",
-                "exponent: float"
-              ],
-              "start_line": 156,
-              "end_line": 167,
-              "visibility": "public",
-              "docstring": "\n        Calculate base raised to the power of exponent.\n\n        Args:\n            base (float): Base number\n            exponent (float): Exponent\n\n        Returns:\n            float: base^exponent\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "float",
-              "is_static": true
-            },
-            {
-              "name": "calculate_percentage",
-              "parameters": [
-                "part: float",
-                "whole: float"
-              ],
-              "start_line": 170,
-              "end_line": 197,
-              "visibility": "public",
-              "docstring": "\n        Calculate what percentage 'part' is of 'whole'.\n\n        Args:\n            part (float): The part value\n            whole (float): The whole value\n\n        Returns:\n            float: Percentage value\n\n        Raises:\n            ValueError: If whole is zero\n            TypeError: If inputs are not numbers\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "float",
-              "is_static": true
-            },
-            {
-              "name": "square_root",
-              "parameters": [
-                "self",
-                "n: float"
-              ],
-              "start_line": 199,
-              "end_line": 222,
-              "visibility": "public",
-              "docstring": "\n        Calculate the square root of a number.\n\n        Args:\n            n (float): Non-negative number\n\n        Returns:\n            float: Square root of n\n\n        Raises:\n            ValueError: If n is negative\n            TypeError: If n is not a number\n        ",
-              "return_type": "float"
-            }
-          ],
-          "visibility": "public",
-          "docstring": "\n    A calculator class that provides basic mathematical operations.\n    "
-        }
-      ],
+      "size": 3785,
+      "lines_of_code": 103,
+      "classes": [],
       "functions": [
         {
           "name": "display_menu",
           "parameters": [],
-          "start_line": 225,
-          "end_line": 236,
+          "start_line": 7,
+          "end_line": 18,
           "visibility": "public",
           "docstring": "\n    Displays the CLI menu with numbered options for user interaction.\n    ",
           "return_type": "None"
@@ -1695,8 +1518,8 @@
         {
           "name": "get_user_choice",
           "parameters": [],
-          "start_line": 239,
-          "end_line": 253,
+          "start_line": 21,
+          "end_line": 35,
           "visibility": "public",
           "docstring": "\n    Prompts the user to select an option from the menu.\n\n    Returns:\n        int: The user's menu choice.\n    ",
           "return_type": "int"
@@ -1707,8 +1530,8 @@
             "choice: int",
             "calculator: Calculator"
           ],
-          "start_line": 256,
-          "end_line": 321,
+          "start_line": 38,
+          "end_line": 101,
           "visibility": "public",
           "docstring": "\n    Handles the user's menu choice and performs the corresponding operation.\n\n    Args:\n        choice (int): The user's menu choice.\n        calculator (Calculator): An instance of the Calculator class.\n    ",
           "return_type": "None"
@@ -1716,8 +1539,8 @@
         {
           "name": "main",
           "parameters": [],
-          "start_line": 324,
-          "end_line": 333,
+          "start_line": 104,
+          "end_line": 113,
           "visibility": "public",
           "docstring": "\n    Main function to run the CLI menu interface.\n    ",
           "return_type": "None"
@@ -1725,15 +1548,13 @@
       ],
       "imports": [
         "import sys",
-        "import math",
-        "from typing import List",
-        "from typing import Union"
+        "from calculator.calculator import Calculator"
       ],
       "constants": {},
       "comments": [
-        "Check if all elements are numeric"
+        "File: code.py"
       ],
-      "docstring": "\nCalculator module providing basic mathematical operations.\n"
+      "docstring": null
     },
     {
       "path": "tests/__init__.py",
@@ -1976,25 +1797,493 @@
       "constants": {},
       "comments": [],
       "docstring": "\nTest cases for the Calculator class.\n"
+    },
+    {
+      "path": "CodeUtils.java",
+      "language": "java",
+      "size": 11223,
+      "lines_of_code": 217,
+      "classes": [
+        {
+          "name": "CodeUtils",
+          "start_line": 1,
+          "end_line": 0,
+          "methods": [],
+          "visibility": "public"
+        }
+      ],
+      "functions": [
+        {
+          "name": "addition",
+          "parameters": [
+            "double a",
+            "double b"
+          ],
+          "start_line": 10,
+          "end_line": 0,
+          "visibility": "public",
+          "return_type": "double",
+          "is_static": true
+        },
+        {
+          "name": "subtraction",
+          "parameters": [
+            "double a",
+            "double b"
+          ],
+          "start_line": 21,
+          "end_line": 0,
+          "visibility": "public",
+          "return_type": "double",
+          "is_static": true
+        },
+        {
+          "name": "multiplyTwoNumbers",
+          "parameters": [
+            "double num1",
+            "double num2"
+          ],
+          "start_line": 32,
+          "end_line": 0,
+          "visibility": "public",
+          "return_type": "double",
+          "is_static": true
+        },
+        {
+          "name": "divideNumbers",
+          "parameters": [
+            "double numerator",
+            "double denominator"
+          ],
+          "start_line": 46,
+          "end_line": 0,
+          "visibility": "public",
+          "return_type": "double",
+          "is_static": true
+        },
+        {
+          "name": "if",
+          "parameters": [
+            "denominator == 0"
+          ],
+          "start_line": 47,
+          "end_line": 0,
+          "visibility": "package",
+          "return_type": "zero"
+        },
+        {
+          "name": "addNumbersAndDouble",
+          "parameters": [
+            "Integer number1",
+            "Integer number2"
+          ],
+          "start_line": 65,
+          "end_line": 0,
+          "visibility": "public",
+          "return_type": "Integer",
+          "is_static": true
+        },
+        {
+          "name": "if",
+          "parameters": [
+            "number1 == null || number2 == null"
+          ],
+          "start_line": 66,
+          "end_line": 0,
+          "visibility": "package",
+          "return_type": "parameters"
+        },
+        {
+          "name": "calculateSumOfList",
+          "parameters": [
+            "List<Integer> numbers"
+          ],
+          "start_line": 84,
+          "end_line": 0,
+          "visibility": "public",
+          "return_type": "int",
+          "is_static": true
+        },
+        {
+          "name": "if",
+          "parameters": [
+            "numbers == null"
+          ],
+          "start_line": 85,
+          "end_line": 0,
+          "visibility": "package",
+          "return_type": "input"
+        },
+        {
+          "name": "processInputString",
+          "parameters": [
+            "String input"
+          ],
+          "start_line": 113,
+          "end_line": 0,
+          "visibility": "public",
+          "return_type": "String",
+          "is_static": true
+        },
+        {
+          "name": "validateInputTypesForOperations",
+          "parameters": [
+            "Object input1",
+            "Object input2"
+          ],
+          "start_line": 138,
+          "end_line": 0,
+          "visibility": "public",
+          "return_type": "void",
+          "is_static": true
+        },
+        {
+          "name": "if",
+          "parameters": [
+            "input1 == null"
+          ],
+          "start_line": 139,
+          "end_line": 0,
+          "visibility": "package",
+          "return_type": "null"
+        },
+        {
+          "name": "if",
+          "parameters": [
+            "input2 == null"
+          ],
+          "start_line": 144,
+          "end_line": 0,
+          "visibility": "package",
+          "return_type": "null"
+        },
+        {
+          "name": "divideWithValidation",
+          "parameters": [
+            "double numerator",
+            "double denominator"
+          ],
+          "start_line": 169,
+          "end_line": 0,
+          "visibility": "public",
+          "return_type": "double",
+          "is_static": true
+        },
+        {
+          "name": "if",
+          "parameters": [
+            "denominator == 0"
+          ],
+          "start_line": 170,
+          "end_line": 0,
+          "visibility": "package",
+          "return_type": "zero"
+        },
+        {
+          "name": "sumNonEmptyList",
+          "parameters": [
+            "List<Integer> numbers"
+          ],
+          "start_line": 187,
+          "end_line": 0,
+          "visibility": "public",
+          "return_type": "int",
+          "is_static": true
+        },
+        {
+          "name": "if",
+          "parameters": [
+            "numbers == null"
+          ],
+          "start_line": 188,
+          "end_line": 0,
+          "visibility": "package",
+          "return_type": "null"
+        },
+        {
+          "name": "sumNumericElements",
+          "parameters": [
+            "List<Object> elements"
+          ],
+          "start_line": 215,
+          "end_line": 0,
+          "visibility": "public",
+          "return_type": "double",
+          "is_static": true
+        },
+        {
+          "name": "if",
+          "parameters": [
+            "elements == null"
+          ],
+          "start_line": 216,
+          "end_line": 0,
+          "visibility": "package",
+          "return_type": "input"
+        },
+        {
+          "name": "demonstrateCalculatorOperations",
+          "parameters": [
+            "Scanner scanner"
+          ],
+          "start_line": 241,
+          "end_line": 0,
+          "visibility": "public",
+          "return_type": "void",
+          "is_static": true
+        },
+        {
+          "name": "if",
+          "parameters": [
+            "scanner == null"
+          ],
+          "start_line": 242,
+          "end_line": 0,
+          "visibility": "package",
+          "return_type": "parameter"
+        }
+      ],
+      "imports": [],
+      "constants": {},
+      "comments": [
+        "Validate that the denominator is not zero to prevent division by zero",
+        "Perform the division and return the result",
+        "Validate input parameters",
+        "Perform the addition and multiplication",
+        "Validate input",
+        "Calculate the sum of the list",
+        "Handle potential null elements in the list",
+        "Validate the input parameter",
+        "Example processing logic (can be replaced with actual implementation)",
+        "For demonstration, let's convert the string to uppercase",
+        "Handle any unexpected exceptions",
+        "Check if the first input is null",
+        "Check if the second input is null",
+        "Check if the first input is of type Number",
+        "Check if the second input is of type Number",
+        "Validate that the denominator is not zero",
+        "Perform the division",
+        "Validate that the input list is not null",
+        "Validate that the input list is not empty",
+        "Calculate and return the sum of the list",
+        "Validate input",
+        "Validate the input parameter",
+        "Addition",
+        "Subtraction"
+      ],
+      "docstring": null
+    },
+    {
+      "path": "htmlcov/coverage_html_cb_6fb7b396.js",
+      "language": "javascript",
+      "size": 25474,
+      "lines_of_code": 551,
+      "classes": [],
+      "functions": [
+        {
+          "name": "debounce",
+          "parameters": [
+            "callback",
+            "wait"
+          ],
+          "start_line": 11,
+          "end_line": 0,
+          "visibility": "public"
+        },
+        {
+          "name": "checkVisible",
+          "parameters": [
+            "element"
+          ],
+          "start_line": 21,
+          "end_line": 0,
+          "visibility": "public"
+        },
+        {
+          "name": "on_click",
+          "parameters": [
+            "sel",
+            "fn"
+          ],
+          "start_line": 28,
+          "end_line": 0,
+          "visibility": "public"
+        },
+        {
+          "name": "getCellValue",
+          "parameters": [
+            "row",
+            "column = 0"
+          ],
+          "start_line": 36,
+          "end_line": 0,
+          "visibility": "public"
+        },
+        {
+          "name": "rowComparator",
+          "parameters": [
+            "rowA",
+            "rowB",
+            "column = 0"
+          ],
+          "start_line": 50,
+          "end_line": 0,
+          "visibility": "public"
+        },
+        {
+          "name": "sortColumn",
+          "parameters": [
+            "th"
+          ],
+          "start_line": 59,
+          "end_line": 0,
+          "visibility": "public"
+        },
+        {
+          "name": "updateHeader",
+          "parameters": [],
+          "start_line": 697,
+          "end_line": 0,
+          "visibility": "public"
+        }
+      ],
+      "imports": [],
+      "constants": {},
+      "comments": [
+        "Licensed under the Apache License: http://www.apache.org/licenses/LICENSE-2.0",
+        "For details: https://github.com/nedbat/coveragepy/blob/master/NOTICE.txt",
+        "Coverage.py HTML report browser code.",
+        "General helpers",
+        "Helpers for table sorting",
+        "nosemgrep: eslint.detect-object-injection",
+        "Get the current sorting direction of the selected header,",
+        "clear state on other headers and then set the new sorting direction.",
+        "Sort all rows and afterwards append them in order to move them in the DOM.",
+        "Save the sort order for next time.",
+        "Sort by file if we don't have a column id",
+        "Sort column has changed, unset sorting by function or class.",
+        "Sort column has changed to by function or class, remember that.",
+        "Find all the elements with data-shortcut attribute, and use them to assign a shortcut key.",
+        "ignore keypress from search filter",
+        "Create the events for the filter box.",
+        "Populate the filter and hide100 inputs if there are saved values for them.",
+        "Cache elements.",
+        "Observe filter keyevents.",
+        "Keep running total of each metric, first index contains number of shown rows",
+        "Accumulate the percentage as fraction",
+        "nosemgrep: eslint.detect-object-injection",
+        "Store filter value",
+        "Store hide value.",
+        "Hide / show elements.",
+        "Check the text filter.",
+        "Check the \"hide covered\" filter.",
+        "hide",
+        "show",
+        "Accumulate dynamic totals",
+        "nosemgrep: eslint.detect-object-injection",
+        "Last column contains percentage",
+        "nosemgrep: eslint.detect-object-injection",
+        "nosemgrep: eslint.detect-object-injection",
+        "nosemgrep: eslint.detect-object-injection",
+        "Show placeholder if no rows will be displayed.",
+        "Show placeholder, hide table.",
+        "Hide placeholder, show table.",
+        "Calculate new dynamic sum values based on visible rows.",
+        "Get footer cell element.",
+        "nosemgrep: eslint.detect-object-injection",
+        "Set value into dynamic footer cell element.",
+        "Percentage column uses the numerator and denominator,",
+        "and adapts to the number of decimal places.",
+        "nosemgrep: eslint.detect-object-injection",
+        "Check denom to prevent NaN if filtered files contain no statements",
+        "nosemgrep: eslint.detect-object-injection",
+        "Trigger change event on setup, to force filter on page refresh",
+        "(filter value may still be present).",
+        "Set up the click-to-sort columns.",
+        "Look for a localStorage item containing previous sort settings:",
+        "If we are in a page that has a column with id of \"region\", sort on",
+        "it if the last sort was by function or class.",
+        "Loaded on index.html",
+        "-- pyfile stuff --",
+        "If we're directed to a particular line number, highlight the line.",
+        "nosemgrep: eslint.detect-object-injection",
+        "Rebuild scroll markers when the window height changes.",
+        "Return the nth line div.",
+        "Set the selection.  b and e are line numbers.",
+        "The first line selected.",
+        "The next line not selected.",
+        "Return a string indicating what kind of chunk this line belongs to,",
+        "or null if not a chunk.",
+        "Find the start of the next colored chunk.",
+        "There's a next chunk, `probe` points to it.",
+        "Find the end of this chunk.",
+        "Find the end of the prev colored chunk.",
+        "There's a prev chunk, `probe` points to its last line.",
+        "Find the beginning of this chunk.",
+        "Returns 0, 1, or 2: how many of the two ends of the selection are on",
+        "the screen right now?",
+        "The selection is entirely off the screen:",
+        "Set the top line on the screen as selection.",
+        "This will select the top-left of the viewport",
+        "As this is most likely the span with the line number we take the parent",
+        "The element is not a source line but the header or similar",
+        "We extract the line number from the id",
+        "The selection is entirely off the screen:",
+        "Set the lowest line on the screen as selection.",
+        "This will select the bottom-left of the viewport",
+        "As this is most likely the span with the line number we take the parent",
+        "The element is not a source line but the header or similar",
+        "We extract the line number from the id",
+        "Select line number lineno, or if it is in a colored chunk, select the",
+        "entire chunk",
+        "The line is in a highlighted chunk.",
+        "Search backward for the first line.",
+        "Search forward for the last line.",
+        "Highlight the lines in the chunk",
+        "Scroll the page if the chunk isn't fully visible.",
+        "Init some variables",
+        "Build html",
+        "Don't build markers if the window has no scroll bar.",
+        "If this solid missed block just make previous mark higher.",
+        "Add colored line in scroll_marker block.",
+        "Append last to prevent layout calculation",
+        "jslint browser: true, sloppy: true, vars: true, plusplus: true, maxerr: 50, indent: 4",
+        "global coverage: true, document, window, $"
+      ],
+      "docstring": null
     }
   ],
   "languages": [
-    "python"
+    "python",
+    "java",
+    "javascript"
   ],
   "language_summaries": {
     "python": {
       "file_count": 14,
-      "total_lines": 1125,
-      "total_size": 58356,
+      "total_lines": 938,
+      "total_size": 51968,
       "provider": "PythonProvider"
+    },
+    "java": {
+      "file_count": 1,
+      "total_lines": 217,
+      "total_size": 11223,
+      "provider": "JavaProvider"
+    },
+    "javascript": {
+      "file_count": 1,
+      "total_lines": 551,
+      "total_size": 25474,
+      "provider": "JavaScriptProvider"
     }
   },
   "project_info": {
     "source_path": "output/PythonExample/generated_code",
-    "total_files": 14,
+    "total_files": 16,
     "main_language": "python",
     "project_type": "python",
-    "generation_time": 0.016592025756835938,
+    "generation_time": 0.06020522117614746,
     "generator_version": "2.0.0",
     "supported_languages": [
       "python",
@@ -2005,16 +2294,22 @@
       "cpp"
     ],
     "project_analysis": {
-      "total_files": 14,
+      "total_files": 16,
       "languages": [
-        "python"
+        "python",
+        "java",
+        "javascript"
       ],
       "main_language": "python",
       "files_by_language": {
-        "python": 14
+        "python": 14,
+        "java": 1,
+        "javascript": 1
       },
       "lines_by_language": {
-        "python": 1757
+        "python": 1509,
+        "java": 293,
+        "javascript": 733
       },
       "project_type": "python"
     }

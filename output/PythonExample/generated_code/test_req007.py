@@ -1,4 +1,4 @@
-Below is the updated `tests/test_calculator.py` file rewritten using `pytest` to meet the requirements for comprehensive test cases. The test cases cover normal functionality, edge cases, and error conditions.
+# Below is the updated `tests/test_calculator.py` file rewritten using `pytest` to meet the requirements for comprehensive test cases. The test cases cover normal functionality, edge cases, and error conditions.
 
 # File: tests/test_calculator.py
 
@@ -90,26 +90,27 @@ class TestCalculator:
         assert "Performed add and multiply by two: (2 + 3) * 2 = 10" in caplog.text
         assert "Performed sum of list: [1, 2, 3, 4] = 10" in caplog.text
 
+
 ### Explanation of the Test Cases
-1. **Normal Functionality**:
-   - Each method (`add`, `subtract`, `multiply`, `divide`, `add_and_multiply_by_two`, `sum_list`) is tested with typical inputs to ensure correct results.
+# 1. **Normal Functionality**:
+#    - Each method (`add`, `subtract`, `multiply`, `divide`, `add_and_multiply_by_two`, `sum_list`) is tested with typical inputs to ensure correct results.
 
-2. **Edge Cases**:
-   - For `add`, `subtract`, and `multiply`, edge cases like zero, negative numbers, and floating-point numbers are tested.
-   - For `divide`, edge cases like division by zero (raises `ValueError`), division of zero, and negative numbers are tested.
-   - For `sum_list`, edge cases like an empty list, a single-element list, and a list with mixed positive and negative numbers are tested.
+# 2. **Edge Cases**:
+#    - For `add`, `subtract`, and `multiply`, edge cases like zero, negative numbers, and floating-point numbers are tested.
+#    - For `divide`, edge cases like division by zero (raises `ValueError`), division of zero, and negative numbers are tested.
+#    - For `sum_list`, edge cases like an empty list, a single-element list, and a list with mixed positive and negative numbers are tested.
 
-3. **Error Conditions**:
-   - The `divide` method is tested to ensure it raises a `ValueError` when attempting to divide by zero.
+# 3. **Error Conditions**:
+#    - The `divide` method is tested to ensure it raises a `ValueError` when attempting to divide by zero.
 
-4. **Logging Functionality**:
-   - The `caplog` pytest fixture is used to capture log messages and verify that the correct log entries are generated for each operation.
+# 4. **Logging Functionality**:
+#    - The `caplog` pytest fixture is used to capture log messages and verify that the correct log entries are generated for each operation.
 
-### How to Run the Tests
-1. Install `pytest` if not already installed:
-   pip install pytest
+# ### How to Run the Tests
+# 1. Install `pytest` if not already installed:
+#    pip install pytest
 
-2. Run the tests using the following command:
-   pytest tests/test_calculator.py
+# 2. Run the tests using the following command:
+#    pytest tests/test_calculator.py
 
-3. View the test results in the terminal.
+# 3. View the test results in the terminal.

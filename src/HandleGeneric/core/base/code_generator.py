@@ -13,8 +13,8 @@ from typing import Dict, Any, Optional, List
 from dataclasses import dataclass
 from enum import Enum
 
-from .core.language_registry import get_global_registry
-from .language_init import ensure_initialized
+from ..language.registry import get_global_registry
+from ..initialization import ensure_initialized
 
 
 class GenerationStatus(Enum):

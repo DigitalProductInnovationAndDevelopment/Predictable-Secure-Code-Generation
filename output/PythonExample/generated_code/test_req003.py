@@ -1,9 +1,10 @@
-Here is the updated and comprehensive test suite for the `Calculator.calculate_percentage` method. The test cases cover normal functionality, edge cases, and error conditions.
+# Here is the updated and comprehensive test suite for the `Calculator.calculate_percentage` method. The test cases cover normal functionality, edge cases, and error conditions.
 
 # File: tests/test_calculator.py
 
 import pytest
 from calculator.calculator import Calculator
+
 
 class TestCalculator:
     """
@@ -56,7 +57,9 @@ class TestCalculator:
         """
         Test calculate_percentage raises ValueError when total is zero.
         """
-        with pytest.raises(ValueError, match="Total cannot be zero when calculating percentage."):
+        with pytest.raises(
+            ValueError, match="Total cannot be zero when calculating percentage."
+        ):
             Calculator.calculate_percentage(50, 0)
 
     def test_calculate_percentage_non_numeric(self):
@@ -65,16 +68,16 @@ class TestCalculator:
         """
         with pytest.raises(TypeError, match="Both value and total must be numeric"):
             Calculator.calculate_percentage("50", 200)
-        
+
         with pytest.raises(TypeError, match="Both value and total must be numeric"):
             Calculator.calculate_percentage(50, "200")
-        
+
         with pytest.raises(TypeError, match="Both value and total must be numeric"):
             Calculator.calculate_percentage("50", "200")
-        
+
         with pytest.raises(TypeError, match="Both value and total must be numeric"):
             Calculator.calculate_percentage(None, 200)
-        
+
         with pytest.raises(TypeError, match="Both value and total must be numeric"):
             Calculator.calculate_percentage(50, None)
 
@@ -82,42 +85,47 @@ class TestCalculator:
         """
         Test calculate_percentage with infinity values.
         """
-        with pytest.raises(ValueError, match="Total cannot be zero when calculating percentage."):
-            Calculator.calculate_percentage(50, float('inf'))
-        
-        with pytest.raises(ValueError, match="Total cannot be zero when calculating percentage."):
-            Calculator.calculate_percentage(50, float('-inf'))
+        with pytest.raises(
+            ValueError, match="Total cannot be zero when calculating percentage."
+        ):
+            Calculator.calculate_percentage(50, float("inf"))
+
+        with pytest.raises(
+            ValueError, match="Total cannot be zero when calculating percentage."
+        ):
+            Calculator.calculate_percentage(50, float("-inf"))
 
     def test_calculate_percentage_nan(self):
         """
         Test calculate_percentage with NaN (Not a Number) values.
         """
         with pytest.raises(TypeError, match="Both value and total must be numeric"):
-            Calculator.calculate_percentage(float('nan'), 200)
-        
+            Calculator.calculate_percentage(float("nan"), 200)
+
         with pytest.raises(TypeError, match="Both value and total must be numeric"):
-            Calculator.calculate_percentage(50, float('nan'))
+            Calculator.calculate_percentage(50, float("nan"))
+
 
 ### Explanation of Test Cases
 
-1. **Normal Functionality Tests**:
-   - These tests ensure that the method works correctly for typical inputs, including integers and floats.
+# 1. **Normal Functionality Tests**:
+#    - These tests ensure that the method works correctly for typical inputs, including integers and floats.
 
-2. **Edge Case Tests**:
-   - Small values: Tests the method's behavior with very small numbers.
-   - Large values: Tests the method's behavior with very large numbers.
-   - Negative values: Tests the method's behavior when either or both inputs are negative.
-   - Zero value: Tests the method's behavior when the `value` is zero.
+# 2. **Edge Case Tests**:
+#    - Small values: Tests the method's behavior with very small numbers.
+#    - Large values: Tests the method's behavior with very large numbers.
+#    - Negative values: Tests the method's behavior when either or both inputs are negative.
+#    - Zero value: Tests the method's behavior when the `value` is zero.
 
-3. **Error Condition Tests**:
-   - Zero total: Ensures that the method raises a `ValueError` when the `total` is zero.
-   - Non-numeric inputs: Ensures that the method raises a `TypeError` when inputs are not numeric.
-   - Infinity: Ensures that the method handles infinity values appropriately.
-   - NaN: Ensures that the method raises a `TypeError` when inputs are NaN.
+# 3. **Error Condition Tests**:
+#    - Zero total: Ensures that the method raises a `ValueError` when the `total` is zero.
+#    - Non-numeric inputs: Ensures that the method raises a `TypeError` when inputs are not numeric.
+#    - Infinity: Ensures that the method handles infinity values appropriately.
+#    - NaN: Ensures that the method raises a `TypeError` when inputs are NaN.
 
-4. **Comprehensive Coverage**:
-   - The test suite ensures that all edge cases and potential error conditions are covered, providing confidence in the robustness of the `calculate_percentage` method.
+# 4. **Comprehensive Coverage**:
+#    - The test suite ensures that all edge cases and potential error conditions are covered, providing confidence in the robustness of the `calculate_percentage` method.
 
-### Running the Tests
-To run the tests, execute the following command in the terminal:
-pytest tests/test_calculator.py
+# ### Running the Tests
+# To run the tests, execute the following command in the terminal:
+# pytest tests/test_calculator.py

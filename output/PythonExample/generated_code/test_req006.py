@@ -1,4 +1,4 @@
-Here is the updated and comprehensive test suite for the `Calculator` class, ensuring all requirements are met:
+# Here is the updated and comprehensive test suite for the `Calculator` class, ensuring all requirements are met:
 
 # File: tests/test_calculator.py
 
@@ -113,33 +113,38 @@ class TestCalculator:
             Calculator.sum_list("not a list")
 
     def test_sum_list_non_numeric(self):
-        with pytest.raises(ValueError, match="All elements in the list must be numeric"):
+        with pytest.raises(
+            ValueError, match="All elements in the list must be numeric"
+        ):
             Calculator.sum_list([1, "two", 3])
 
     def test_sum_list_nested_list(self):
-        with pytest.raises(ValueError, match="All elements in the list must be numeric"):
+        with pytest.raises(
+            ValueError, match="All elements in the list must be numeric"
+        ):
             Calculator.sum_list([1, [2, 3], 4])
 
     def test_sum_list_large_numbers(self):
         assert Calculator.sum_list([1e10, 2e10, 3e10]) == 6e10
 
+
 ### Explanation of the Test Cases:
-1. **Normal Functionality**:
-   - Tests for valid inputs (integers, floats, mixed types) for all methods.
-   - Includes edge cases like zero and negative numbers.
+# 1. **Normal Functionality**:
+#    - Tests for valid inputs (integers, floats, mixed types) for all methods.
+#    - Includes edge cases like zero and negative numbers.
 
-2. **Edge Cases**:
-   - Tests for empty lists in `sum_list`.
-   - Tests for large numbers in `sum_list`.
-   - Tests for zero in arithmetic operations.
+# 2. **Edge Cases**:
+#    - Tests for empty lists in `sum_list`.
+#    - Tests for large numbers in `sum_list`.
+#    - Tests for zero in arithmetic operations.
 
-3. **Error Conditions**:
-   - Tests for invalid types (e.g., strings, nested lists).
-   - Tests for division by zero.
-   - Tests for non-list inputs in `sum_list`.
+# 3. **Error Conditions**:
+#    - Tests for invalid types (e.g., strings, nested lists).
+#    - Tests for division by zero.
+#    - Tests for non-list inputs in `sum_list`.
 
-4. **Setup**:
-   - Proper imports are included.
-   - Each test is isolated and uses `pytest.raises` to validate exceptions.
+# 4. **Setup**:
+#    - Proper imports are included.
+#    - Each test is isolated and uses `pytest.raises` to validate exceptions.
 
-This test suite ensures comprehensive coverage of the `Calculator` class functionality and input validation.
+# This test suite ensures comprehensive coverage of the `Calculator` class functionality and input validation.

@@ -12,9 +12,9 @@ from typing import Dict, Any, Optional, List
 from dataclasses import dataclass
 from enum import Enum
 
-from .core.file_detector import FileDetector
-from .core.language_registry import get_global_registry
-from .language_init import ensure_initialized
+from ..language.detector import FileDetector
+from ..language.registry import get_global_registry
+from ..initialization import ensure_initialized
 
 
 class ValidationStatus(Enum):

@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Dict, Any, List, Optional, Set
 import logging
 
-from ..core.language_provider import (
+from ...core.language import (
     LanguageProvider,
     FileMetadata,
     FunctionInfo,

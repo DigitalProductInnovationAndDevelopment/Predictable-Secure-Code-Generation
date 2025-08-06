@@ -1,4 +1,4 @@
-Here is a comprehensive set of pytest test cases for the provided `code.py` file. These test cases cover normal functionality, edge cases, and error conditions.
+# Here is a comprehensive set of pytest test cases for the provided `code.py` file. These test cases cover normal functionality, edge cases, and error conditions.
 
 # File: test_code.py
 
@@ -73,7 +73,9 @@ def test_store_in_memory_with_invalid_type():
     """
     Test storing a non-numeric value in memory, which should raise a ValueError.
     """
-    with pytest.raises(ValueError, match="Only numeric values can be stored in memory."):
+    with pytest.raises(
+        ValueError, match="Only numeric values can be stored in memory."
+    ):
         store_in_memory("invalid")  # Passing a string
 
 
@@ -81,7 +83,9 @@ def test_store_in_memory_with_none():
     """
     Test storing None in memory, which should raise a ValueError.
     """
-    with pytest.raises(ValueError, match="Only numeric values can be stored in memory."):
+    with pytest.raises(
+        ValueError, match="Only numeric values can be stored in memory."
+    ):
         store_in_memory(None)
 
 
@@ -128,15 +132,15 @@ def test_store_in_memory_with_float_edge_cases():
     Test storing edge case float values in memory.
     """
     # Store positive infinity
-    store_in_memory(float('inf'))
-    assert recall_memory() == float('inf')
+    store_in_memory(float("inf"))
+    assert recall_memory() == float("inf")
 
     # Store negative infinity
-    store_in_memory(float('-inf'))
-    assert recall_memory() == float('-inf')
+    store_in_memory(float("-inf"))
+    assert recall_memory() == float("-inf")
 
     # Store NaN (Not a Number)
-    store_in_memory(float('nan'))
+    store_in_memory(float("nan"))
     assert recall_memory() != recall_memory()  # NaN is not equal to itself
 
 
@@ -145,27 +149,27 @@ if __name__ == "__main__":
     pytest.main()
 
 ### Explanation of Test Cases:
-1. **Normal Functionality**:
-   - `test_store_in_memory_and_recall`: Tests storing and recalling a value.
-   - `test_clear_memory`: Tests clearing the memory.
-   - `test_store_in_memory_with_integer`: Tests storing an integer value.
-   - `test_store_in_memory_with_negative_value`: Tests storing a negative value.
-   - `test_store_in_memory_with_zero`: Tests storing zero.
-   - `test_store_in_memory_with_large_value`: Tests storing a very large value.
+# 1. **Normal Functionality**:
+#    - `test_store_in_memory_and_recall`: Tests storing and recalling a value.
+#    - `test_clear_memory`: Tests clearing the memory.
+#    - `test_store_in_memory_with_integer`: Tests storing an integer value.
+#    - `test_store_in_memory_with_negative_value`: Tests storing a negative value.
+#    - `test_store_in_memory_with_zero`: Tests storing zero.
+#    - `test_store_in_memory_with_large_value`: Tests storing a very large value.
 
-2. **Edge Cases**:
-   - `test_store_in_memory_with_float_edge_cases`: Tests storing special float values like infinity and NaN.
-   - `test_memory_persistence`: Ensures memory persists until explicitly cleared.
-   - `test_memory_reset_after_clear`: Ensures memory is reset after clearing.
+# 2. **Edge Cases**:
+#    - `test_store_in_memory_with_float_edge_cases`: Tests storing special float values like infinity and NaN.
+#    - `test_memory_persistence`: Ensures memory persists until explicitly cleared.
+#    - `test_memory_reset_after_clear`: Ensures memory is reset after clearing.
 
-3. **Error Conditions**:
-   - `test_store_in_memory_with_invalid_type`: Tests storing a non-numeric value (e.g., string).
-   - `test_store_in_memory_with_none`: Tests storing `None`.
+# 3. **Error Conditions**:
+#    - `test_store_in_memory_with_invalid_type`: Tests storing a non-numeric value (e.g., string).
+#    - `test_store_in_memory_with_none`: Tests storing `None`.
 
-4. **Sequence of Operations**:
-   - `test_multiple_operations`: Tests a sequence of operations (store, recall, clear, recall again).
+# 4. **Sequence of Operations**:
+#    - `test_multiple_operations`: Tests a sequence of operations (store, recall, clear, recall again).
 
-### Notes:
-- The `pytest.raises` context manager is used to test error conditions.
-- Edge cases like `float('inf')`, `float('-inf')`, and `float('nan')` are tested to ensure robustness.
-- The tests are designed to be independent and comprehensive.
+# ### Notes:
+# - The `pytest.raises` context manager is used to test error conditions.
+# - Edge cases like `float('inf')`, `float('-inf')`, and `float('nan')` are tested to ensure robustness.
+# - The tests are designed to be independent and comprehensive.

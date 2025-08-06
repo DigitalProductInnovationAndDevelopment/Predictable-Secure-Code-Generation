@@ -55,6 +55,7 @@ class GenerationConfig:
                 "*.pyc",
                 ".git/*",
                 ".pytest_cache/*",
+                "htmlcov/*",
                 "*.egg-info/*",
                 ".venv/*",
                 "venv/*",

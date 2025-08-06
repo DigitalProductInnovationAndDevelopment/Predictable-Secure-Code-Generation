@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.Scanner;
+
 public class CodeUtils {
 
     /**
@@ -33,13 +36,13 @@ public class CodeUtils {
         return num1 * num2;
     }
 
-
-
     /**
-     * Divides two numbers and returns the result. Ensures proper validation to avoid division by zero.
+     * Divides two numbers and returns the result. Ensures proper validation to
+     * avoid division by zero.
      *
      * @param numerator   The number to be divided (dividend).
-     * @param denominator The number by which the numerator is divided (divisor). Must not be zero.
+     * @param denominator The number by which the numerator is divided (divisor).
+     *                    Must not be zero.
      * @return The result of dividing the numerator by the denominator.
      * @throws IllegalArgumentException If the denominator is zero.
      */
@@ -48,11 +51,10 @@ public class CodeUtils {
         if (denominator == 0) {
             throw new IllegalArgumentException("Denominator must not be zero.");
         }
-    
+
         // Perform the division and return the result
         return numerator / denominator;
     }
-
 
     /**
      * Adds two numbers and multiplies the result by two.
@@ -73,9 +75,9 @@ public class CodeUtils {
         return sum * 2;
     }
 
-
     /**
-     * Processes a given list of integers and returns the sum of all elements in the list.
+     * Processes a given list of integers and returns the sum of all elements in the
+     * list.
      * 
      * @param numbers A list of integers to be summed up. Must not be null or empty.
      * @return The sum of all integers in the list.
@@ -101,13 +103,14 @@ public class CodeUtils {
         return sum;
     }
 
-
     /**
-     * Processes the given string by validating its content and performing necessary operations.
+     * Processes the given string by validating its content and performing necessary
+     * operations.
      * This method ensures the input string is not null or empty before proceeding.
      *
      * @param input The string to be processed. Must not be null or empty.
-     * @return A processed version of the input string, or an appropriate error message if validation fails.
+     * @return A processed version of the input string, or an appropriate error
+     *         message if validation fails.
      * @throws IllegalArgumentException if the input string is null or empty.
      */
     public static String processInputString(String input) {
@@ -126,14 +129,16 @@ public class CodeUtils {
         }
     }
 
-
     /**
-     * Validates the input types for mathematical operations and raises an error if the inputs are invalid.
-     * This method ensures that both inputs are non-null and of type `Number` to support operations like addition and subtraction.
+     * Validates the input types for mathematical operations and raises an error if
+     * the inputs are invalid.
+     * This method ensures that both inputs are non-null and of type `Number` to
+     * support operations like addition and subtraction.
      *
      * @param input1 The first input to validate, expected to be of type `Number`.
      * @param input2 The second input to validate, expected to be of type `Number`.
-     * @throws IllegalArgumentException if either input is null or not an instance of `Number`.
+     * @throws IllegalArgumentException if either input is null or not an instance
+     *                                  of `Number`.
      */
     public static void validateInputTypesForOperations(Object input1, Object input2) {
         // Check if the first input is null
@@ -148,18 +153,20 @@ public class CodeUtils {
 
         // Check if the first input is of type Number
         if (!(input1 instanceof Number)) {
-            throw new IllegalArgumentException("Input1 must be an instance of Number. Received: " + input1.getClass().getSimpleName());
+            throw new IllegalArgumentException(
+                    "Input1 must be an instance of Number. Received: " + input1.getClass().getSimpleName());
         }
 
         // Check if the second input is of type Number
         if (!(input2 instanceof Number)) {
-            throw new IllegalArgumentException("Input2 must be an instance of Number. Received: " + input2.getClass().getSimpleName());
+            throw new IllegalArgumentException(
+                    "Input2 must be an instance of Number. Received: " + input2.getClass().getSimpleName());
         }
     }
 
-
     /**
-     * Performs division of two numbers and raises an error if an attempt is made to divide by zero.
+     * Performs division of two numbers and raises an error if an attempt is made to
+     * divide by zero.
      *
      * @param numerator   The number to be divided (dividend).
      * @param denominator The number by which the numerator is divided (divisor).
@@ -171,14 +178,14 @@ public class CodeUtils {
         if (denominator == 0) {
             throw new IllegalArgumentException("Division by zero is not allowed.");
         }
-    
+
         // Perform the division
         return numerator / denominator;
     }
 
-
     /**
-     * Sums the integers in the provided list. Raises an IllegalArgumentException if the list is empty.
+     * Sums the integers in the provided list. Raises an IllegalArgumentException if
+     * the list is empty.
      *
      * @param numbers A list of integers to be summed. Must not be null or empty.
      * @return The sum of all integers in the list.
@@ -203,14 +210,16 @@ public class CodeUtils {
         return sum;
     }
 
-
     /**
-     * Sums the elements of a list, ensuring all elements are numeric. 
-     * If the list contains any non-numeric elements, an IllegalArgumentException is raised.
+     * Sums the elements of a list, ensuring all elements are numeric.
+     * If the list contains any non-numeric elements, an IllegalArgumentException is
+     * raised.
      *
-     * @param elements A list of objects to be summed. All elements must be instances of Number.
+     * @param elements A list of objects to be summed. All elements must be
+     *                 instances of Number.
      * @return The sum of all numeric elements in the list as a double.
-     * @throws IllegalArgumentException If the list contains non-numeric elements or is null.
+     * @throws IllegalArgumentException If the list contains non-numeric elements or
+     *                                  is null.
      */
     public static double sumNumericElements(List<Object> elements) {
         // Validate input
@@ -230,12 +239,14 @@ public class CodeUtils {
         return sum;
     }
 
-
     /**
-     * Provides a command-line interface to demonstrate all calculator operations, including addition and subtraction.
-     * Prompts the user to select an operation, input numbers, and displays the result.
+     * Provides a command-line interface to demonstrate all calculator operations,
+     * including addition and subtraction.
+     * Prompts the user to select an operation, input numbers, and displays the
+     * result.
      *
-     * @param scanner A pre-initialized {@link java.util.Scanner} object for reading user input.
+     * @param scanner A pre-initialized {@link java.util.Scanner} object for reading
+     *                user input.
      * @throws IllegalArgumentException If the provided scanner is null.
      */
     public static void demonstrateCalculatorOperations(Scanner scanner) {
@@ -291,3 +302,4 @@ public class CodeUtils {
             }
         }
     }
+}

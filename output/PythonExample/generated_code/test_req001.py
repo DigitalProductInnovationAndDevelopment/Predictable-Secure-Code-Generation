@@ -1,9 +1,10 @@
-Here is the updated and comprehensive test suite for the `Calculator.factorial` method. The test cases cover normal functionality, edge cases, and error conditions.
+# Here is the updated and comprehensive test suite for the `Calculator.factorial` method. The test cases cover normal functionality, edge cases, and error conditions.
 
 # File: tests/test_calculator.py
 
 import pytest
 from calculator.calculator import Calculator
+
 
 class TestCalculator:
     """
@@ -37,9 +38,13 @@ class TestCalculator:
         """
         Test factorial of a negative integer raises ValueError.
         """
-        with pytest.raises(ValueError, match="Factorial is not defined for negative numbers."):
+        with pytest.raises(
+            ValueError, match="Factorial is not defined for negative numbers."
+        ):
             Calculator.factorial(-1)
-        with pytest.raises(ValueError, match="Factorial is not defined for negative numbers."):
+        with pytest.raises(
+            ValueError, match="Factorial is not defined for negative numbers."
+        ):
             Calculator.factorial(-10)
 
     def test_factorial_non_integer(self):
@@ -72,23 +77,24 @@ class TestCalculator:
         assert Calculator.factorial(2) == 2
         assert Calculator.factorial(3) == 6
 
+
 ### Explanation of the Test Cases
 
-1. **Normal Functionality Tests**:
-   - `test_factorial_positive_integer`: Tests the factorial of typical positive integers like 5, 6, and 10.
+# 1. **Normal Functionality Tests**:
+#    - `test_factorial_positive_integer`: Tests the factorial of typical positive integers like 5, 6, and 10.
 
-2. **Edge Case Tests**:
-   - `test_factorial_zero`: Tests the factorial of 0, which should return 1.
-   - `test_factorial_one`: Tests the factorial of 1, which should also return 1.
-   - `test_factorial_large_number`: Tests the factorial of large numbers like 20 and 15 to ensure the function handles large results correctly.
-   - `test_factorial_boundary_case`: Tests the factorial of small positive integers like 2 and 3 to ensure correctness at the boundary of valid input.
+# 2. **Edge Case Tests**:
+#    - `test_factorial_zero`: Tests the factorial of 0, which should return 1.
+#    - `test_factorial_one`: Tests the factorial of 1, which should also return 1.
+#    - `test_factorial_large_number`: Tests the factorial of large numbers like 20 and 15 to ensure the function handles large results correctly.
+#    - `test_factorial_boundary_case`: Tests the factorial of small positive integers like 2 and 3 to ensure correctness at the boundary of valid input.
 
-3. **Error Condition Tests**:
-   - `test_factorial_negative_integer`: Ensures that a `ValueError` is raised when a negative integer is passed.
-   - `test_factorial_non_integer`: Ensures that a `TypeError` is raised when the input is not an integer (e.g., float, string, list, dictionary, or `None`).
+# 3. **Error Condition Tests**:
+#    - `test_factorial_negative_integer`: Ensures that a `ValueError` is raised when a negative integer is passed.
+#    - `test_factorial_non_integer`: Ensures that a `TypeError` is raised when the input is not an integer (e.g., float, string, list, dictionary, or `None`).
 
-### How to Run the Tests
-To run the tests, use the following command in the terminal:
-pytest tests/test_calculator.py
+# ### How to Run the Tests
+# To run the tests, use the following command in the terminal:
+# pytest tests/test_calculator.py
 
-This will execute all the test cases and provide a detailed report of the results.
+# This will execute all the test cases and provide a detailed report of the results.

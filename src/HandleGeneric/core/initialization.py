@@ -8,8 +8,8 @@ with the global language registry.
 import logging
 from typing import Dict, Any
 
-from .core.language_registry import register_provider
-from .providers import (
+from .language.registry import register_provider
+from ..providers import (
     PythonProvider,
     JavaScriptProvider,
     TypeScriptProvider,
@@ -34,7 +34,7 @@ def initialize_language_providers() -> Dict[str, Any]:
         TypeScriptProvider(),
         JavaProvider(),
         CSharpProvider(),
-        CppProvider()
+        CppProvider(),
     ]
 
     registered_count = 0
@@ -69,7 +69,7 @@ def get_initialization_status() -> Dict[str, Any]:
     Returns:
         Status information about language providers
     """
-    from .core.language_registry import get_global_registry
+    from .language.registry import get_global_registry
 
     registry = get_global_registry()
 

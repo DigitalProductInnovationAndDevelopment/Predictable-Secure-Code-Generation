@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Dict, Any, List, Optional, Set
 import logging
 
-from ..core.language_provider import (
+from ...core.language import (
     LanguageProvider,
     FileMetadata,
     FunctionInfo,
@@ -42,11 +42,13 @@ class CppProvider(LanguageProvider):
                 path=str(file_path),
                 language=self.language_name,
                 size=len(content),
-                lines_of_code=len([
-                    line
-                    for line in content.split("\n")
-                    if line.strip() and not line.strip().startswith("//")
-                ]),
+                lines_of_code=len(
+                    [
+                        line
+                        for line in content.split("\n")
+                        if line.strip() and not line.strip().startswith("//")
+                    ]
+                ),
                 classes=classes,
                 functions=functions,
                 imports=imports,
@@ -69,11 +71,15 @@ class CppProvider(LanguageProvider):
                 docstring=None,
             )
 
-    def validate_syntax(self, file_path: Path, content: str) -> tuple[SyntaxValidationResult, Optional[str]]:
+    def validate_syntax(
+        self, file_path: Path, content: str
+    ) -> tuple[SyntaxValidationResult, Optional[str]]:
         try:
             import tempfile
 
-            with tempfile.NamedTemporaryFile(mode="w", suffix=".cpp", delete=False) as temp_file:
+            with tempfile.NamedTemporaryFile(
+                mode="w", suffix=".cpp", delete=False
+            ) as temp_file:
                 temp_file.write(content)
                 temp_file_path = temp_file.name
 
@@ -95,7 +101,9 @@ class CppProvider(LanguageProvider):
         except (subprocess.TimeoutExpired, FileNotFoundError):
             return self._basic_syntax_check(content)
 
-    def _basic_syntax_check(self, content: str) -> tuple[SyntaxValidationResult, Optional[str]]:
+    def _basic_syntax_check(
+        self, content: str
+    ) -> tuple[SyntaxValidationResult, Optional[str]]:
         brace_count = content.count("{") - content.count("}")
         if brace_count != 0:
             return SyntaxValidationResult.INVALID, "Unbalanced braces"
@@ -141,7 +149,10 @@ Generate the C++ code:"""
         in_code = False
 
         for line in lines:
-            if any(line.strip().startswith(keyword) for keyword in ["#include", "int main", "class ", "namespace "]):
+            if any(
+                line.strip().startswith(keyword)
+                for keyword in ["#include", "int main", "class ", "namespace "]
+            ):
                 in_code = True
 
             if in_code and line.strip():
@@ -154,7 +165,9 @@ Generate the C++ code:"""
     def get_test_framework_commands(self) -> List[str]:
         return ["make", "ctest"]
 
-    def generate_test_code(self, function_info: FunctionInfo, context: Dict[str, Any]) -> str:
+    def generate_test_code(
+        self, function_info: FunctionInfo, context: Dict[str, Any]
+    ) -> str:
         method_name = function_info.name
         class_name = context.get("class_name", "TestClass")
 
@@ -205,7 +218,7 @@ public:
     void set_field(const std::string& f) { field = f; }
 };
 """,
-            "interface": "// C++ does not have native interfaces like C#. Use abstract classes instead."
+            "interface": "// C++ does not have native interfaces like C#. Use abstract classes instead.",
         }
         return templates.get(template_type, templates["basic"])
 
@@ -312,11 +325,19 @@ public:
             if match:
                 if "/*" in match.group(0):
                     lines = match.group(1).strip().split("\n")
-                    cleaned_lines = [line.strip().lstrip("*").strip() for line in lines if line.strip()]
+                    cleaned_lines = [
+                        line.strip().lstrip("*").strip()
+                        for line in lines
+                        if line.strip()
+                    ]
                     return "\n".join(cleaned_lines).strip()
                 else:
                     lines = match.group(0).strip().split("\n")
-                    cleaned_lines = [line.strip().lstrip("//").strip() for line in lines if line.strip()]
+                    cleaned_lines = [
+                        line.strip().lstrip("//").strip()
+                        for line in lines
+                        if line.strip()
+                    ]
                     return "\n".join(cleaned_lines).strip()
 
         return None
