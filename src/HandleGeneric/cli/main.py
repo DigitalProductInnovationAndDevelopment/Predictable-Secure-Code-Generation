@@ -23,10 +23,10 @@ from typing import Dict, Any, List
 # Add the parent directory to the path to import our modules
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from HandleGeneric.generic_metadata_generator import GenericMetadataGenerator
-from HandleGeneric.generic_validator import GenericValidator
-from HandleGeneric.generic_code_generator import GenericCodeGenerator
-from HandleGeneric.language_init import get_initialization_status
+from HandleGeneric.core.base.generator import GenericMetadataGenerator
+from HandleGeneric.core.base.validator import GenericValidator
+from HandleGeneric.core.base.code_generator import GenericCodeGenerator
+from HandleGeneric.core.initialization import get_initialization_status
 
 
 def setup_logging(verbose: bool = False):

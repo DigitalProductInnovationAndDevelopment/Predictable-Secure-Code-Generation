@@ -1,0 +1,22 @@
+# Core dependencies
+pathlib2>=2.3.0
+typing-extensions>=4.0.0
+
+# Configuration and utilities
+pyyaml>=6.0
+jsonschema>=4.0.0
+
+# AI and code generation
+openai>=1.0.0
+azure-openai>=1.0.0
+
+# Development and testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.0.0
+
+# Documentation
+sphinx>=6.0.0
+sphinx-rtd-theme>=1.0.0 

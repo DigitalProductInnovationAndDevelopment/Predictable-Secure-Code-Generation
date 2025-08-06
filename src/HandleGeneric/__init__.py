@@ -25,31 +25,29 @@ __version__ = "2.0.0"
 __author__ = "Generic Code Handler Team"
 
 # Import core components
-from .core import LanguageProvider, LanguageRegistry, FileDetector
-from .language_init import ensure_initialized, get_initialization_status
+from .core.language import LanguageProvider, LanguageRegistry, FileDetector
+from .core.initialization import ensure_initialized, get_initialization_status
 
 # Import main functionality
-from .generic_metadata_generator import GenericMetadataGenerator
-from .generic_validator import (
+from .core.base.generator import GenericMetadataGenerator
+from .core.base.validator import (
     GenericValidator,
     ValidationStatus,
     ValidationResult,
     OverallValidationResult,
 )
-from .generic_code_generator import (
+from .core.base.code_generator import (
     GenericCodeGenerator,
     GenerationStatus,
     GenerationResult,
 )
 
 # Import language providers (for advanced usage)
-from .providers import (
-    PythonProvider,
-    JavaScriptProvider,
-    TypeScriptProvider,
-    JavaProvider,
-    CSharpProvider,
-)
+from .providers.python import PythonProvider
+from .providers.javascript import JavaScriptProvider
+from .providers.typescript import TypeScriptProvider
+from .providers.java import JavaProvider
+from .providers.csharp import CSharpProvider
 
 # Ensure language providers are initialized on import
 ensure_initialized()
@@ -84,14 +82,14 @@ __all__ = [
 # Convenience functions
 def get_supported_languages():
     """Get list of all supported programming languages."""
-    from .core.language_registry import get_global_registry
+    from .core.language.registry import get_global_registry
 
     return get_global_registry().get_supported_languages()
 
 
 def get_supported_extensions():
     """Get list of all supported file extensions."""
-    from .core.language_registry import get_global_registry
+    from .core.language.registry import get_global_registry
 
     return list(get_global_registry().get_supported_extensions())
 
