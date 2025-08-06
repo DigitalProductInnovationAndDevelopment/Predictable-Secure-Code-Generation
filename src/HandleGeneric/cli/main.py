@@ -120,7 +120,7 @@ def cmd_generate_code(args):
     # Load AI client if available
     ai_client = None
     try:
-        from AIBrain.ai import AzureOpenAIClient
+        from HandleGeneric.ai.client import AzureOpenAIClient
 
         ai_client = AzureOpenAIClient()
         print("🧠 AI client loaded successfully")

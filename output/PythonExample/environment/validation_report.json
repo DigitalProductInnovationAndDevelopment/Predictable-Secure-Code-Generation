@@ -3,8 +3,8 @@
   "metadata_path": "output/PythonExample/environment/metadata.json",
   "overall_status": "valid",
   "is_valid": true,
-  "total_execution_time": 0.7623438835144043,
-  "timestamp": "2025-08-06T12:53:42.385011",
+  "total_execution_time": 0.8227028846740723,
+  "timestamp": "2025-08-06T12:58:17.260915",
   "total_error_count": 0,
   "total_warning_count": 1,
   "step_results": [
@@ -12,8 +12,8 @@
       "step_name": "Syntax Validation",
       "status": "valid",
       "is_valid": true,
-      "execution_time": 0.01442098617553711,
-      "timestamp": "2025-08-06T12:53:42.385588",
+      "execution_time": 0.01591968536376953,
+      "timestamp": "2025-08-06T12:58:17.261604",
       "error_count": 0,
       "warning_count": 0,
       "problems": [],
@@ -33,8 +33,8 @@
       "step_name": "Test Validation",
       "status": "valid",
       "is_valid": true,
-      "execution_time": 0.74788498878479,
-      "timestamp": "2025-08-06T12:53:42.400034",
+      "execution_time": 0.8067402839660645,
+      "timestamp": "2025-08-06T12:58:17.277547",
       "error_count": 0,
       "warning_count": 0,
       "problems": [
@@ -60,15 +60,15 @@
       "metadata": {
         "test_files_found": 9,
         "test_files": [
+          "test_req004.py",
+          "test_req006.py",
+          "test_req002.py",
+          "tests/test_calculator.py",
+          "test_req007.py",
+          "test_req005.py",
           "test_req008.py",
           "test_req003.py",
-          "test_req005.py",
-          "test_req007.py",
-          "test_req004.py",
-          "test_req002.py",
-          "test_req001.py",
-          "tests/test_calculator.py",
-          "test_req006.py"
+          "test_req001.py"
         ],
         "test_framework": "pytest, unittest",
         "coverage_info": {
@@ -91,8 +91,8 @@
       "step_name": "AI Logic Validation",
       "status": "skipped",
       "is_valid": true,
-      "execution_time": 3.790855407714844e-05,
-      "timestamp": "2025-08-06T12:53:43.147969",
+      "execution_time": 4.291534423828125e-05,
+      "timestamp": "2025-08-06T12:58:18.084330",
       "error_count": 0,
       "warning_count": 1,
       "problems": [
