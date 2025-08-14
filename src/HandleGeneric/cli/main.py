@@ -14,6 +14,7 @@ Usage:
 """
 
 import argparse
+import csv
 import json
 import logging
 import sys
@@ -146,8 +147,6 @@ def cmd_generate_code(args):
                     requirements = [requirements_data]
         else:
             # Assume CSV format
-            import csv
-
             requirements = []
             with open(requirements_path, "r", encoding="utf-8") as f:
                 reader = csv.DictReader(f)
@@ -165,6 +164,50 @@ def cmd_generate_code(args):
 
         print(f"📋 Loaded {len(requirements)} requirements")
 
+        # Load implemented requirements to compare
+        implemented_requirements_path = (
+            Path(args.output_path) / "implementedRequirements.csv"
+        )
+        implemented_requirements = {}
+
+        if implemented_requirements_path.exists():
+            try:
+                with open(implemented_requirements_path, "r", encoding="utf-8") as f:
+                    reader = csv.DictReader(f)
+                    for row in reader:
+                        implemented_requirements[row.get("id", "")] = row.get(
+                            "description", ""
+                        )
+                print(
+                    f"📋 Found {len(implemented_requirements)} implemented requirements"
+                )
+            except Exception as e:
+                print(f"⚠️  Warning: Could not load implemented requirements: {e}")
+
+        # Compare requirements to find new/changed ones
+        new_requirements = []
+        changed_requirements = []
+
+        for req in requirements:
+            req_id = req.get("id", "")
+            req_desc = req.get("description", "")
+
+            if req_id not in implemented_requirements:
+                new_requirements.append(req)
+            elif implemented_requirements[req_id] != req_desc:
+                changed_requirements.append(req)
+
+        requirements_to_generate = new_requirements + changed_requirements
+
+        if not requirements_to_generate:
+            print("✅ All requirements are already implemented and up to date!")
+            print("🚀 No code generation needed.")
+            return 0
+
+        print(f"🆕 Found {len(new_requirements)} new requirements")
+        print(f"🔄 Found {len(changed_requirements)} changed requirements")
+        print(f"⚡ Generating code for {len(requirements_to_generate)} requirements...")
+
         # Generate code
         context = {
             "project_context": args.context,
@@ -175,7 +218,7 @@ def cmd_generate_code(args):
         }
 
         result = generator.generate_from_requirements(
-            requirements=requirements,
+            requirements=requirements_to_generate,
             target_language=args.target_language,
             output_path=args.output_path,
             context=context,
@@ -199,6 +242,35 @@ def cmd_generate_code(args):
 
         if result.ai_tokens_used > 0:
             print(f"🤖 AI tokens used: {result.ai_tokens_used}")
+
+        # Update implementedRequirements.csv if generation was successful
+        if (
+            result.status.value in ["success", "partial_success"]
+            and result.requirements_implemented > 0
+        ):
+            try:
+                # Update implemented requirements with successfully generated ones
+                successfully_generated = requirements_to_generate[
+                    : result.requirements_implemented
+                ]
+                for req in successfully_generated:
+                    implemented_requirements[req.get("id")] = req.get("description", "")
+
+                # Write updated implementedRequirements.csv
+                with open(
+                    implemented_requirements_path, "w", encoding="utf-8", newline=""
+                ) as f:
+                    writer = csv.writer(f)
+                    writer.writerow(["id", "description"])
+                    for req_id, req_desc in implemented_requirements.items():
+                        if req_id:  # Skip empty IDs
+                            writer.writerow([req_id, req_desc])
+
+                print(
+                    f"✅ Updated implementedRequirements.csv with {result.requirements_implemented} new/changed requirements"
+                )
+            except Exception as e:
+                print(f"⚠️  Warning: Could not update implementedRequirements.csv: {e}")
 
         if args.show_details or result.status.value != "success":
             print("\n" + generator.get_generation_report(result))

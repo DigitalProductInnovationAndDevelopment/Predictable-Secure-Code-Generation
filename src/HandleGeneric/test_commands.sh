@@ -6,7 +6,9 @@
 # 1. METADATA GENERATION
 # ----------------------
 # Generate metadata
-PYTHONPATH=src python -m HandleGeneric.cli.main generate-metadata output/PythonExample/generated_code output/PythonExample/environment
+
+output/PythonExample/environment/generated_code_fixed
+PYTHONPATH=src python -m HandleGeneric.cli.main generate-metadata output/PythonExample/environment/generated_code_fixed output/PythonExample/environment
 
 # Generate metadata with verbose output and show details
 PYTHONPATH=src python -m HandleGeneric.cli.main generate-metadata output/PythonExample/generated_code output/PythonExample/environment --show-details --verbose
@@ -51,14 +53,10 @@ PYTHONPATH=src python -m HandleGeneric.cli.main list-languages
 # Create a template for Python
 PYTHONPATH=src python -m HandleGeneric.cli.main create-template python class output/PythonExample/environment/ --filename Calculator.py
 
+
+
+PYTHONPATH=src python -m HandleGeneric.cli.main generate-code input/PythonExample/environment/requirements.csv python output/PythonExample/environment/generated_code_new --context "Create a comprehensive calculator application with proper error handling" --show-details
 # Generate code (example - you'll need to create requirements.json first)
 # PYTHONPATH=src python -m HandleGeneric.cli.main generate-code requirements.json python output/PythonExample/environment/generated_code_new
 
-# Generate code with context
-# PYTHONPATH=src python -m HandleGeneric.cli.main generate-code requirements.json python output/PythonExample/environment/generated_code_new --context "Create a calculator application"
-
-# Generate code without tests
-# PYTHONPATH=src python -m HandleGeneric.cli.main generate-code requirements.json python output/PythonExample/environment/generated_code_new --no-tests
-
-# Generate code with detailed output
-# PYTHONPATH=src python -m HandleGeneric.cli.main generate-code requirements.json python output/PythonExample/environment/generated_code_new --show-details 
+PYTHONPATH=src python -m HandleGeneric.cli.main generate-code input/PythonExample/environment/requirements.csv python output/PythonExample/environment/generated_code_fixed --context "Create a comprehensive calculator application with proper error handling"

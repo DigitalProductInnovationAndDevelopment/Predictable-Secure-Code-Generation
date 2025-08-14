@@ -1,1981 +1,549 @@
 {
   "files": [
     {
-      "path": "test_req006.py",
+      "path": "req_004.py",
       "language": "python",
-      "size": 5004,
-      "lines_of_code": 83,
-      "classes": [
-        {
-          "name": "TestCalculator",
-          "start_line": 9,
-          "end_line": 128,
-          "methods": [
-            {
-              "name": "test_add_integers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 13,
-              "end_line": 14,
-              "visibility": "public"
-            },
-            {
-              "name": "test_add_floats",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 16,
-              "end_line": 17,
-              "visibility": "public"
-            },
-            {
-              "name": "test_add_negative_numbers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 19,
-              "end_line": 20,
-              "visibility": "public"
-            },
-            {
-              "name": "test_add_zero",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 22,
-              "end_line": 23,
-              "visibility": "public"
-            },
-            {
-              "name": "test_add_type_error",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 25,
-              "end_line": 27,
-              "visibility": "public"
-            },
-            {
-              "name": "test_subtract_integers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 30,
-              "end_line": 31,
-              "visibility": "public"
-            },
-            {
-              "name": "test_subtract_floats",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 33,
-              "end_line": 34,
-              "visibility": "public"
-            },
-            {
-              "name": "test_subtract_negative_numbers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 36,
-              "end_line": 37,
-              "visibility": "public"
-            },
-            {
-              "name": "test_subtract_zero",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 39,
-              "end_line": 40,
-              "visibility": "public"
-            },
-            {
-              "name": "test_subtract_type_error",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 42,
-              "end_line": 44,
-              "visibility": "public"
-            },
-            {
-              "name": "test_multiply_integers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 47,
-              "end_line": 48,
-              "visibility": "public"
-            },
-            {
-              "name": "test_multiply_floats",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 50,
-              "end_line": 51,
-              "visibility": "public"
-            },
-            {
-              "name": "test_multiply_negative_numbers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 53,
-              "end_line": 54,
-              "visibility": "public"
-            },
-            {
-              "name": "test_multiply_by_zero",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 56,
-              "end_line": 57,
-              "visibility": "public"
-            },
-            {
-              "name": "test_multiply_type_error",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 59,
-              "end_line": 61,
-              "visibility": "public"
-            },
-            {
-              "name": "test_divide_integers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 64,
-              "end_line": 65,
-              "visibility": "public"
-            },
-            {
-              "name": "test_divide_floats",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 67,
-              "end_line": 68,
-              "visibility": "public"
-            },
-            {
-              "name": "test_divide_negative_numbers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 70,
-              "end_line": 71,
-              "visibility": "public"
-            },
-            {
-              "name": "test_divide_by_zero",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 73,
-              "end_line": 75,
-              "visibility": "public"
-            },
-            {
-              "name": "test_divide_type_error",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 77,
-              "end_line": 79,
-              "visibility": "public"
-            },
-            {
-              "name": "test_add_and_multiply_by_two",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 82,
-              "end_line": 83,
-              "visibility": "public"
-            },
-            {
-              "name": "test_add_and_multiply_by_two_negative_numbers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 85,
-              "end_line": 86,
-              "visibility": "public"
-            },
-            {
-              "name": "test_add_and_multiply_by_two_zero",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 88,
-              "end_line": 89,
-              "visibility": "public"
-            },
-            {
-              "name": "test_add_and_multiply_by_two_type_error",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 91,
-              "end_line": 93,
-              "visibility": "public"
-            },
-            {
-              "name": "test_sum_list_integers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 96,
-              "end_line": 97,
-              "visibility": "public"
-            },
-            {
-              "name": "test_sum_list_floats",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 99,
-              "end_line": 100,
-              "visibility": "public"
-            },
-            {
-              "name": "test_sum_list_mixed",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 102,
-              "end_line": 103,
-              "visibility": "public"
-            },
-            {
-              "name": "test_sum_list_empty",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 105,
-              "end_line": 106,
-              "visibility": "public"
-            },
-            {
-              "name": "test_sum_list_negative_numbers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 108,
-              "end_line": 109,
-              "visibility": "public"
-            },
-            {
-              "name": "test_sum_list_not_list",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 111,
-              "end_line": 113,
-              "visibility": "public"
-            },
-            {
-              "name": "test_sum_list_non_numeric",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 115,
-              "end_line": 119,
-              "visibility": "public"
-            },
-            {
-              "name": "test_sum_list_nested_list",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 121,
-              "end_line": 125,
-              "visibility": "public"
-            },
-            {
-              "name": "test_sum_list_large_numbers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 127,
-              "end_line": 128,
-              "visibility": "public"
-            }
-          ],
-          "visibility": "public",
-          "docstring": "Test suite for the Calculator class."
-        }
-      ],
-      "functions": [],
-      "imports": [
-        "import pytest",
-        "from calculator.calculator import Calculator"
-      ],
-      "constants": {},
-      "comments": [
-        "Here is the updated and comprehensive test suite for the `Calculator` class, ensuring all requirements are met:",
-        "File: tests/test_calculator.py",
-        "--- Tests for add() ---",
-        "--- Tests for subtract() ---",
-        "--- Tests for multiply() ---",
-        "--- Tests for divide() ---",
-        "--- Tests for add_and_multiply_by_two() ---",
-        "--- Tests for sum_list() ---",
-        "## Explanation of the Test Cases:",
-        "1. **Normal Functionality**:",
-        "- Tests for valid inputs (integers, floats, mixed types) for all methods.",
-        "- Includes edge cases like zero and negative numbers.",
-        "2. **Edge Cases**:",
-        "- Tests for empty lists in `sum_list`.",
-        "- Tests for large numbers in `sum_list`.",
-        "- Tests for zero in arithmetic operations.",
-        "3. **Error Conditions**:",
-        "- Tests for invalid types (e.g., strings, nested lists).",
-        "- Tests for division by zero.",
-        "- Tests for non-list inputs in `sum_list`.",
-        "4. **Setup**:",
-        "- Proper imports are included.",
-        "- Each test is isolated and uses `pytest.raises` to validate exceptions.",
-        "This test suite ensures comprehensive coverage of the `Calculator` class functionality and input validation."
-      ],
-      "docstring": null
-    },
-    {
-      "path": "test_req002.py",
-      "language": "python",
-      "size": 4621,
-      "lines_of_code": 67,
+      "size": 1520,
+      "lines_of_code": 38,
       "classes": [],
       "functions": [
         {
-          "name": "test_power_normal_cases",
+          "name": "divide_numbers",
           "parameters": [
-            "base",
-            "exponent",
-            "expected"
+            "dividend: Union[int, float]",
+            "divisor: Union[int, float]"
           ],
-          "start_line": 25,
-          "end_line": 29,
-          "visibility": "public",
-          "decorators": [
-            "pytest.mark.parametrize('base, exponent, expected', [(2, 3, 8), (5, 0, 1), (2, -2, 0.25), (-2, 3, -8), (-2, 2, 4), (10, 1, 10), (1, 100, 1), (0.5, 2, 0.25), (4, 0.5, 2)])"
-          ]
-        },
-        {
-          "name": "test_power_edge_cases",
-          "parameters": [
-            "base",
-            "exponent",
-            "expected"
-          ],
-          "start_line": 40,
-          "end_line": 44,
-          "visibility": "public",
-          "decorators": [
-            "pytest.mark.parametrize('base, exponent, expected', [(0, 0, 1), (0, 5, 0)])"
-          ]
-        },
-        {
-          "name": "test_power_error_conditions",
-          "parameters": [
-            "base",
-            "exponent"
-          ],
-          "start_line": 55,
-          "end_line": 65,
-          "visibility": "public",
-          "decorators": [
-            "pytest.mark.parametrize('base, exponent', [(0, -1), (0, -5)])"
-          ]
-        },
-        {
-          "name": "test_power_large_numbers",
-          "parameters": [
-            "base",
-            "exponent",
-            "expected"
-          ],
-          "start_line": 76,
-          "end_line": 80,
-          "visibility": "public",
-          "decorators": [
-            "pytest.mark.parametrize('base, exponent, expected', [(10, 10, 10000000000.0), (2, 100, 1.2676506002282294e+30)])"
-          ]
-        },
-        {
-          "name": "test_power_fractional_exponents",
-          "parameters": [
-            "base",
-            "exponent",
-            "expected"
-          ],
-          "start_line": 92,
-          "end_line": 96,
-          "visibility": "public",
-          "decorators": [
-            "pytest.mark.parametrize('base, exponent, expected', [(9, 0.5, 3), (27, 1 / 3, 3), (16, 0.25, 2)])"
-          ]
-        }
-      ],
-      "imports": [
-        "import pytest",
-        "from calculator.calculator import Calculator",
-        "from code import power"
-      ],
-      "constants": {},
-      "comments": [
-        "Below is a comprehensive set of `pytest` test cases for the `power` function implemented in both `calculator/calculator.py` and `code.py`. The test cases cover normal functionality, edge cases, and error conditions.",
-        "## Test File: `tests/test_power.py`",
-        "Test cases for normal functionality",
-        "Test Calculator.power",
-        "Test standalone power function",
-        "Test cases for edge cases",
-        "Test Calculator.power",
-        "Test standalone power function",
-        "Test cases for error conditions",
-        "Test Calculator.power",
-        "Test standalone power function",
-        "Test cases for large numbers",
-        "Test Calculator.power",
-        "Test standalone power function",
-        "Test cases for fractional exponents",
-        "Test Calculator.power",
-        "Test standalone power function",
-        "## Explanation of Test Cases",
-        "1. **Normal Functionality**:",
-        "- Tests common scenarios such as positive and negative bases, positive and negative exponents, fractional bases, and special cases like `base^0` and `base^1`.",
-        "2. **Edge Cases**:",
-        "- Covers edge cases like `0^0` (often defined as 1) and `0` raised to a positive power.",
-        "3. **Error Conditions**:",
-        "- Ensures that a `ValueError` is raised when the base is `0` and the exponent is negative, as this is mathematically undefined.",
-        "4. **Large Numbers**:",
-        "- Tests the function's ability to handle large bases and exponents without overflow or precision issues.",
-        "5. **Fractional Exponents**:",
-        "- Tests cases where the exponent is a fraction, such as square roots, cube roots, and other fractional powers.",
-        "### Notes:",
-        "- **`pytest.approx`**: Used for floating-point comparisons to handle precision issues.",
-        "- **`pytest.mark.parametrize`**: Used to parameterize test cases for better readability and maintainability.",
-        "- **Error Matching**: The `match` argument in `pytest.raises` ensures that the correct error message is raised.",
-        "### Running the Tests",
-        "To run the tests, execute the following command in the terminal:",
-        "pytest tests/test_power.py"
-      ],
-      "docstring": null
-    },
-    {
-      "path": "test_req003.py",
-      "language": "python",
-      "size": 5357,
-      "lines_of_code": 82,
-      "classes": [
-        {
-          "name": "TestCalculator",
-          "start_line": 9,
-          "end_line": 106,
-          "methods": [
-            {
-              "name": "test_calculate_percentage_valid",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 15,
-              "end_line": 23,
-              "visibility": "public",
-              "docstring": "\n        Test calculate_percentage with valid inputs.\n        "
-            },
-            {
-              "name": "test_calculate_percentage_small_values",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 26,
-              "end_line": 31,
-              "visibility": "public",
-              "docstring": "\n        Test calculate_percentage with very small values.\n        "
-            },
-            {
-              "name": "test_calculate_percentage_large_values",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 33,
-              "end_line": 38,
-              "visibility": "public",
-              "docstring": "\n        Test calculate_percentage with very large values.\n        "
-            },
-            {
-              "name": "test_calculate_percentage_negative_values",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 40,
-              "end_line": 46,
-              "visibility": "public",
-              "docstring": "\n        Test calculate_percentage with negative values.\n        "
-            },
-            {
-              "name": "test_calculate_percentage_zero_value",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 48,
-              "end_line": 53,
-              "visibility": "public",
-              "docstring": "\n        Test calculate_percentage when value is zero.\n        "
-            },
-            {
-              "name": "test_calculate_percentage_zero_total",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 56,
-              "end_line": 63,
-              "visibility": "public",
-              "docstring": "\n        Test calculate_percentage raises ValueError when total is zero.\n        "
-            },
-            {
-              "name": "test_calculate_percentage_non_numeric",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 65,
-              "end_line": 82,
-              "visibility": "public",
-              "docstring": "\n        Test calculate_percentage raises TypeError for non-numeric inputs.\n        "
-            },
-            {
-              "name": "test_calculate_percentage_infinity",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 84,
-              "end_line": 96,
-              "visibility": "public",
-              "docstring": "\n        Test calculate_percentage with infinity values.\n        "
-            },
-            {
-              "name": "test_calculate_percentage_nan",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 98,
-              "end_line": 106,
-              "visibility": "public",
-              "docstring": "\n        Test calculate_percentage with NaN (Not a Number) values.\n        "
-            }
-          ],
-          "visibility": "public",
-          "docstring": "\n    Test suite for the Calculator class.\n    "
-        }
-      ],
-      "functions": [],
-      "imports": [
-        "import pytest",
-        "from calculator.calculator import Calculator"
-      ],
-      "constants": {},
-      "comments": [
-        "Here is the updated and comprehensive test suite for the `Calculator.calculate_percentage` method. The test cases cover normal functionality, edge cases, and error conditions.",
-        "File: tests/test_calculator.py",
-        "Normal functionality tests",
-        "Edge case tests",
-        "Error condition tests",
-        "## Explanation of Test Cases",
-        "1. **Normal Functionality Tests**:",
-        "- These tests ensure that the method works correctly for typical inputs, including integers and floats.",
-        "2. **Edge Case Tests**:",
-        "- Small values: Tests the method's behavior with very small numbers.",
-        "- Large values: Tests the method's behavior with very large numbers.",
-        "- Negative values: Tests the method's behavior when either or both inputs are negative.",
-        "- Zero value: Tests the method's behavior when the `value` is zero.",
-        "3. **Error Condition Tests**:",
-        "- Zero total: Ensures that the method raises a `ValueError` when the `total` is zero.",
-        "- Non-numeric inputs: Ensures that the method raises a `TypeError` when inputs are not numeric.",
-        "- Infinity: Ensures that the method handles infinity values appropriately.",
-        "- NaN: Ensures that the method raises a `TypeError` when inputs are NaN.",
-        "4. **Comprehensive Coverage**:",
-        "- The test suite ensures that all edge cases and potential error conditions are covered, providing confidence in the robustness of the `calculate_percentage` method.",
-        "### Running the Tests",
-        "To run the tests, execute the following command in the terminal:",
-        "pytest tests/test_calculator.py"
-      ],
-      "docstring": null
-    },
-    {
-      "path": "test_req007.py",
-      "language": "python",
-      "size": 4511,
-      "lines_of_code": 64,
-      "classes": [
-        {
-          "name": "TestCalculator",
-          "start_line": 9,
-          "end_line": 91,
-          "methods": [
-            {
-              "name": "calc",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 15,
-              "end_line": 19,
-              "visibility": "public",
-              "docstring": "\n        Fixture to create a Calculator instance for testing.\n        ",
-              "decorators": [
-                "pytest.fixture"
-              ]
-            },
-            {
-              "name": "test_add",
-              "parameters": [
-                "self",
-                "calc"
-              ],
-              "start_line": 22,
-              "end_line": 26,
-              "visibility": "public"
-            },
-            {
-              "name": "test_subtract",
-              "parameters": [
-                "self",
-                "calc"
-              ],
-              "start_line": 29,
-              "end_line": 33,
-              "visibility": "public"
-            },
-            {
-              "name": "test_multiply",
-              "parameters": [
-                "self",
-                "calc"
-              ],
-              "start_line": 36,
-              "end_line": 40,
-              "visibility": "public"
-            },
-            {
-              "name": "test_divide",
-              "parameters": [
-                "self",
-                "calc"
-              ],
-              "start_line": 43,
-              "end_line": 47,
-              "visibility": "public"
-            },
-            {
-              "name": "test_add_and_multiply_by_two",
-              "parameters": [
-                "self",
-                "calc"
-              ],
-              "start_line": 50,
-              "end_line": 54,
-              "visibility": "public"
-            },
-            {
-              "name": "test_sum_list",
-              "parameters": [
-                "self",
-                "calc"
-              ],
-              "start_line": 57,
-              "end_line": 61,
-              "visibility": "public"
-            },
-            {
-              "name": "test_sum_list_edge_cases",
-              "parameters": [
-                "self",
-                "calc"
-              ],
-              "start_line": 64,
-              "end_line": 67,
-              "visibility": "public"
-            },
-            {
-              "name": "test_divide_edge_cases",
-              "parameters": [
-                "self",
-                "calc"
-              ],
-              "start_line": 70,
-              "end_line": 73,
-              "visibility": "public"
-            },
-            {
-              "name": "test_logging_functionality",
-              "parameters": [
-                "self",
-                "calc",
-                "caplog"
-              ],
-              "start_line": 76,
-              "end_line": 91,
-              "visibility": "public"
-            }
-          ],
-          "visibility": "public",
-          "docstring": "\n    Test suite for the Calculator class.\n    "
-        }
-      ],
-      "functions": [],
-      "imports": [
-        "import pytest",
-        "from calculator.calculator import Calculator"
-      ],
-      "constants": {},
-      "comments": [
-        "Below is the updated `tests/test_calculator.py` file rewritten using `pytest` to meet the requirements for comprehensive test cases. The test cases cover normal functionality, edge cases, and error conditions.",
-        "File: tests/test_calculator.py",
-        "Test cases for the add method",
-        "Test cases for the subtract method",
-        "Test cases for the multiply method",
-        "Test cases for the divide method",
-        "Test cases for the add_and_multiply_by_two method",
-        "Test cases for the sum_list method",
-        "Edge case tests for sum_list",
-        "Edge case tests for divide",
-        "Test logging functionality indirectly",
-        "Check that logs are generated for each operation",
-        "## Explanation of the Test Cases",
-        "1. **Normal Functionality**:",
-        "- Each method (`add`, `subtract`, `multiply`, `divide`, `add_and_multiply_by_two`, `sum_list`) is tested with typical inputs to ensure correct results.",
-        "2. **Edge Cases**:",
-        "- For `add`, `subtract`, and `multiply`, edge cases like zero, negative numbers, and floating-point numbers are tested.",
-        "- For `divide`, edge cases like division by zero (raises `ValueError`), division of zero, and negative numbers are tested.",
-        "- For `sum_list`, edge cases like an empty list, a single-element list, and a list with mixed positive and negative numbers are tested.",
-        "3. **Error Conditions**:",
-        "- The `divide` method is tested to ensure it raises a `ValueError` when attempting to divide by zero.",
-        "4. **Logging Functionality**:",
-        "- The `caplog` pytest fixture is used to capture log messages and verify that the correct log entries are generated for each operation.",
-        "### How to Run the Tests",
-        "1. Install `pytest` if not already installed:",
-        "pip install pytest",
-        "2. Run the tests using the following command:",
-        "pytest tests/test_calculator.py",
-        "3. View the test results in the terminal."
-      ],
-      "docstring": null
-    },
-    {
-      "path": "test_req008.py",
-      "language": "python",
-      "size": 5650,
-      "lines_of_code": 112,
-      "classes": [],
-      "functions": [
-        {
-          "name": "mock_calculator",
-          "parameters": [],
-          "start_line": 14,
-          "end_line": 25,
-          "visibility": "public",
-          "docstring": "\n    Fixture to provide a mock Calculator instance.\n    ",
-          "decorators": [
-            "pytest.fixture"
-          ]
-        },
-        {
-          "name": "test_display_menu",
-          "parameters": [
-            "capsys"
-          ],
-          "start_line": 28,
-          "end_line": 36,
-          "visibility": "public",
-          "docstring": "\n    Test that the menu is displayed correctly.\n    "
-        },
-        {
-          "name": "test_get_user_choice_valid_input",
-          "parameters": [
-            "user_input",
-            "expected_choice"
-          ],
-          "start_line": 47,
-          "end_line": 53,
-          "visibility": "public",
-          "docstring": "\n    Test valid user inputs for menu choice.\n    ",
-          "decorators": [
-            "pytest.mark.parametrize('user_input, expected_choice', [('1', 1), ('7', 7), ('3', 3)])"
-          ]
-        },
-        {
-          "name": "test_get_user_choice_invalid_input",
-          "parameters": [
-            "user_input"
-          ],
-          "start_line": 57,
-          "end_line": 63,
-          "visibility": "public",
-          "docstring": "\n    Test invalid user inputs for menu choice.\n    ",
-          "decorators": [
-            "pytest.mark.parametrize('user_input', ['0', '8', 'abc', '', '-1'])"
-          ]
-        },
-        {
-          "name": "test_handle_user_choice_valid_operations",
-          "parameters": [
-            "mock_calculator",
-            "choice",
-            "inputs",
-            "expected_output",
-            "capsys"
-          ],
-          "start_line": 77,
-          "end_line": 86,
-          "visibility": "public",
-          "docstring": "\n    Test valid operations for each menu choice.\n    ",
-          "decorators": [
-            "pytest.mark.parametrize('choice, inputs, expected_output', [(1, ['2', '3'], 'Result: 5'), (2, ['5', '2'], 'Result: 3'), (3, ['2', '3'], 'Result: 6'), (4, ['6', '3'], 'Result: 2'), (5, ['3', '4'], 'Result: 14'), (6, ['1 2 3 4 5'], 'Result: 15')])"
-          ]
-        },
-        {
-          "name": "test_handle_user_choice_division_by_zero",
-          "parameters": [
-            "mock_calculator",
-            "capsys"
-          ],
-          "start_line": 89,
-          "end_line": 96,
-          "visibility": "public",
-          "docstring": "\n    Test division by zero error handling.\n    "
-        },
-        {
-          "name": "test_handle_user_choice_invalid_numeric_input",
-          "parameters": [
-            "mock_calculator",
-            "choice",
-            "inputs",
-            "capsys"
-          ],
-          "start_line": 109,
-          "end_line": 118,
-          "visibility": "public",
-          "docstring": "\n    Test invalid numeric inputs for operations.\n    ",
-          "decorators": [
-            "pytest.mark.parametrize('choice, inputs', [(1, ['a', '3']), (2, ['5', 'b']), (3, ['x', 'y']), (5, ['3', 'z']), (6, ['1 2 a 4'])])"
-          ]
-        },
-        {
-          "name": "test_handle_user_choice_exit",
-          "parameters": [
-            "mock_calculator"
-          ],
-          "start_line": 121,
-          "end_line": 127,
-          "visibility": "public",
-          "docstring": "\n    Test the exit option (choice 7).\n    "
-        },
-        {
-          "name": "test_handle_user_choice_invalid_choice",
-          "parameters": [
-            "mock_calculator",
-            "capsys"
-          ],
-          "start_line": 130,
-          "end_line": 136,
-          "visibility": "public",
-          "docstring": "\n    Test handling of an invalid menu choice.\n    "
-        }
-      ],
-      "imports": [
-        "import pytest",
-        "from unittest.mock import patch",
-        "from unittest.mock import MagicMock",
-        "from code import display_menu",
-        "from code import get_user_choice",
-        "from code import handle_user_choice",
-        "from calculator.calculator import Calculator"
-      ],
-      "constants": {},
-      "comments": [
-        "Below is a comprehensive set of pytest test cases for the provided `code.py` functionality. These tests cover normal functionality, edge cases, and error conditions. Mocking is used to simulate user input and interactions with the `Calculator` class.",
-        "## Test Code",
-        "File: test_code.py",
-        "---",
-        "## Explanation of Test Cases",
-        "1. **`test_display_menu`**:",
-        "- Verifies that the menu is displayed correctly by capturing the printed output.",
-        "2. **`test_get_user_choice_valid_input`**:",
-        "- Tests valid user inputs for menu choices (e.g., 1, 7, 3).",
-        "3. **`test_get_user_choice_invalid_input`**:",
-        "- Tests invalid user inputs (e.g., out-of-range numbers, non-numeric inputs).",
-        "4. **`test_handle_user_choice_valid_operations`**:",
-        "- Tests valid operations for each menu choice by mocking user inputs and verifying the output.",
-        "5. **`test_handle_user_choice_division_by_zero`**:",
-        "- Tests division by zero handling for choice 4.",
-        "6. **`test_handle_user_choice_invalid_numeric_input`**:",
-        "- Tests invalid numeric inputs for operations (e.g., non-numeric values).",
-        "7. **`test_handle_user_choice_exit`**:",
-        "- Tests the exit functionality (choice 7) by mocking `sys.exit`.",
-        "8. **`test_handle_user_choice_invalid_choice`**:",
-        "- Tests handling of invalid menu choices (e.g., choice 8).",
-        "---",
-        "### Notes",
-        "- **Mocking**:",
-        "- `unittest.mock.patch` is used to mock user input (`builtins.input`) and system exit (`sys.exit`).",
-        "- A `MagicMock` instance is used to mock the `Calculator` class.",
-        "- **Fixtures**:",
-        "- The `mock_calculator` fixture provides a reusable mock `Calculator` instance for all tests.",
-        "- **Edge Cases**:",
-        "- Includes tests for invalid inputs, division by zero, and out-of-range menu choices.",
-        "- **Captured Output**:",
-        "- `capsys` is used to capture and verify printed output.",
-        "This test suite ensures that the CLI menu interface behaves as expected under various conditions."
-      ],
-      "docstring": null
-    },
-    {
-      "path": "code.py",
-      "language": "python",
-      "size": 2066,
-      "lines_of_code": 55,
-      "classes": [],
-      "functions": [
-        {
-          "name": "power",
-          "parameters": [
-            "base: float",
-            "exponent: float"
-          ],
-          "start_line": 13,
-          "end_line": 35,
-          "visibility": "public",
-          "docstring": "\n    Calculate base raised to the power of exponent.\n\n    Args:\n        base (float): Base number\n        exponent (float): Exponent\n\n    Returns:\n        float: base^exponent\n\n    Raises:\n        ValueError: For invalid combinations like 0^0\n        TypeError: If inputs are not numbers\n    ",
-          "return_type": "float"
-        },
-        {
-          "name": "store_in_memory",
-          "parameters": [
-            "value: float"
-          ],
-          "start_line": 38,
-          "end_line": 53,
-          "visibility": "public",
-          "docstring": "\n    Stores a given value in the calculator's memory.\n\n    Args:\n        value (float): The value to store in memory.\n\n    Raises:\n        ValueError: If the provided value is not a valid float.\n    ",
-          "return_type": "None"
-        },
-        {
-          "name": "recall_memory",
-          "parameters": [],
-          "start_line": 56,
-          "end_line": 63,
-          "visibility": "public",
-          "docstring": "\n    Recalls the value stored in the calculator's memory.\n\n    Returns:\n        float: The value currently stored in memory.\n    ",
-          "return_type": "float"
-        },
-        {
-          "name": "clear_memory",
-          "parameters": [],
-          "start_line": 66,
-          "end_line": 71,
-          "visibility": "public",
-          "docstring": "\n    Clears the value stored in the calculator's memory.\n    ",
-          "return_type": "None"
-        }
-      ],
-      "imports": [
-        "from typing import Union",
-        "from typing import List",
-        "from typing import Union",
-        "import datetime",
-        "import logging",
-        "import sys"
-      ],
-      "constants": {},
-      "comments": [
-        "File: code.py",
-        "Global variable to simulate calculator memory storage",
-        "Handle special case of 0^0 which is mathematically undefined",
-        "Example usage of the memory functions",
-        "Storing a value in memory",
-        "Clearing memory"
-      ],
-      "docstring": null
-    },
-    {
-      "path": "test_req004.py",
-      "language": "python",
-      "size": 5191,
-      "lines_of_code": 90,
-      "classes": [],
-      "functions": [
-        {
-          "name": "test_store_in_memory_and_recall",
-          "parameters": [],
-          "start_line": 9,
-          "end_line": 16,
-          "visibility": "public",
-          "docstring": "\n    Test storing a value in memory and recalling it.\n    "
-        },
-        {
-          "name": "test_clear_memory",
-          "parameters": [],
-          "start_line": 19,
+          "start_line": 4,
           "end_line": 28,
           "visibility": "public",
-          "docstring": "\n    Test clearing the memory.\n    "
+          "docstring": "\n    Divide two numbers and return the result.\n    \n    Args:\n        dividend (Union[int, float]): The number to be divided (numerator).\n        divisor (Union[int, float]): The number to divide by (denominator).\n    \n    Returns:\n        Union[float, None]: The result of the division if successful, or None if an error occurs.\n        \n    Raises:\n        ValueError: If the divisor is zero, since division by zero is undefined.\n    ",
+          "return_type": "Union[float, None]"
         },
-        {
-          "name": "test_store_in_memory_with_integer",
-          "parameters": [],
-          "start_line": 31,
-          "end_line": 38,
-          "visibility": "public",
-          "docstring": "\n    Test storing an integer value in memory.\n    "
-        },
-        {
-          "name": "test_store_in_memory_with_negative_value",
-          "parameters": [],
-          "start_line": 41,
-          "end_line": 48,
-          "visibility": "public",
-          "docstring": "\n    Test storing a negative value in memory.\n    "
-        },
-        {
-          "name": "test_store_in_memory_with_zero",
-          "parameters": [],
-          "start_line": 51,
-          "end_line": 58,
-          "visibility": "public",
-          "docstring": "\n    Test storing zero in memory.\n    "
-        },
-        {
-          "name": "test_store_in_memory_with_large_value",
-          "parameters": [],
-          "start_line": 61,
-          "end_line": 69,
-          "visibility": "public",
-          "docstring": "\n    Test storing a very large value in memory.\n    "
-        },
-        {
-          "name": "test_store_in_memory_with_invalid_type",
-          "parameters": [],
-          "start_line": 72,
-          "end_line": 79,
-          "visibility": "public",
-          "docstring": "\n    Test storing a non-numeric value in memory, which should raise a ValueError.\n    "
-        },
-        {
-          "name": "test_store_in_memory_with_none",
-          "parameters": [],
-          "start_line": 82,
-          "end_line": 89,
-          "visibility": "public",
-          "docstring": "\n    Test storing None in memory, which should raise a ValueError.\n    "
-        },
-        {
-          "name": "test_memory_persistence",
-          "parameters": [],
-          "start_line": 92,
-          "end_line": 101,
-          "visibility": "public",
-          "docstring": "\n    Test that memory persists until explicitly cleared.\n    "
-        },
-        {
-          "name": "test_memory_reset_after_clear",
-          "parameters": [],
-          "start_line": 104,
-          "end_line": 113,
-          "visibility": "public",
-          "docstring": "\n    Test that memory is reset to 0.0 after clearing.\n    "
-        },
-        {
-          "name": "test_multiple_operations",
-          "parameters": [],
-          "start_line": 116,
-          "end_line": 127,
-          "visibility": "public",
-          "docstring": "\n    Test a sequence of operations: store, recall, clear, and recall again.\n    "
-        },
-        {
-          "name": "test_store_in_memory_with_float_edge_cases",
-          "parameters": [],
-          "start_line": 130,
-          "end_line": 144,
-          "visibility": "public",
-          "docstring": "\n    Test storing edge case float values in memory.\n    "
-        }
-      ],
-      "imports": [
-        "import pytest",
-        "from code import store_in_memory",
-        "from code import recall_memory",
-        "from code import clear_memory"
-      ],
-      "constants": {},
-      "comments": [
-        "Here is a comprehensive set of pytest test cases for the provided `code.py` file. These test cases cover normal functionality, edge cases, and error conditions.",
-        "File: test_code.py",
-        "Store a value",
-        "Recall the value and assert correctness",
-        "Store a value",
-        "Clear the memory",
-        "Assert that memory is cleared (reset to 0.0)",
-        "Store an integer value",
-        "Recall the value and assert correctness",
-        "Store a negative value",
-        "Recall the value and assert correctness",
-        "Store zero",
-        "Recall the value and assert correctness",
-        "Store a large value",
-        "Recall the value and assert correctness",
-        "Store a value",
-        "Recall the value and assert correctness",
-        "Recall again to ensure persistence",
-        "Store a value",
-        "Clear the memory",
-        "Assert that memory is reset",
-        "Store a value",
-        "Recall the value and assert correctness",
-        "Clear the memory",
-        "Recall again and assert memory is cleared",
-        "Store positive infinity",
-        "Store negative infinity",
-        "Store NaN (Not a Number)",
-        "Run the tests",
-        "## Explanation of Test Cases:",
-        "1. **Normal Functionality**:",
-        "- `test_store_in_memory_and_recall`: Tests storing and recalling a value.",
-        "- `test_clear_memory`: Tests clearing the memory.",
-        "- `test_store_in_memory_with_integer`: Tests storing an integer value.",
-        "- `test_store_in_memory_with_negative_value`: Tests storing a negative value.",
-        "- `test_store_in_memory_with_zero`: Tests storing zero.",
-        "- `test_store_in_memory_with_large_value`: Tests storing a very large value.",
-        "2. **Edge Cases**:",
-        "- `test_store_in_memory_with_float_edge_cases`: Tests storing special float values like infinity and NaN.",
-        "- `test_memory_persistence`: Ensures memory persists until explicitly cleared.",
-        "- `test_memory_reset_after_clear`: Ensures memory is reset after clearing.",
-        "3. **Error Conditions**:",
-        "- `test_store_in_memory_with_invalid_type`: Tests storing a non-numeric value (e.g., string).",
-        "- `test_store_in_memory_with_none`: Tests storing `None`.",
-        "4. **Sequence of Operations**:",
-        "- `test_multiple_operations`: Tests a sequence of operations (store, recall, clear, recall again).",
-        "### Notes:",
-        "- The `pytest.raises` context manager is used to test error conditions.",
-        "- Edge cases like `float('inf')`, `float('-inf')`, and `float('nan')` are tested to ensure robustness.",
-        "- The tests are designed to be independent and comprehensive."
-      ],
-      "docstring": null
-    },
-    {
-      "path": "main.py",
-      "language": "python",
-      "size": 2577,
-      "lines_of_code": 68,
-      "classes": [],
-      "functions": [
         {
           "name": "main",
           "parameters": [],
-          "start_line": 12,
-          "end_line": 103,
+          "start_line": 30,
+          "end_line": 41,
           "visibility": "public",
-          "docstring": "Main function to demonstrate calculator operations."
+          "docstring": "\n    Main function to demonstrate the division functionality.\n    "
         }
       ],
       "imports": [
-        "import logging",
-        "import datetime",
-        "from typing import List",
-        "from typing import Union",
-        "from calculator import Calculator"
-      ],
-      "constants": {},
-      "comments": [
-        "!/usr/bin/env python3",
-        "Create calculator instance",
-        "Basic arithmetic operations",
-        "Addition",
-        "Subtraction",
-        "Multiplication",
-        "Division",
-        "Special operations",
-        "Add and multiply by two",
-        "List operations",
-        "Error handling examples"
-      ],
-      "docstring": "\nMain script to demonstrate the Calculator functionality.\n"
-    },
-    {
-      "path": "test_req005.py",
-      "language": "python",
-      "size": 4932,
-      "lines_of_code": 52,
-      "classes": [
-        {
-          "name": "TestCalculator",
-          "start_line": 9,
-          "end_line": 75,
-          "methods": [
-            {
-              "name": "setup_method",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 14,
-              "end_line": 16,
-              "visibility": "public",
-              "docstring": "Setup method to initialize the Calculator instance."
-            },
-            {
-              "name": "test_square_root_positive_integer",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 19,
-              "end_line": 21,
-              "visibility": "public",
-              "docstring": "Test square root of a positive integer."
-            },
-            {
-              "name": "test_square_root_positive_float",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 23,
-              "end_line": 25,
-              "visibility": "public",
-              "docstring": "Test square root of a positive float."
-            },
-            {
-              "name": "test_square_root_large_number",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 27,
-              "end_line": 29,
-              "visibility": "public",
-              "docstring": "Test square root of a large number."
-            },
-            {
-              "name": "test_square_root_zero",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 32,
-              "end_line": 34,
-              "visibility": "public",
-              "docstring": "Test square root of zero."
-            },
-            {
-              "name": "test_square_root_small_positive_number",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 36,
-              "end_line": 38,
-              "visibility": "public",
-              "docstring": "Test square root of a very small positive number."
-            },
-            {
-              "name": "test_square_root_negative_integer",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 41,
-              "end_line": 46,
-              "visibility": "public",
-              "docstring": "Test square root of a negative integer raises ValueError."
-            },
-            {
-              "name": "test_square_root_negative_float",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 48,
-              "end_line": 53,
-              "visibility": "public",
-              "docstring": "Test square root of a negative float raises ValueError."
-            },
-            {
-              "name": "test_square_root_very_large_number",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 56,
-              "end_line": 59,
-              "visibility": "public",
-              "docstring": "Test square root of a very large number."
-            },
-            {
-              "name": "test_square_root_very_small_positive_float",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 61,
-              "end_line": 64,
-              "visibility": "public",
-              "docstring": "Test square root of a very small positive float."
-            },
-            {
-              "name": "test_square_root_non_numeric_input",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 66,
-              "end_line": 69,
-              "visibility": "public",
-              "docstring": "Test square root with non-numeric input raises TypeError."
-            },
-            {
-              "name": "test_square_root_boolean_input",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 71,
-              "end_line": 75,
-              "visibility": "public",
-              "docstring": "Test square root with boolean input."
-            }
-          ],
-          "visibility": "public",
-          "docstring": "\n    Unit tests for the Calculator class.\n    "
-        }
-      ],
-      "functions": [],
-      "imports": [
-        "import pytest",
-        "from calculator.calculator import Calculator"
-      ],
-      "constants": {},
-      "comments": [
-        "Here is the updated and comprehensive `tests/test_calculator.py` file with additional test cases to ensure thorough testing of the `square_root` method in the `Calculator` class:",
-        "File: tests/test_calculator.py",
-        "Normal functionality tests",
-        "Edge case tests",
-        "Error condition tests",
-        "Additional tests for edge cases",
-        "True is treated as 1, False is treated as 0 in Python",
-        "### Explanation of the Test Cases",
-        "1. **Normal Functionality Tests**:",
-        "- `test_square_root_positive_integer`: Tests the square root of a positive integer.",
-        "- `test_square_root_positive_float`: Tests the square root of a positive float.",
-        "- `test_square_root_large_number`: Tests the square root of a large number.",
-        "2. **Edge Case Tests**:",
-        "- `test_square_root_zero`: Tests the square root of zero, which should return `0.0`.",
-        "- `test_square_root_small_positive_number`: Tests the square root of a very small positive number.",
-        "3. **Error Condition Tests**:",
-        "- `test_square_root_negative_integer`: Ensures that a `ValueError` is raised for a negative integer.",
-        "- `test_square_root_negative_float`: Ensures that a `ValueError` is raised for a negative float.",
-        "4. **Additional Edge Case Tests**:",
-        "- `test_square_root_very_large_number`: Tests the square root of a very large number to ensure the method handles large inputs correctly.",
-        "- `test_square_root_very_small_positive_float`: Tests the square root of a very small positive float to ensure precision.",
-        "5. **Non-Numeric Input Tests**:",
-        "- `test_square_root_non_numeric_input`: Ensures that a `TypeError` is raised when a non-numeric input (e.g., a string) is passed.",
-        "- `test_square_root_boolean_input`: Tests the behavior when boolean values (`True` and `False`) are passed, as Python treats `True` as `1` and `False` as `0`.",
-        "### Notes",
-        "- The `test_square_root_non_numeric_input` test case assumes that the `square_root` method will raise a `TypeError` if a non-numeric input is passed. If the method does not currently handle this, you may need to add input validation to the `square_root` method in `calculator.py`.",
-        "- The `test_square_root_boolean_input` test case is included to verify how the method handles boolean inputs, which are valid numeric types in Python.",
-        "These test cases ensure that the `square_root` method is thoroughly tested for normal functionality, edge cases, and error conditions."
-      ],
-      "docstring": null
-    },
-    {
-      "path": "test_req001.py",
-      "language": "python",
-      "size": 3813,
-      "lines_of_code": 61,
-      "classes": [
-        {
-          "name": "TestCalculator",
-          "start_line": 9,
-          "end_line": 78,
-          "methods": [
-            {
-              "name": "test_factorial_positive_integer",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 15,
-              "end_line": 21,
-              "visibility": "public",
-              "docstring": "\n        Test factorial of a positive integer.\n        "
-            },
-            {
-              "name": "test_factorial_zero",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 24,
-              "end_line": 28,
-              "visibility": "public",
-              "docstring": "\n        Test factorial of zero.\n        "
-            },
-            {
-              "name": "test_factorial_one",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 30,
-              "end_line": 34,
-              "visibility": "public",
-              "docstring": "\n        Test factorial of one.\n        "
-            },
-            {
-              "name": "test_factorial_negative_integer",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 37,
-              "end_line": 48,
-              "visibility": "public",
-              "docstring": "\n        Test factorial of a negative integer raises ValueError.\n        "
-            },
-            {
-              "name": "test_factorial_non_integer",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 50,
-              "end_line": 63,
-              "visibility": "public",
-              "docstring": "\n        Test factorial of a non-integer raises TypeError.\n        "
-            },
-            {
-              "name": "test_factorial_large_number",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 66,
-              "end_line": 71,
-              "visibility": "public",
-              "docstring": "\n        Test factorial of a large number to ensure it handles large results.\n        "
-            },
-            {
-              "name": "test_factorial_boundary_case",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 73,
-              "end_line": 78,
-              "visibility": "public",
-              "docstring": "\n        Test factorial at the boundary of valid input (e.g., 2).\n        "
-            }
-          ],
-          "visibility": "public",
-          "docstring": "\n    Unit tests for the Calculator class.\n    "
-        }
-      ],
-      "functions": [],
-      "imports": [
-        "import pytest",
-        "from calculator.calculator import Calculator"
-      ],
-      "constants": {},
-      "comments": [
-        "Here is the updated and comprehensive test suite for the `Calculator.factorial` method. The test cases cover normal functionality, edge cases, and error conditions.",
-        "File: tests/test_calculator.py",
-        "Normal functionality tests",
-        "Edge case tests",
-        "Error condition tests",
-        "Additional edge case tests",
-        "## Explanation of the Test Cases",
-        "1. **Normal Functionality Tests**:",
-        "- `test_factorial_positive_integer`: Tests the factorial of typical positive integers like 5, 6, and 10.",
-        "2. **Edge Case Tests**:",
-        "- `test_factorial_zero`: Tests the factorial of 0, which should return 1.",
-        "- `test_factorial_one`: Tests the factorial of 1, which should also return 1.",
-        "- `test_factorial_large_number`: Tests the factorial of large numbers like 20 and 15 to ensure the function handles large results correctly.",
-        "- `test_factorial_boundary_case`: Tests the factorial of small positive integers like 2 and 3 to ensure correctness at the boundary of valid input.",
-        "3. **Error Condition Tests**:",
-        "- `test_factorial_negative_integer`: Ensures that a `ValueError` is raised when a negative integer is passed.",
-        "- `test_factorial_non_integer`: Ensures that a `TypeError` is raised when the input is not an integer (e.g., float, string, list, dictionary, or `None`).",
-        "### How to Run the Tests",
-        "To run the tests, use the following command in the terminal:",
-        "pytest tests/test_calculator.py",
-        "This will execute all the test cases and provide a detailed report of the results."
-      ],
-      "docstring": null
-    },
-    {
-      "path": "calculator/__init__.py",
-      "language": "python",
-      "size": 146,
-      "lines_of_code": 6,
-      "classes": [],
-      "functions": [],
-      "imports": [
-        "from calculator import Calculator"
+        "import sys",
+        "from typing import Union"
       ],
       "constants": {},
       "comments": [],
-      "docstring": "\nCalculator package for basic mathematical operations.\n"
+      "docstring": null
     },
     {
-      "path": "calculator/calculator.py",
+      "path": "req_001.py",
       "language": "python",
-      "size": 9452,
-      "lines_of_code": 271,
-      "classes": [
-        {
-          "name": "Calculator",
-          "start_line": 10,
-          "end_line": 222,
-          "methods": [
-            {
-              "name": "add",
-              "parameters": [
-                "a: float",
-                "b: float"
-              ],
-              "start_line": 16,
-              "end_line": 27,
-              "visibility": "public",
-              "docstring": "\n        Add two numbers.\n\n        Args:\n            a (float): First number\n            b (float): Second number\n\n        Returns:\n            float: Sum of a and b\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "float",
-              "is_static": true
-            },
-            {
-              "name": "subtract",
-              "parameters": [
-                "a: float",
-                "b: float"
-              ],
-              "start_line": 30,
-              "end_line": 41,
-              "visibility": "public",
-              "docstring": "\n        Subtract two numbers.\n\n        Args:\n            a (float): First number\n            b (float): Second number\n\n        Returns:\n            float: Difference of a and b (a - b)\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "float",
-              "is_static": true
-            },
-            {
-              "name": "multiply",
-              "parameters": [
-                "a: float",
-                "b: float"
-              ],
-              "start_line": 44,
-              "end_line": 60,
-              "visibility": "public",
-              "docstring": "\n        Multiply two numbers.\n\n        Args:\n            a (float): First number\n            b (float): Second number\n\n        Returns:\n            float: Product of a and b\n\n        Raises:\n            TypeError: If inputs are not numbers\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "float",
-              "is_static": true
-            },
-            {
-              "name": "divide",
-              "parameters": [
-                "a: float",
-                "b: float"
-              ],
-              "start_line": 63,
-              "end_line": 79,
-              "visibility": "public",
-              "docstring": "\n        Divide two numbers.\n\n        Args:\n            a (float): First number\n            b (float): Second number\n\n        Returns:\n            float: Division of a by b\n\n        Raises:\n            ValueError: If b is zero\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "float",
-              "is_static": true
-            },
-            {
-              "name": "add_and_multiply_by_two",
-              "parameters": [
-                "a: float",
-                "b: float"
-              ],
-              "start_line": 82,
-              "end_line": 93,
-              "visibility": "public",
-              "docstring": "\n        Add two numbers and multiply the result by 2.\n\n        Args:\n            a (float): First number\n            b (float): Second number\n\n        Returns:\n            float: (a + b) * 2\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "float",
-              "is_static": true
-            },
-            {
-              "name": "sum_list",
-              "parameters": [
-                "numbers: List[float]"
-              ],
-              "start_line": 96,
-              "end_line": 121,
-              "visibility": "public",
-              "docstring": "\n        Calculate the sum of a list of numbers.\n\n        Args:\n            numbers (List[float]): List of numbers to sum\n\n        Returns:\n            float: Sum of all numbers in the list\n\n        Raises:\n            TypeError: If input is not a list or contains non-numeric elements\n            ValueError: If list is empty\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "float",
-              "is_static": true
-            },
-            {
-              "name": "factorial",
-              "parameters": [
-                "n: int"
-              ],
-              "start_line": 124,
-              "end_line": 153,
-              "visibility": "public",
-              "docstring": "\n        Calculate the factorial of a number.\n\n        Args:\n            n (int): Non-negative integer\n\n        Returns:\n            int: Factorial of n\n\n        Raises:\n            ValueError: If n is negative or not an integer\n            TypeError: If n is not a number\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "int",
-              "is_static": true
-            },
-            {
-              "name": "power",
-              "parameters": [
-                "base: float",
-                "exponent: float"
-              ],
-              "start_line": 156,
-              "end_line": 167,
-              "visibility": "public",
-              "docstring": "\n        Calculate base raised to the power of exponent.\n\n        Args:\n            base (float): Base number\n            exponent (float): Exponent\n\n        Returns:\n            float: base^exponent\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "float",
-              "is_static": true
-            },
-            {
-              "name": "calculate_percentage",
-              "parameters": [
-                "part: float",
-                "whole: float"
-              ],
-              "start_line": 170,
-              "end_line": 197,
-              "visibility": "public",
-              "docstring": "\n        Calculate what percentage 'part' is of 'whole'.\n\n        Args:\n            part (float): The part value\n            whole (float): The whole value\n\n        Returns:\n            float: Percentage value\n\n        Raises:\n            ValueError: If whole is zero\n            TypeError: If inputs are not numbers\n        ",
-              "decorators": [
-                "staticmethod"
-              ],
-              "return_type": "float",
-              "is_static": true
-            },
-            {
-              "name": "square_root",
-              "parameters": [
-                "self",
-                "n: float"
-              ],
-              "start_line": 199,
-              "end_line": 222,
-              "visibility": "public",
-              "docstring": "\n        Calculate the square root of a number.\n\n        Args:\n            n (float): Non-negative number\n\n        Returns:\n            float: Square root of n\n\n        Raises:\n            ValueError: If n is negative\n            TypeError: If n is not a number\n        ",
-              "return_type": "float"
-            }
-          ],
-          "visibility": "public",
-          "docstring": "\n    A calculator class that provides basic mathematical operations.\n    "
-        }
-      ],
+      "size": 1707,
+      "lines_of_code": 42,
+      "classes": [],
       "functions": [
         {
-          "name": "display_menu",
-          "parameters": [],
-          "start_line": 225,
-          "end_line": 236,
-          "visibility": "public",
-          "docstring": "\n    Displays the CLI menu with numbered options for user interaction.\n    ",
-          "return_type": "None"
-        },
-        {
-          "name": "get_user_choice",
-          "parameters": [],
-          "start_line": 239,
-          "end_line": 253,
-          "visibility": "public",
-          "docstring": "\n    Prompts the user to select an option from the menu.\n\n    Returns:\n        int: The user's menu choice.\n    ",
-          "return_type": "int"
-        },
-        {
-          "name": "handle_user_choice",
+          "name": "add_numbers",
           "parameters": [
-            "choice: int",
-            "calculator: Calculator"
+            "a: Union[int, float]",
+            "b: Union[int, float]"
           ],
-          "start_line": 256,
-          "end_line": 321,
+          "start_line": 4,
+          "end_line": 25,
           "visibility": "public",
-          "docstring": "\n    Handles the user's menu choice and performs the corresponding operation.\n\n    Args:\n        choice (int): The user's menu choice.\n        calculator (Calculator): An instance of the Calculator class.\n    ",
-          "return_type": "None"
+          "docstring": "\n    Adds two numbers and returns the result.\n\n    Args:\n        a (Union[int, float]): The first number to add.\n        b (Union[int, float]): The second number to add.\n\n    Returns:\n        Union[int, float]: The sum of the two numbers.\n\n    Raises:\n        ValueError: If the inputs are not numbers.\n    ",
+          "return_type": "Union[int, float]"
         },
         {
           "name": "main",
           "parameters": [],
-          "start_line": 324,
-          "end_line": 333,
+          "start_line": 27,
+          "end_line": 51,
           "visibility": "public",
-          "docstring": "\n    Main function to run the CLI menu interface.\n    ",
+          "docstring": "\n    Main function to demonstrate the usage of add_numbers function.\n    Handles user input and provides a simple calculator interface.\n    ",
           "return_type": "None"
         }
       ],
       "imports": [
         "import sys",
-        "import math",
-        "from typing import List",
         "from typing import Union"
       ],
       "constants": {},
       "comments": [
-        "Check if all elements are numeric"
+        "Ensure inputs are numbers",
+        "Convert inputs to numbers",
+        "Perform addition"
       ],
-      "docstring": "\nCalculator module providing basic mathematical operations.\n"
+      "docstring": null
     },
     {
-      "path": "tests/__init__.py",
+      "path": "req_002.py",
       "language": "python",
-      "size": 49,
-      "lines_of_code": 3,
+      "size": 1352,
+      "lines_of_code": 34,
       "classes": [],
-      "functions": [],
-      "imports": [],
-      "constants": {},
-      "comments": [],
-      "docstring": "\nTest package for the calculator project.\n"
-    },
-    {
-      "path": "tests/test_calculator.py",
-      "language": "python",
-      "size": 4987,
-      "lines_of_code": 111,
-      "classes": [
+      "functions": [
         {
-          "name": "TestCalculator",
-          "start_line": 13,
-          "end_line": 134,
-          "methods": [
-            {
-              "name": "setup_method",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 16,
-              "end_line": 18,
-              "visibility": "public",
-              "docstring": "Set up test fixtures."
-            },
-            {
-              "name": "test_add_integers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 20,
-              "end_line": 24,
-              "visibility": "public",
-              "docstring": "Test addition with integers."
-            },
-            {
-              "name": "test_add_floats",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 26,
-              "end_line": 30,
-              "visibility": "public",
-              "docstring": "Test addition with floats."
-            },
-            {
-              "name": "test_subtract_integers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 32,
-              "end_line": 36,
-              "visibility": "public",
-              "docstring": "Test subtraction with integers."
-            },
-            {
-              "name": "test_subtract_floats",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 38,
-              "end_line": 42,
-              "visibility": "public",
-              "docstring": "Test subtraction with floats."
-            },
-            {
-              "name": "test_multiply_integers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 44,
-              "end_line": 48,
-              "visibility": "public",
-              "docstring": "Test multiplication with integers."
-            },
-            {
-              "name": "test_multiply_floats",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 50,
-              "end_line": 54,
-              "visibility": "public",
-              "docstring": "Test multiplication with floats."
-            },
-            {
-              "name": "test_multiply_type_error",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 56,
-              "end_line": 61,
-              "visibility": "public",
-              "docstring": "Test multiplication with invalid types."
-            },
-            {
-              "name": "test_divide_integers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 63,
-              "end_line": 67,
-              "visibility": "public",
-              "docstring": "Test division with integers."
-            },
-            {
-              "name": "test_divide_floats",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 69,
-              "end_line": 73,
-              "visibility": "public",
-              "docstring": "Test division with floats."
-            },
-            {
-              "name": "test_divide_by_zero",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 75,
-              "end_line": 78,
-              "visibility": "public",
-              "docstring": "Test division by zero."
-            },
-            {
-              "name": "test_divide_type_error",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 80,
-              "end_line": 85,
-              "visibility": "public",
-              "docstring": "Test division with invalid types."
-            },
-            {
-              "name": "test_add_and_multiply_by_two",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 87,
-              "end_line": 91,
-              "visibility": "public",
-              "docstring": "Test add_and_multiply_by_two method."
-            },
-            {
-              "name": "test_add_and_multiply_by_two_type_error",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 93,
-              "end_line": 98,
-              "visibility": "public",
-              "docstring": "Test add_and_multiply_by_two with invalid types."
-            },
-            {
-              "name": "test_sum_list_integers",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 100,
-              "end_line": 104,
-              "visibility": "public",
-              "docstring": "Test sum_list with integers."
-            },
-            {
-              "name": "test_sum_list_floats",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 106,
-              "end_line": 110,
-              "visibility": "public",
-              "docstring": "Test sum_list with floats."
-            },
-            {
-              "name": "test_sum_list_mixed",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 112,
-              "end_line": 115,
-              "visibility": "public",
-              "docstring": "Test sum_list with mixed integer and float values."
-            },
-            {
-              "name": "test_sum_list_empty",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 117,
-              "end_line": 120,
-              "visibility": "public",
-              "docstring": "Test sum_list with empty list."
-            },
-            {
-              "name": "test_sum_list_not_list",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 122,
-              "end_line": 127,
-              "visibility": "public",
-              "docstring": "Test sum_list with non-list input."
-            },
-            {
-              "name": "test_sum_list_non_numeric",
-              "parameters": [
-                "self"
-              ],
-              "start_line": 129,
-              "end_line": 134,
-              "visibility": "public",
-              "docstring": "Test sum_list with non-numeric elements."
-            }
+          "name": "subtract_numbers",
+          "parameters": [
+            "a: float",
+            "b: float"
           ],
+          "start_line": 4,
+          "end_line": 21,
           "visibility": "public",
-          "docstring": "Test cases for Calculator class."
+          "docstring": "\n    Subtract two numbers and return the result.\n\n    Args:\n        a (float): The first number (minuend).\n        b (float): The second number (subtrahend).\n\n    Returns:\n        float: The result of subtracting b from a.\n\n    Raises:\n        ValueError: If the inputs are not numbers.\n    ",
+          "return_type": "float"
+        },
+        {
+          "name": "main",
+          "parameters": [],
+          "start_line": 24,
+          "end_line": 45,
+          "visibility": "public",
+          "docstring": "\n    Main function to provide a user-friendly interface for subtracting two numbers.\n\n    Prompts the user to input two numbers, performs the subtraction,\n    and displays the result. Handles invalid inputs gracefully.\n    "
         }
       ],
-      "functions": [],
       "imports": [
-        "import logging",
-        "import datetime",
-        "from typing import List",
-        "from typing import Union",
-        "from typing import Union",
-        "import pytest",
-        "from calculator.calculator import Calculator"
+        "import sys"
       ],
       "constants": {},
-      "comments": [],
-      "docstring": "\nTest cases for the Calculator class.\n"
+      "comments": [
+        "Prompt the user for inputs",
+        "Perform subtraction",
+        "Display the result"
+      ],
+      "docstring": null
+    },
+    {
+      "path": "req_003.py",
+      "language": "python",
+      "size": 1376,
+      "lines_of_code": 30,
+      "classes": [],
+      "functions": [
+        {
+          "name": "multiply_numbers",
+          "parameters": [
+            "a: Union[int, float]",
+            "b: Union[int, float]"
+          ],
+          "start_line": 4,
+          "end_line": 30,
+          "visibility": "public",
+          "docstring": "\n    Multiplies two numbers and returns the result.\n\n    Args:\n        a (Union[int, float]): The first number.\n        b (Union[int, float]): The second number.\n\n    Returns:\n        Union[int, float]: The result of multiplying the two numbers.\n\n    Raises:\n        ValueError: If either input is not a number.\n    ",
+          "return_type": "Union[int, float]"
+        }
+      ],
+      "imports": [
+        "import sys",
+        "from typing import Union"
+      ],
+      "constants": {},
+      "comments": [
+        "Validate that the inputs are numeric",
+        "Perform multiplication",
+        "Catch and log unexpected exceptions",
+        "Example usage (can be removed or commented out for production code)"
+      ],
+      "docstring": null
+    },
+    {
+      "path": "tests/test_req_001.py",
+      "language": "python",
+      "size": 3519,
+      "lines_of_code": 76,
+      "classes": [],
+      "functions": [
+        {
+          "name": "test_add_numbers_valid",
+          "parameters": [
+            "a",
+            "b",
+            "expected"
+          ],
+          "start_line": 20,
+          "end_line": 22,
+          "visibility": "public",
+          "docstring": "Test add_numbers with valid inputs.",
+          "decorators": [
+            "pytest.mark.parametrize('a, b, expected', [(1, 2, 3), (1.5, 2.5, 4.0), (1, 2.5, 3.5), (0, 0, 0), (-1, -2, -3), (-1.5, -2.5, -4.0), (10000000000.0, 10000000000.0, 20000000000.0), (1e-10, 1e-10, 2e-10)])"
+          ]
+        },
+        {
+          "name": "test_add_numbers_invalid",
+          "parameters": [
+            "a",
+            "b",
+            "expected_exception",
+            "expected_message"
+          ],
+          "start_line": 36,
+          "end_line": 40,
+          "visibility": "public",
+          "docstring": "Test add_numbers with invalid inputs.",
+          "decorators": [
+            "pytest.mark.parametrize('a, b, expected_exception, expected_message', [('1', 2, ValueError, 'Invalid input types'), (1, '2', ValueError, 'Invalid input types'), (None, 2, ValueError, 'Invalid input types'), (1, None, ValueError, 'Invalid input types'), ([1], 2, ValueError, 'Invalid input types'), (1, {2}, ValueError, 'Invalid input types')])"
+          ]
+        },
+        {
+          "name": "test_main_valid_inputs",
+          "parameters": [],
+          "start_line": 44,
+          "end_line": 54,
+          "visibility": "public",
+          "docstring": "Test main function with valid inputs."
+        },
+        {
+          "name": "test_main_invalid_inputs",
+          "parameters": [],
+          "start_line": 57,
+          "end_line": 67,
+          "visibility": "public",
+          "docstring": "Test main function with invalid inputs."
+        },
+        {
+          "name": "test_main_unexpected_error",
+          "parameters": [],
+          "start_line": 70,
+          "end_line": 80,
+          "visibility": "public",
+          "docstring": "Test main function with unexpected error."
+        },
+        {
+          "name": "test_main_edge_case_zero",
+          "parameters": [],
+          "start_line": 83,
+          "end_line": 93,
+          "visibility": "public",
+          "docstring": "Test main function with edge case inputs (zero)."
+        }
+      ],
+      "imports": [
+        "import pytest",
+        "from io import StringIO",
+        "from unittest.mock import patch",
+        "from calculator import add_numbers",
+        "from calculator import main"
+      ],
+      "constants": {},
+      "comments": [
+        "Test cases for add_numbers function",
+        "Test cases for main function"
+      ],
+      "docstring": null
+    },
+    {
+      "path": "tests/test_req_004.py",
+      "language": "python",
+      "size": 4509,
+      "lines_of_code": 108,
+      "classes": [],
+      "functions": [
+        {
+          "name": "test_divide_numbers_valid_cases",
+          "parameters": [
+            "dividend",
+            "divisor",
+            "expected_result"
+          ],
+          "start_line": 19,
+          "end_line": 24,
+          "visibility": "public",
+          "docstring": "\n    Test divide_numbers with valid inputs.\n    ",
+          "decorators": [
+            "pytest.mark.parametrize('dividend, divisor, expected_result', [(10, 2, 5.0), (10.0, 2.0, 5.0), (7, 3, 7 / 3), (-10, 2, -5.0), (10, -2, -5.0), (-10, -2, 5.0), (0, 5, 0.0), (5, 0.5, 10.0)])"
+          ]
+        },
+        {
+          "name": "test_divide_numbers_division_by_zero",
+          "parameters": [
+            "dividend",
+            "divisor"
+          ],
+          "start_line": 34,
+          "end_line": 39,
+          "visibility": "public",
+          "docstring": "\n    Test divide_numbers for division by zero.\n    ",
+          "decorators": [
+            "pytest.mark.parametrize('dividend, divisor', [(10, 0), (10.0, 0)])"
+          ]
+        },
+        {
+          "name": "test_divide_numbers_invalid_types",
+          "parameters": [
+            "dividend",
+            "divisor"
+          ],
+          "start_line": 54,
+          "end_line": 59,
+          "visibility": "public",
+          "docstring": "\n    Test divide_numbers with invalid input types.\n    ",
+          "decorators": [
+            "pytest.mark.parametrize('dividend, divisor', [('10', 2), (10, '2'), ('10', '2'), (None, 2), (10, None), ([], 2), (10, {})])"
+          ]
+        },
+        {
+          "name": "test_divide_numbers_error_messages",
+          "parameters": [
+            "capsys"
+          ],
+          "start_line": 62,
+          "end_line": 74,
+          "visibility": "public",
+          "docstring": "\n    Test that appropriate error messages are printed to stderr.\n    "
+        },
+        {
+          "name": "test_main_function_valid_input",
+          "parameters": [
+            "monkeypatch",
+            "capsys"
+          ],
+          "start_line": 77,
+          "end_line": 89,
+          "visibility": "public",
+          "docstring": "\n    Test the main function with valid inputs.\n    "
+        },
+        {
+          "name": "test_main_function_invalid_input",
+          "parameters": [
+            "monkeypatch",
+            "capsys"
+          ],
+          "start_line": 92,
+          "end_line": 104,
+          "visibility": "public",
+          "docstring": "\n    Test the main function with invalid inputs.\n    "
+        },
+        {
+          "name": "test_main_function_division_by_zero",
+          "parameters": [
+            "monkeypatch",
+            "capsys"
+          ],
+          "start_line": 107,
+          "end_line": 119,
+          "visibility": "public",
+          "docstring": "\n    Test the main function with division by zero.\n    "
+        },
+        {
+          "name": "test_main_function_non_numeric_divisor",
+          "parameters": [
+            "monkeypatch",
+            "capsys"
+          ],
+          "start_line": 122,
+          "end_line": 134,
+          "visibility": "public",
+          "docstring": "\n    Test the main function with a non-numeric divisor.\n    "
+        }
+      ],
+      "imports": [
+        "import pytest",
+        "from io import StringIO",
+        "import sys",
+        "from divide_module import divide_numbers",
+        "from divide_module import main",
+        "from divide_module import main",
+        "from divide_module import main",
+        "from divide_module import main"
+      ],
+      "constants": {},
+      "comments": [
+        "Test division by zero",
+        "Test invalid input types"
+      ],
+      "docstring": null
+    },
+    {
+      "path": "tests/test_req_003.py",
+      "language": "python",
+      "size": 3919,
+      "lines_of_code": 67,
+      "classes": [],
+      "functions": [
+        {
+          "name": "test_multiply_numbers_valid_inputs",
+          "parameters": [
+            "a: Union[int, float]",
+            "b: Union[int, float]",
+            "expected: Union[int, float]"
+          ],
+          "start_line": 20,
+          "end_line": 23,
+          "visibility": "public",
+          "docstring": "Test multiply_numbers with valid inputs.",
+          "decorators": [
+            "pytest.mark.parametrize('a, b, expected', [(2, 3, 6), (-2, 3, -6), (2.5, 4, 10.0), (0, 5, 0), (0, 0, 0), (1.5, 2.5, 3.75), (-1.5, -2.5, 3.75), (10000000000.0, 10000000000.0, 1e+20), (1e-10, 1e-10, 1e-20)])"
+          ]
+        },
+        {
+          "name": "test_multiply_numbers_invalid_inputs",
+          "parameters": [
+            "a",
+            "b",
+            "expected_exception",
+            "expected_message"
+          ],
+          "start_line": 37,
+          "end_line": 41,
+          "visibility": "public",
+          "docstring": "Test multiply_numbers with invalid inputs.",
+          "decorators": [
+            "pytest.mark.parametrize('a, b, expected_exception, expected_message', [('2', 3, ValueError, 'Invalid input types: str, int. Must be int or float.'), (2, '3', ValueError, 'Invalid input types: int, str. Must be int or float.'), (None, 3, ValueError, 'Invalid input types: NoneType, int. Must be int or float.'), (2, None, ValueError, 'Invalid input types: int, NoneType. Must be int or float.'), ([2], 3, ValueError, 'Invalid input types: list, int. Must be int or float.'), (2, {3}, ValueError, 'Invalid input types: int, set. Must be int or float.')])"
+          ]
+        },
+        {
+          "name": "test_multiply_numbers_edge_cases",
+          "parameters": [],
+          "start_line": 44,
+          "end_line": 54,
+          "visibility": "public",
+          "docstring": "Test multiply_numbers with edge cases."
+        },
+        {
+          "name": "test_multiply_numbers_unexpected_exception_handling",
+          "parameters": [
+            "monkeypatch"
+          ],
+          "start_line": 57,
+          "end_line": 66,
+          "visibility": "public",
+          "docstring": "Test multiply_numbers for unexpected exceptions."
+        },
+        {
+          "name": "mock_isinstance",
+          "parameters": [
+            "obj",
+            "types"
+          ],
+          "start_line": 59,
+          "end_line": 60,
+          "visibility": "public"
+        },
+        {
+          "name": "test_multiply_numbers_large_numbers",
+          "parameters": [],
+          "start_line": 69,
+          "end_line": 74,
+          "visibility": "public",
+          "docstring": "Test multiply_numbers with very large numbers."
+        },
+        {
+          "name": "test_multiply_numbers_small_numbers",
+          "parameters": [],
+          "start_line": 77,
+          "end_line": 82,
+          "visibility": "public",
+          "docstring": "Test multiply_numbers with very small numbers."
+        }
+      ],
+      "imports": [
+        "import pytest",
+        "from typing import Union",
+        "from your_module_name import multiply_numbers"
+      ],
+      "constants": {},
+      "comments": [
+        "Test cases for normal scenarios",
+        "Test cases for invalid inputs",
+        "Test cases for edge cases",
+        "Multiplying by infinity",
+        "Multiplying by NaN",
+        "Test cases for unexpected exceptions",
+        "Test cases for large numbers",
+        "Test cases for small numbers",
+        "Run the tests"
+      ],
+      "docstring": null
+    },
+    {
+      "path": "tests/test_req_002.py",
+      "language": "python",
+      "size": 3999,
+      "lines_of_code": 68,
+      "classes": [],
+      "functions": [
+        {
+          "name": "test_subtract_numbers_normal_cases",
+          "parameters": [],
+          "start_line": 7,
+          "end_line": 12,
+          "visibility": "public"
+        },
+        {
+          "name": "test_subtract_numbers_edge_cases",
+          "parameters": [],
+          "start_line": 14,
+          "end_line": 21,
+          "visibility": "public"
+        },
+        {
+          "name": "test_subtract_numbers_invalid_inputs",
+          "parameters": [],
+          "start_line": 23,
+          "end_line": 34,
+          "visibility": "public"
+        },
+        {
+          "name": "test_main_normal_case",
+          "parameters": [],
+          "start_line": 37,
+          "end_line": 47,
+          "visibility": "public"
+        },
+        {
+          "name": "test_main_invalid_input",
+          "parameters": [],
+          "start_line": 49,
+          "end_line": 58,
+          "visibility": "public"
+        },
+        {
+          "name": "test_main_unexpected_error",
+          "parameters": [],
+          "start_line": 60,
+          "end_line": 64,
+          "visibility": "public"
+        },
+        {
+          "name": "test_main_edge_case_zero_subtraction",
+          "parameters": [],
+          "start_line": 66,
+          "end_line": 76,
+          "visibility": "public"
+        },
+        {
+          "name": "test_main_negative_numbers",
+          "parameters": [],
+          "start_line": 78,
+          "end_line": 88,
+          "visibility": "public"
+        }
+      ],
+      "imports": [
+        "import pytest",
+        "from unittest.mock import patch",
+        "from io import StringIO",
+        "from subtraction_module import subtract_numbers",
+        "from subtraction_module import main"
+      ],
+      "constants": {},
+      "comments": [
+        "Test cases for subtract_numbers function",
+        "Test normal subtraction",
+        "Test subtraction with very large numbers",
+        "Test subtraction with very small numbers",
+        "Test invalid inputs",
+        "Test cases for main function",
+        "Simulate user input and capture output",
+        "Simulate invalid user input and capture output",
+        "Simulate unexpected error (e.g., input function is mocked to raise an exception)",
+        "Simulate user input for zero subtraction and capture output",
+        "Simulate user input for negative numbers and capture output"
+      ],
+      "docstring": null
     }
   ],
   "languages": [
@@ -1983,18 +551,18 @@
   ],
   "language_summaries": {
     "python": {
-      "file_count": 14,
-      "total_lines": 1125,
-      "total_size": 58356,
+      "file_count": 8,
+      "total_lines": 463,
+      "total_size": 21901,
       "provider": "PythonProvider"
     }
   },
   "project_info": {
-    "source_path": "output/PythonExample/generated_code",
-    "total_files": 14,
+    "source_path": "output/PythonExample/environment/generated_code_fixed",
+    "total_files": 8,
     "main_language": "python",
     "project_type": "python",
-    "generation_time": 0.016592025756835938,
+    "generation_time": 0.010576009750366211,
     "generator_version": "2.0.0",
     "supported_languages": [
       "python",
@@ -2005,16 +573,16 @@
       "cpp"
     ],
     "project_analysis": {
-      "total_files": 14,
+      "total_files": 8,
       "languages": [
         "python"
       ],
       "main_language": "python",
       "files_by_language": {
-        "python": 14
+        "python": 8
       },
       "lines_by_language": {
-        "python": 1757
+        "python": 589
       },
       "project_type": "python"
     }

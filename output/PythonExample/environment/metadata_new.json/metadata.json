@@ -2301,6 +2301,7 @@
         "javascript"
       ],
       "main_language": "python",
+      "architecture": "clean architecture",
       "files_by_language": {
         "python": 14,
         "java": 1,

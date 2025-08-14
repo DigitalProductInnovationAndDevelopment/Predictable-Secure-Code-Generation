@@ -321,27 +321,85 @@ class GenericCodeGenerator:
 
             for generated_file in result.generated_files:
                 try:
-                    # Create a simple test file
+                    # Read the generated code to create comprehensive tests
                     file_path = Path(generated_file)
                     module_name = file_path.stem
 
-                    # Create a mock function info for test generation
-                    from .core.language_provider import FunctionInfo
+                    # Read the generated code content
+                    try:
+                        with open(file_path, "r", encoding="utf-8") as f:
+                            generated_code = f.read()
+                    except Exception as e:
+                        self.logger.warning(
+                            f"Could not read generated file {file_path}: {e}"
+                        )
+                        generated_code = ""
 
-                    function_info = FunctionInfo(
-                        name="main_function", parameters=[]  # Generic function name
-                    )
+                    # Use AI to generate comprehensive test cases if available
+                    test_code = ""
+                    if self.ai_client and generated_code.strip():
+                        try:
+                            test_prompt = f"""Generate comprehensive pytest test cases for this Python code from module '{module_name}':
 
-                    test_context = {
-                        "module_name": module_name,
-                        "class_name": context.get("class_name", "TestClass"),
-                        "namespace": context.get("namespace", "Tests"),
-                    }
+```python
+{generated_code}
+```
 
-                    test_code = provider.generate_test_code(function_info, test_context)
+Requirements:
+1. Test all functions and classes defined in the code
+2. Use correct import statement: 'from {module_name} import [function_names]'
+3. Include edge cases and error handling tests
+4. Use proper pytest conventions and parametrized tests
+5. Test both normal and exceptional scenarios
+6. Make tests specific and meaningful
+7. Include proper exception testing with pytest.raises()
+
+Generate complete, runnable test code with actual test assertions, not placeholder comments.
+The module name is '{module_name}' - use this exact name in your import statements."""
+
+                            ai_response = self.ai_client.ask_question(
+                                question=test_prompt,
+                                system_prompt="You are an expert Python test developer. Generate clean, comprehensive pytest test cases that thoroughly test the provided code.",
+                                max_tokens=2000,
+                            )
+
+                            if ai_response["status"] == "success":
+                                test_code = provider.extract_generated_code(
+                                    ai_response["answer"]
+                                )
+                                if hasattr(result, "ai_tokens_used"):
+                                    result.ai_tokens_used += ai_response.get(
+                                        "usage", {}
+                                    ).get("total_tokens", 0)
+                        except Exception as e:
+                            self.logger.warning(
+                                f"AI test generation failed for {module_name}: {e}"
+                            )
+
+                    # Fallback to basic test template if AI generation failed
+                    if not test_code.strip():
+                        from ..language.provider import FunctionInfo
+
+                        function_info = FunctionInfo(
+                            name="main_function", parameters=[]
+                        )
+                        test_context = {
+                            "module_name": module_name,
+                            "class_name": context.get("class_name", "TestClass"),
+                            "namespace": context.get("namespace", "Tests"),
+                        }
+                        test_code = provider.generate_test_code(
+                            function_info, test_context
+                        )
 
                     # Determine test filename
-                    test_filename = f"test_{module_name}.{provider.file_extensions.__iter__().__next__()[1:]}"
+                    extensions = list(provider.file_extensions)
+                    # For Python, prioritize .py extension over .pyw and .pyi
+                    if ".py" in extensions:
+                        extension = ".py"
+                    else:
+                        extension = extensions[0] if extensions else ".txt"
+                    test_filename = f"test_{module_name}{extension}"
                     test_file_path = tests_dir / test_filename
 
                     with open(test_file_path, "w", encoding="utf-8") as f:
@@ -398,7 +456,11 @@ class GenericCodeGenerator:
 
         # Add appropriate extension
         extensions = list(provider.file_extensions)
-        extension = extensions[0] if extensions else ".txt"
+        # For Python, prioritize .py extension over .pyw and .pyi
+        if ".py" in extensions:
+            extension = ".py"
+        else:
+            extension = extensions[0] if extensions else ".txt"
 
         return f"{base_name}{extension}"
 

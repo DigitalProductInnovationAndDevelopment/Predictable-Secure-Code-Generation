@@ -7,14 +7,15 @@ import typing
 
 class CalculatorError(Exception):
     """
-    Custom exception class for calculator-related errors.
+    Custom exception class for Calculator errors.
     """
-    pass
+    def __init__(self, message: str):
+        super().__init__(message)
 
 
 class Calculator:
     """
-    A comprehensive calculator class with various operations and proper error handling.
+    A comprehensive calculator class with proper error handling.
     """
 
     @staticmethod
@@ -32,16 +33,15 @@ class Calculator:
             CalculatorError: If the input list is empty.
         """
         if not numbers:
-            raise CalculatorError("Cannot sum an empty list.")
+            raise CalculatorError("Cannot calculate the sum of an empty list.")
         return sum(numbers)
 
 
 # Example usage
 if __name__ == "__main__":
-    calculator = Calculator()
     try:
-        result = calculator.sum_numbers([1, 2, 3])
-        print(f"Sum: {result}")
-        result_empty = calculator.sum_numbers([])
+        calculator = Calculator()
+        result = calculator.sum_numbers([])  # This will raise an error
+        print(f"The sum is: {result}")
     except CalculatorError as e:
         print(f"Error: {e}")

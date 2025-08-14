@@ -1,5 +1,5 @@
 id,description
-REQ-001,add two numbers
+REQ-001,add two numbers with improved error handling
 REQ-002,subtract two numbers
 REQ-003,multiply two numbers
 REQ-004,divide two numbers
@@ -11,3 +11,4 @@ REQ-009,raise an error when dividing by zero
 REQ-010,raise an error when summing an empty list
 REQ-011,raise an error when summing a list with non-numeric elements
 REQ-012,provide a command-line interface to demonstrate all calculator operations
+REQ-013,calculate square root of a number
