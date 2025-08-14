@@ -1,0 +1,9 @@
+from typing import Protocol
+from pathlib import Path
+
+class FileSystem(Protocol):
+    def read_text(self, path: Path) -> str: ...
+    def scan(self, root: Path, include_exts: set[str]) -> list[Path]: ...
+
+class ArtifactWriter(Protocol):
+    def write(self, root: Path, files: list) -> None: ...

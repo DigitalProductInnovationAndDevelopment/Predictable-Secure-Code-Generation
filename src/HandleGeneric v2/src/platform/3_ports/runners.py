@@ -1,0 +1,6 @@
+from typing import Protocol
+
+class TestRunner(Protocol):
+    def run(self, root: str, selector: str | None = None): ...
+class Sandbox(Protocol):
+    def run(self, cmd: list[str], cwd: str | None = None, env: dict | None = None): ...

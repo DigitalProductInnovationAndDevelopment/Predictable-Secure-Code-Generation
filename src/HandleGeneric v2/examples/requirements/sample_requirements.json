@@ -1,0 +1,10 @@
+[
+  {
+    "id": "feature_greet",
+    "title": "Greeter function",
+    "description": "Return a friendly greeting string.",
+    "acceptance": [
+      "Calling feature() returns True"
+    ]
+  }
+]
