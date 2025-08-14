@@ -30,7 +30,7 @@ An intelligent Azure Functions-based system that automatically processes require
 ## 📁 Project Structure
 
 ```
-automated-code-update-system/
+automated-code-update-system/ (old)
 ├── function_app.py              # Main Azure Function entry point
 ├── config.py                    # Configuration management
 ├── requirements_checker.py      # Requirement update detection
@@ -46,6 +46,33 @@ automated-code-update-system/
 │   ├── metadata.json          # System metadata
 │   └── status_log.json        # Status logs
 └── tests/                     # Test files
+```
+```
+New project structure
+├── function_app.py                # Azure Functions entry
+├── config.py                      # High-level config (paths, filters, limits; uses .env)
+├── requirements.txt               # Python deps for the v1 toolset
+├── quick_setup.py                 # Helper to install minimal deps
+├── install_dependencies.py        # Installs broader toolchain (linters, pytest, etc.)
+├── check_env.py                   # Verifies env vars (.env) and prints guidance
+├── env.template                   # Sample env vars (copy to .env and edit)
+├── input/                         # Place your input files here (e.g., CSV requirements)
+├── src/
+│   ├── HandlePython/              # v1: Python-specific S1/S2/S3 modules
+│   │   ├── AIBrain/               # Azure OpenAI wrapper & CLI
+│   │   ├── CheckCodeRequirements/ # CSV diff utilities
+│   │   ├── GenerateCodeFromRequirements/  # S1: plan, generate, integrate
+│   │   ├── GenerateMetadataFromCode/      # S2: AST-based metadata
+│   │   └── ValidationUnit/                # S3: syntax / tests / AI checks
+│   ├── HandleGeneric/             # v1: language-agnostic base + providers
+│   │   ├── core/                  # registry, detection, generic generator/validator
+│   │   └── providers/             # python/typescript/java… providers
+│   └── HandleGeneric v2/          # v2: layered “platform” (Domain/Adapters/App/Interfaces)
+│       ├── pyproject.toml         # can be installed as a package
+│       └── src/platform/          # see “v2 platform” below
+├── test_ai.py                     # Smoke tests for the AI layer (v1)
+├── test_ai_cli.py                 # Smoke tests for AI CLI (v1)
+└── src/validate_python_code.py    # Standalone syntax check helper
 ```
 
 # USER GUIDE 
