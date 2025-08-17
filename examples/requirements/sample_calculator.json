@@ -1,0 +1,25 @@
+[
+  {
+    "id": "CALC-001",
+    "title": "Basic Calculator",
+    "description": "Create a basic calculator that can perform arithmetic operations on two numbers",
+    "acceptance": [
+      "Must support addition, subtraction, multiplication, and division",
+      "Must handle division by zero gracefully",
+      "Must validate input parameters",
+      "Must return appropriate error messages for invalid inputs",
+      "Must include comprehensive docstrings and type hints"
+    ]
+  },
+  {
+    "id": "CALC-002", 
+    "title": "Calculator CLI",
+    "description": "Create a command-line interface for the calculator",
+    "acceptance": [
+      "Must accept two numbers and an operation as arguments",
+      "Must display results in a user-friendly format",
+      "Must show help information when requested",
+      "Must handle invalid command-line arguments gracefully"
+    ]
+  }
+] 

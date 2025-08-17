@@ -1,0 +1,10 @@
+{
+  "use_type_hints": true,
+  "async_support": false,
+  "test_framework": "pytest",
+  "project_structure": "package",
+  "style_guide": "PEP 8",
+  "docstring_style": "Google",
+  "min_python_version": "3.11",
+  "generate_tests": true
+} 

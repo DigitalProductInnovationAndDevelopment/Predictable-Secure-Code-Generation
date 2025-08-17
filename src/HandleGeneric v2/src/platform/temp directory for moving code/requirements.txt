@@ -1,0 +1,17 @@
+# Cold Run Analyzer Dependencies
+
+# Core dependencies
+openai>=1.0.0
+pydantic>=2.0.0
+pathlib2>=2.3.0
+
+# Optional dependencies for enhanced functionality
+rich>=13.0.0
+click>=8.0.0
+tqdm>=4.65.0
+
+# Development dependencies
+pytest>=7.0.0
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.0.0 

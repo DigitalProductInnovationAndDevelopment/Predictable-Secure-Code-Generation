@@ -1,54 +1,117 @@
-# Collaborative Programming Tool - Prototype 2
+# Enterprise Code Generation Platform
 
-An intelligent Azure Functions-based system that automatically processes requirement updates and generates/modifies code using AI.
+A clean, enterprise-grade architecture for a Python system with three first-class services:
 
-## Features
+- **S1 — Code Generation from Requirements**
+- **S2 — Metadata Generation from Code**
+- **S3 — Validation** (syntax → tests → AI logic checks)
 
-- **Daily Automated Processing**: Runs on a schedule to check for new requirements
-- **Requirements Management**: Supports CSV/Excel files for requirement tracking
-- **AI-Powered Code Generation**: Uses OpenAI GPT models to generate and modify code
-- **Code Validation**: Automated testing, linting, and syntax checking
-- **Retry Logic**: Intelligent retry mechanism for failed operations
-- **Comprehensive Logging**: Detailed status tracking and metadata management
-- **RESTful API**: HTTP endpoints for manual triggers and status checking
+## 🏗️ Architecture
 
-## Architecture
+Built using **Hexagonal (Ports & Adapters)** architecture with:
 
+- **Provider pattern** for language-specific behavior
+- **Pipeline pattern** for multi-stage validation
+- **Command pattern** for consistent execution
+- **Registry pattern** for dynamic provider discovery
+- **Strategy pattern** for pluggable AI backends
+
+## 🚀 Quick Start
+
+### 1. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+# or with poetry
+poetry install
 ```
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│  Requirements   │    │   Code Analyzer  │    │   AI Code       │
-│  Checker        │───▶│                  │───▶│   Editor        │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-         │                       │                       │
-         ▼                       ▼                       ▼
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│  Metadata       │    │   Code           │    │   Status        │
-│  Manager        │    │   Validator      │    │   Logger        │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
+
+### 2. Configure Environment
+
+```bash
+cp .env.example .env
+# Edit .env with your OpenAI/Azure credentials
+```
+
+### 3. Check Platform Status
+
+```bash
+python -m platform.interfaces.cli.main status
+```
+
+### 4. Generate Code
+
+```bash
+# Generate Python code from requirements
+python -m platform.interfaces.cli.main s1-generate \
+  examples/requirements/sample_calculator.json \
+  python \
+  --output ./generated \
+  --context examples/context/python_context.json
+```
+
+### 5. Extract Metadata
+
+```bash
+# Extract metadata from generated code
+python -m platform.interfaces.cli.main s2-metadata \
+  ./generated \
+  --output metadata.json
+```
+
+### 6. Validate Code
+
+```bash
+# Run full validation pipeline
+python -m platform.interfaces.cli.main s3-validate \
+  ./generated \
+  --requirements examples/requirements/sample_calculator.json \
+  --metadata metadata.json \
+  --ai-check \
+  --output validation_report.json
 ```
 
 ## 📁 Project Structure
 
 ```
-automated-code-update-system/ (old)
-├── function_app.py              # Main Azure Function entry point
-├── config.py                    # Configuration management
-├── requirements_checker.py      # Requirement update detection
-├── code_analyzer.py            # Codebase analysis and change identification
-├── ai_code_editor.py           # AI-powered code generation/modification
-├── code_validator.py           # Code validation and testing
-├── metadata_manager.py         # Metadata and status management
-├── requirements.txt            # Python dependencies
-├── host.json                   # Azure Functions configuration
-├── local.settings.json         # Local environment settings
-├── data/                       # Data files
-│   ├── requirements.csv        # Requirements file
-│   ├── metadata.json          # System metadata
-│   └── status_log.json        # Status logs
-└── tests/                     # Test files
+src/platform/
+├── app/                        # Application layer (use-cases, pipelines)
+│   ├── s1_codegen/            # S1 - Code Generation service
+│   ├── s2_metadata/           # S2 - Metadata extraction service
+│   └── s3_validation/         # S3 - Validation service
+│
+├── domain/                     # Pure domain logic
+│   ├── models/                # Domain models (Pydantic)
+│   ├── errors.py              # Domain errors
+│   └── policies.py            # Business policies
+│
+├── ports/                      # Interfaces (contracts)
+│   ├── ai.py                  # LLM & embeddings clients
+│   ├── fs.py                  # File system operations
+│   ├── providers.py           # Language providers
+│   ├── runners.py             # Test runners & sandbox
+│   └── observability.py       # Logging, metrics, tracing
+│
+├── adapters/                   # External system implementations
+│   ├── ai/                    # OpenAI, Azure OpenAI
+│   ├── fs/                    # Local file system
+│   ├── runners/               # pytest, subprocess sandbox
+│   └── providers/             # Python, TypeScript, etc.
+│
+├── kernel/                     # Cross-cutting infrastructure
+│   ├── config.py              # Pydantic settings
+│   ├── di.py                  # Dependency injection
+│   ├── registry.py            # Provider discovery
+│   └── logging.py             # Structured logging
+│
+└── interfaces/                 # CLI & API boundaries
+    ├── cli/                   # Typer CLI
+    └── api/                   # FastAPI (future)
 ```
+
+### Legacy Structure (v1)
+
 ```
-New project structure
 ├── function_app.py                # Azure Functions entry
 ├── config.py                      # High-level config (paths, filters, limits; uses .env)
 ├── requirements.txt               # Python deps for the v1 toolset
@@ -67,192 +130,223 @@ New project structure
 │   ├── HandleGeneric/             # v1: language-agnostic base + providers
 │   │   ├── core/                  # registry, detection, generic generator/validator
 │   │   └── providers/             # python/typescript/java… providers
-│   └── HandleGeneric v2/          # v2: layered “platform” (Domain/Adapters/App/Interfaces)
+│   └── HandleGeneric v2/          # v2: layered "platform" (Domain/Adapters/App/Interfaces)
 │       ├── pyproject.toml         # can be installed as a package
-│       └── src/platform/          # see “v2 platform” below
+│       └── src/platform/          # see "v2 platform" above
 ├── test_ai.py                     # Smoke tests for the AI layer (v1)
 ├── test_ai_cli.py                 # Smoke tests for AI CLI (v1)
 └── src/validate_python_code.py    # Standalone syntax check helper
 ```
 
-# USER GUIDE 
-## I. How to get started?
-Please follow this step to set up your local equipment for the Collaorative Programming Tool
+## 🔧 Services Overview
 
-### Prerequisites
+### S1 - Code Generation
 
-- Python 3.9+
-- Azure Functions Core Tools
-- OpenAI API key
-
-### Installation
-
-1. **Clone the repository**
-
-   ```bash
-   git clone <repository-url>
-   cd automated-code-update-system
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Configure environment variables**
-
-   Update `local.settings.json` with your settings:
-
-   ```json
-   {
-     "Values": {
-       "OPENAI_API_KEY": "your-openai-api-key",
-       "OPENAI_MODEL": "gpt-4",
-       "REQUIREMENTS_FILE": "data/requirements.csv"
-     }
-   }
-   ```
-
-4. **Initialize sample data**
-   ```bash
-   # Sample requirements file is already provided in data/requirements.csv
-   # Modify it according to your needs
-   ```
-
-### Running Locally
-
-1. **Start the Azure Functions runtime**
-
-   ```bash
-   func start
-   ```
-
-2. **Access the endpoints**
-   - Status: `GET http://localhost:7071/api/status`
-   - Manual trigger: `POST http://localhost:7071/api/trigger-manual`
-
-## II. How to use the Collaborative Programming Tool?
-
-### Requirements File Format
-
-The system expects a CSV or Excel file with the following columns:
-
-| Column          | Description                                 | Required |
-| --------------- | ------------------------------------------- | -------- |
-| id              | Unique requirement identifier               | Yes      |
-| name            | Requirement name                            | Yes      |
-| description     | Detailed description                        | Yes      |
-| priority        | Priority level (High/Medium/Low)            | Yes      |
-| status          | Current status (new/pending/completed)      | Yes      |
-| category        | Category (Authentication/API/Database/etc.) | No       |
-| estimated_hours | Estimated development time                  | No       |
-| created_date    | Creation date                               | No       |
-
-### Workflow
-
-1. **Daily Trigger**: System runs automatically at 9:00 AM UTC
-2. **Check Updates**: Compares current requirements file with last processed version
-3. **Analyze Changes**: Identifies new requirements and determines needed code changes
-4. **Generate Code**: Uses AI to create/modify files based on requirements
-5. **Validate**: Runs syntax checks, linting, and tests
-6. **Retry Logic**: Retries up to 3 times on validation failures
-7. **Update Metadata**: Tracks processing results and system state
-
-## III. How to configure the tool
-
-### Environment Variables
-
-| Variable             | Description                  | Default               |
-| -------------------- | ---------------------------- | --------------------- |
-| `OPENAI_API_KEY`     | OpenAI API key               | Required              |
-| `OPENAI_MODEL`       | AI model to use              | gpt-4                 |
-| `REQUIREMENTS_FILE`  | Path to requirements file    | data/requirements.csv |
-| `MAX_RETRIES`        | Maximum retry attempts       | 3                     |
-| `VALIDATION_TIMEOUT` | Validation timeout (seconds) | 300                   |
-
-### Supported File Types
-
-- Python (.py)
-- JavaScript (.js)
-- TypeScript (.ts)
-- Java (.java)
-- C++ (.cpp)
-- C# (.cs)
-
-## IV. Testing
-
-Run the test suite:
+Generates production-ready code from requirements:
 
 ```bash
-# Run all tests
-pytest
+# Basic usage
+handle s1-generate requirements.json python
 
-# Run with coverage
-pytest --cov=. --cov-report=html
-
-# Run specific test file
-pytest tests/test_requirements_checker.py
+# With context and custom output
+handle s1-generate requirements.json python \
+  --output ./src \
+  --context context.json \
+  --dry-run
 ```
 
-## V. Monitoring
+**Features:**
 
-### Status Endpoint
+- Multi-language support (Python, TypeScript, Java)
+- Prompt templating with context
+- Automatic formatting (Black, isort)
+- Syntax validation
+- Cost tracking
+
+### S2 - Metadata Extraction
+
+Extracts structured metadata from codebases:
 
 ```bash
-curl http://localhost:7071/api/status
+# Extract metadata from project
+handle s2-metadata ./my-project --output metadata.json
+
+# Filter by language
+handle s2-metadata ./my-project \
+  --languages python,typescript \
+  --exclude node_modules,venv
 ```
 
-Response includes:
+**Features:**
 
-- Latest processing status
-- Success rate statistics
-- Recent activity log
-- System metadata
+- AST-based parsing
+- Multi-language support
+- Function/class extraction
+- Import analysis
+- LOC counting
 
-### Logs
+### S3 - Validation Pipeline
 
-The system maintains detailed logs in:
+Comprehensive validation in stages:
 
-- `data/status_log.json` - Processing status history
-- `data/metadata.json` - System metadata and statistics
-- Azure Functions logs - Runtime information
+```bash
+# Full validation pipeline
+handle s3-validate ./project \
+  --requirements requirements.json \
+  --ai-check \
+  --output report.json
 
-## VI. Development
+# Syntax only
+handle s3-validate ./project --no-tests
+```
 
-### Adding New Requirement Categories
+**Pipeline Stages:**
 
-1. Modify `code_analyzer.py`
-2. Update the `_map_requirement_to_changes` method
-3. Add keyword mappings for your new category
+1. **Syntax**: AST parsing, linting
+2. **Tests**: pytest, jest, etc.
+3. **AI Logic**: Requirements consistency check
 
-### Custom AI Prompts
+## 🧩 Language Providers
 
-1. Edit `ai_code_editor.py`
-2. Modify prompt generation methods:
-   - `_generate_creation_prompt`
-   - `_generate_modification_prompt`
+The platform uses providers for language-specific operations:
 
-### Additional Validators
+### Python Provider
 
-1. Extend `code_validator.py`
-2. Add new validation methods to `_validate_single_file`
+- **Code Generation**: PEP 8, type hints, docstrings
+- **Metadata**: AST parsing for functions/classes
+- **Syntax**: ast.parse validation
+- **Tests**: pytest runner
 
-## VII. Security (More Function to come)
+### TypeScript Provider (Planned)
 
-- Environment variables for sensitive data
-- Input validation for all external data
-- Backup creation before file modifications
-- Sandboxed code execution for validation
+- **Code Generation**: TSDoc, interfaces
+- **Metadata**: TS compiler API
+- **Syntax**: tsc --noEmit
+- **Tests**: jest runner
 
-## VIII. Performance
+## ⚙️ Configuration
 
-- Parallel processing where possible
-- Intelligent caching of analysis results
-- Configurable timeouts and retry limits
-- Automatic cleanup of old data
+Environment variables in `.env`:
 
-## IX. How to contribute?
+```bash
+# AI Configuration
+LLM_BACKEND=openai              # openai | azure
+OPENAI_API_KEY=sk-...
+MODEL=gpt-4
+TEMPERATURE=0.0
+
+# Limits
+MAX_TOKENS=4000
+MAX_REQUESTS_PER_HOUR=100
+DRY_RUN=false
+
+# File Processing
+MAX_FILE_SIZE_MB=10
+IGNORED_DIRECTORIES=.git,node_modules,dist
+
+# Logging
+LOG_LEVEL=INFO
+LOG_FORMAT=json
+```
+
+## 🔍 CLI Commands
+
+### Core Commands
+
+- `handle s1-generate` - Generate code from requirements
+- `handle s2-metadata` - Extract metadata from code
+- `handle s3-validate` - Validate code (syntax → tests → AI)
+- `handle status` - Show platform status
+- `handle version` - Show version info
+
+### Examples
+
+```bash
+# Generate Python calculator
+handle s1-generate examples/requirements/calculator.json python
+
+# Extract metadata with language filter
+handle s2-metadata ./src --languages python --output meta.json
+
+# Validate with AI logic check
+handle s3-validate ./src --requirements req.json --ai-check
+
+# Check what providers are available
+handle status
+```
+
+## 🧪 Testing
+
+```bash
+# Run unit tests
+pytest tests/unit/
+
+# Run integration tests
+pytest tests/integration/
+
+# Run end-to-end tests
+pytest tests/e2e/
+
+# With coverage
+pytest --cov=platform tests/
+```
+
+## 🚢 Deployment
+
+### Docker
+
+```bash
+# Build image
+docker build -t platform:latest .
+
+# Run CLI
+docker run -it platform:latest handle status
+
+# Run API (future)
+docker run -p 8000:8000 platform:latest uvicorn platform.interfaces.api.app:app
+```
+
+### CI/CD
+
+GitHub Actions workflow included for:
+
+- Linting (ruff, mypy)
+- Testing (pytest)
+- Security (bandit)
+- Docker builds
+
+## 🔮 Roadmap
+
+### Phase 1 - MVP ✅
+
+- [x] Python providers (all 3 services)
+- [x] CLI interface with Typer
+- [x] OpenAI/Azure OpenAI support
+- [x] Basic validation pipeline
+
+### Phase 2 - Extensibility
+
+- [ ] TypeScript providers
+- [ ] Java providers
+- [ ] Plugin system
+- [ ] Web dashboard
+
+### Phase 3 - Production
+
+- [ ] FastAPI REST API
+- [ ] Authentication & authorization
+- [ ] Rate limiting & quotas
+- [ ] Metrics & monitoring
+- [ ] Multi-tenant support
+
+### Phase 4 - Advanced
+
+- [ ] Custom model fine-tuning
+- [ ] Advanced static analysis
+- [ ] Integration with IDEs
+- [ ] Collaborative features
+
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -260,35 +354,26 @@ The system maintains detailed logs in:
 4. Ensure all tests pass
 5. Submit a pull request
 
-## X. License
+### Adding Language Providers
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+To add a new language:
 
-## XI. Troubleshooting
+1. Create provider directory: `adapters/providers/mylang/`
+2. Implement the three providers:
+   - `codegen_provider.py`
+   - `metadata_provider.py`
+   - `syntax_validator.py`
+3. Register in `kernel/di.py`
+4. Add tests in `tests/unit/providers/mylang/`
 
-### Common Issues
+## 📄 License
 
-1. **OpenAI API errors**: Verify API key and rate limits
-2. **File permission errors**: Check directory permissions
-3. **Validation failures**: Review code syntax and test cases
-4. **Memory issues**: Adjust function memory allocation
+MIT License - see LICENSE file for details.
 
-### Debug Mode
+## 🙏 Acknowledgments
 
-Set logging level to DEBUG in `local.settings.json`:
-
-```json
-{
-  "Values": {
-    "PYTHON_LOG_LEVEL": "DEBUG"
-  }
-}
-```
-
-## Support
-
-For questions and support:
-
-- Create an issue in the repository
-- Review the troubleshooting section
-- Check Azure Functions documentation
+- OpenAI for GPT models
+- Pydantic for data validation
+- Typer for CLI framework
+- FastAPI for future API layer
+- Rich for beautiful CLI output
