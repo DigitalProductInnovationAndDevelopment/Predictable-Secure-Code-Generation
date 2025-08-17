@@ -29,7 +29,9 @@ class Config:
     AZURE_OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
     AZURE_OPENAI_API_VERSION = os.getenv("AZURE_OPENAI_API_VERSION", "2024-02-01")
     AZURE_OPENAI_DEPLOYMENT_NAME = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4o")
-
+    WORKSPACE = os.getenv("WORKSPACE", "LOCAL")
+    LANGUAGE_ARCHITECTURE = os.getenv("LANGUAGE_ARCHITECTURE")
+    OUTPUT_DIR = os.getenv("OUTPUT_DIR")
     # Legacy OpenAI Configuration (kept for backward compatibility)
     # NOTE: These must be set in environment variables or .env file
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
