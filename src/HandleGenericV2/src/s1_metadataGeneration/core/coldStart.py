@@ -63,7 +63,7 @@ def analyze_codebase_with_ai(path: str) -> Dict[str, Any]:
     programming language and architecture (UPPERCASE), saving to disk.
     """
     # Get workspace from config
-    workspace = getattr(config, "WORKSPACE", "LOCAL")
+    workspace = getattr(config, "WORKSPACE")
     logger.info(f"Using workspace: {workspace}")
 
     # 1) Build structure JSON (as string) with workspace parameter
@@ -122,4 +122,3 @@ If no architecture is clear, set "architecture" to "CLEAN ARCHITECTURE".
 
 if __name__ == "__main__":
     analysis = analyze_codebase_with_ai(getattr(config, "CODEBASE_ROOT", "."))
-    print(json.dumps(analysis, indent=4))
