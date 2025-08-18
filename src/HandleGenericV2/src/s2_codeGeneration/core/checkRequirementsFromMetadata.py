@@ -9,6 +9,7 @@ import os
 import sys
 import json
 from typing import Dict, Any, List
+import datetime
 
 # Add the HandleGenericV2 directory to the path so we can import config and other modules
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -244,11 +245,6 @@ def check_unimplemented_requirements() -> Dict[str, Any]:
             print(f"❌ Failed to initialize AI client: {e}")
             return {"error": "AI client initialization failed", "details": str(e)}
 
-        # The original code had ai_result.get("status") == "success" and then parsing ai_response.
-        # The ai_result object is not defined in this scope.
-        # Assuming the intent was to use the analysis_result from _simple_requirements_analysis
-        # and display it directly.
-
         # Display results
         print("\n" + "=" * 60)
         print("📊 REQUIREMENTS ANALYSIS RESULTS")
@@ -289,7 +285,33 @@ def check_unimplemented_requirements() -> Dict[str, Any]:
         else:
             print("\n🎉 All requirements appear to be implemented!")
 
-        return analysis_result
+        # Create the return data structure with all unimplemented requirements
+        return_data = {
+            "analysis_timestamp": str(datetime.datetime.now()),
+            "workspace": workspace,
+            "requirements_source": requirements_path,
+            "metadata_source": metadata_path,
+            "analysis_summary": summary,
+            "implemented_requirements": implemented,
+            "unimplemented_requirements": unimplemented,
+            "total_requirements": len(requirements_list),
+            "implementation_status": {
+                "implemented_count": len(implemented),
+                "unimplemented_count": len(unimplemented),
+                "completion_percentage": (
+                    round((len(implemented) / len(requirements_list)) * 100, 2)
+                    if requirements_list
+                    else 0
+                ),
+            },
+        }
+
+        print(
+            f"\n📊 Implementation completion: {return_data['implementation_status']['completion_percentage']}%"
+        )
+        print("📋 Returning JSON data with all requirements analysis...")
+
+        return return_data
 
     except Exception as e:
         print(f"❌ Error during requirements analysis: {e}")
