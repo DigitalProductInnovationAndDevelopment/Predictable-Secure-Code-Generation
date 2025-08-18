@@ -1,8 +1,8 @@
 """
-Generate Metadata for Python Files
+Generate Metadata for Code Files
 
-This module analyzes Python files in a codebase, uses AI to generate detailed metadata
-for each file, and saves the results as JSON.
+This module analyzes code files in a codebase, uses AI to generate detailed metadata
+for each file, and saves the results as JSON. Works with any programming language.
 """
 
 import os
@@ -11,6 +11,7 @@ import logging
 import sys
 from typing import Dict, Any, List
 from pathlib import Path
+import re  # Added for _extract_partial_metadata
 
 # Get the current file's directory and add necessary paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -35,45 +36,45 @@ logger = logging.getLogger(__name__)
 config = Config()
 
 
-def extract_python_files_from_structure(
+def extract_code_files_from_structure(
     directory_structure: Dict[str, Any],
 ) -> List[Dict[str, Any]]:
     """
-    Extract Python files from the directory structure JSON.
+    Extract code files from the directory structure JSON.
 
     Args:
         directory_structure (Dict[str, Any]): The directory structure JSON
 
     Returns:
-        List[Dict[str, Any]]: List of Python file information
+        List[Dict[str, Any]]: List of code file information
     """
-    python_files = []
+    code_files = []
 
     def traverse_structure(structure: Dict[str, Any], current_path: str = "") -> None:
-        if structure.get("type") == "file" and structure.get("language") == "PYTHON":
+        if structure.get("type") == "file" and structure.get("language") != "UNKNOWN":
             # For files, just use the filename since we'll construct the full path later
             file_info = {
                 "name": structure["name"],
                 "path": structure["name"],  # Just the filename, not the full path
                 "type": "file",
-                "language": "PYTHON",
+                "language": structure["language"],
             }
-            python_files.append(file_info)
+            code_files.append(file_info)
         elif structure.get("type") == "directory" and structure.get("children"):
             for child in structure["children"]:
                 # Recursively traverse child directories
                 traverse_structure(child, current_path)
 
     traverse_structure(directory_structure)
-    return python_files
+    return code_files
 
 
-def read_python_file_content(file_path: str) -> str:
+def read_code_file_content(file_path: str) -> str:
     """
-    Read the content of a Python file.
+    Read the content of a code file.
 
     Args:
-        file_path (str): Path to the Python file
+        file_path (str): Path to the code file
 
     Returns:
         str: Content of the file
@@ -87,23 +88,25 @@ def read_python_file_content(file_path: str) -> str:
 
 
 def generate_file_metadata_with_ai(
-    file_content: str, file_name: str, ai_client: AzureOpenAIClient
+    file_content: str, file_name: str, language: str, ai_client: AzureOpenAIClient
 ) -> Dict[str, Any]:
     """
-    Use AI to generate metadata for a Python file.
+    Use AI to generate metadata for a code file.
 
     Args:
-        file_content (str): Content of the Python file
+        file_content (str): Content of the code file
         file_name (str): Name of the file
+        language (str): Programming language of the file
         ai_client (AzureOpenAIClient): AI client instance
 
     Returns:
         Dict[str, Any]: Generated metadata
     """
     prompt = f"""
-Analyze this Python file and provide detailed metadata in JSON format.
+Analyze this {language} file and provide detailed metadata in JSON format.
 
 File: {file_name}
+Language: {language}
 
 Code:
 {file_content}
@@ -111,6 +114,7 @@ Code:
 Return ONLY a JSON object with the following structure (no explanations, no markdown):
 {{
     "file_name": "{file_name}",
+    "language": "{language}",
     "description": "Brief description of what this file does",
     "main_purpose": "Main purpose or responsibility of this file",
     "functions": [
@@ -137,6 +141,7 @@ Return ONLY a JSON object with the following structure (no explanations, no mark
 }}
 
 Be concise but thorough. Focus on the most important aspects.
+If the file doesn't have functions or classes, leave those arrays empty.
 """
 
     try:
@@ -177,34 +182,146 @@ Be concise but thorough. Focus on the most important aspects.
                             f"Response was truncated, using complete portion: {cleaned_response[:100]}..."
                         )
 
-                metadata = json.loads(cleaned_response.strip())
-                return metadata
+                # Try to parse the cleaned response
+                try:
+                    metadata = json.loads(cleaned_response.strip())
+                    return metadata
+                except json.JSONDecodeError:
+                    # If still failing, try to extract partial metadata
+                    logger.warning(
+                        "Attempting to extract partial metadata from truncated response"
+                    )
+                    partial_metadata = _extract_partial_metadata(
+                        cleaned_response, file_name, language
+                    )
+                    if partial_metadata:
+                        return partial_metadata
+                    else:
+                        raise json.JSONDecodeError(
+                            "Could not extract any valid metadata"
+                        )
+
             except json.JSONDecodeError as e:
                 logger.error(f"Failed to parse AI response as JSON: {e}")
                 logger.error(f"Response was: {ai_response[:200]}...")
-                return _create_fallback_metadata(file_name, file_content)
+                return _create_fallback_metadata(file_name, file_content, language)
         else:
             logger.error(f"AI request failed: {result.get('error', 'Unknown error')}")
-            return _create_fallback_metadata(file_name, file_content)
+            return _create_fallback_metadata(file_name, file_content, language)
 
     except Exception as e:
         logger.error(f"Error generating metadata for {file_name}: {e}")
-        return _create_fallback_metadata(file_name, file_content)
+        return _create_fallback_metadata(file_name, file_content, language)
 
 
-def _create_fallback_metadata(file_name: str, file_content: str) -> Dict[str, Any]:
+def _extract_partial_metadata(
+    truncated_response: str, file_name: str, language: str
+) -> Dict[str, Any]:
+    """
+    Extract partial metadata from a truncated AI response.
+
+    Args:
+        truncated_response (str): The truncated AI response
+        file_name (str): Name of the file
+        language (str): Programming language
+
+    Returns:
+        Dict[str, Any]: Partial metadata extracted from the response
+    """
+    try:
+        # Try to find key-value pairs in the truncated response
+        metadata = {
+            "file_name": file_name,
+            "language": language,
+            "description": "Partial metadata from truncated response",
+            "main_purpose": "Unknown",
+            "functions": [],
+            "classes": [],
+            "imports": [],
+            "dependencies": [],
+            "complexity": "UNKNOWN",
+            "key_features": [],
+            "warning": "Response was truncated, metadata may be incomplete",
+        }
+
+        # Extract description if available
+        desc_match = re.search(r'"description":\s*"([^"]*)"', truncated_response)
+        if desc_match:
+            metadata["description"] = desc_match.group(1)
+
+        # Extract main_purpose if available
+        purpose_match = re.search(r'"main_purpose":\s*"([^"]*)"', truncated_response)
+        if purpose_match:
+            metadata["main_purpose"] = purpose_match.group(1)
+
+        # Extract complexity if available
+        complexity_match = re.search(r'"complexity":\s*"([^"]*)"', truncated_response)
+        if complexity_match:
+            metadata["complexity"] = complexity_match.group(1)
+
+        # Extract key features if available
+        features_match = re.search(
+            r'"key_features":\s*\[(.*?)\]', truncated_response, re.DOTALL
+        )
+        if features_match:
+            features_text = features_match.group(1)
+            # Extract individual features
+            features = re.findall(r'"([^"]*)"', features_text)
+            metadata["key_features"] = features
+
+        # Extract imports if available
+        imports_match = re.search(
+            r'"imports":\s*\[(.*?)\]', truncated_response, re.DOTALL
+        )
+        if imports_match:
+            imports_text = imports_match.group(1)
+            imports = re.findall(r'"([^"]*)"', imports_text)
+            metadata["imports"] = imports
+
+        # Extract dependencies if available
+        deps_match = re.search(
+            r'"dependencies":\s*\[(.*?)\]', truncated_response, re.DOTALL
+        )
+        if deps_match:
+            deps_text = deps_match.group(1)
+            dependencies = re.findall(r'"([^"]*)"', deps_text)
+            metadata["dependencies"] = dependencies
+
+        # Check if we got any useful information
+        if (
+            metadata["description"] != "Partial metadata from truncated response"
+            or metadata["main_purpose"] != "Unknown"
+            or metadata["complexity"] != "UNKNOWN"
+            or metadata["key_features"]
+            or metadata["imports"]
+            or metadata["dependencies"]
+        ):
+            return metadata
+        else:
+            return None
+
+    except Exception as e:
+        logger.error(f"Error extracting partial metadata: {e}")
+        return None
+
+
+def _create_fallback_metadata(
+    file_name: str, file_content: str, language: str
+) -> Dict[str, Any]:
     """
     Create fallback metadata when AI generation fails.
 
     Args:
         file_name (str): Name of the file
         file_content (str): Content of the file
+        language (str): Programming language
 
     Returns:
         Dict[str, Any]: Basic fallback metadata
     """
     return {
         "file_name": file_name,
+        "language": language,
         "description": "Metadata generation failed - fallback data",
         "main_purpose": "Unknown",
         "functions": [],
@@ -224,7 +341,7 @@ def generate_codebase_metadata(
     workspace: str = "LOCAL",
 ) -> Dict[str, Any]:
     """
-    Generate comprehensive metadata for all Python files in a codebase.
+    Generate comprehensive metadata for all code files in a codebase.
 
     Args:
         codebase_path (str): Path to the codebase directory
@@ -250,7 +367,7 @@ def generate_codebase_metadata(
 
     logger.info(f"Using output directory: {output_dir}")
 
-    # Step 1: Get filtered directory structure (only Python files)
+    # Step 1: Get filtered directory structure (only code files)
     try:
         directory_json = directory_to_json_filtered(codebase_path, workspace=workspace)
         directory_structure = json.loads(directory_json)
@@ -259,12 +376,12 @@ def generate_codebase_metadata(
         logger.error(f"Failed to get directory structure: {e}")
         raise
 
-    # Step 2: Extract Python files
-    python_files = extract_python_files_from_structure(directory_structure)
-    logger.info(f"Found {len(python_files)} Python files to analyze")
+    # Step 2: Extract code files
+    code_files = extract_code_files_from_structure(directory_structure)
+    logger.info(f"Found {len(code_files)} code files to analyze")
 
-    if not python_files:
-        logger.warning("No Python files found in the codebase")
+    if not code_files:
+        logger.warning("No code files found in the codebase")
         # Return a valid metadata structure even when no files are found
         final_metadata = {
             "codebase_path": codebase_path,
@@ -272,7 +389,7 @@ def generate_codebase_metadata(
             "total_files": 0,
             "generation_timestamp": str(Path().cwd()),
             "files": [],
-            "warning": "No Python files found in the codebase",
+            "warning": "No code files found in the codebase",
         }
 
         # Save empty metadata to file
@@ -299,10 +416,10 @@ def generate_codebase_metadata(
         logger.error(f"Failed to initialize AI client: {e}")
         raise
 
-    # Step 4: Generate metadata for each Python file
+    # Step 4: Generate metadata for each code file
     metadata_results = []
 
-    for file_info in python_files:
+    for file_info in code_files:
         # Construct the correct file path
         if file_info["path"].startswith("/"):
             # Absolute path
@@ -311,17 +428,19 @@ def generate_codebase_metadata(
             # Relative path - join with codebase_path
             file_path = os.path.join(codebase_path, file_info["path"])
 
-        logger.info(f"Analyzing file: {file_info['name']} at path: {file_path}")
+        logger.info(
+            f"Analyzing file: {file_info['name']} ({file_info['language']}) at path: {file_path}"
+        )
 
         # Read file content
-        file_content = read_python_file_content(file_path)
+        file_content = read_code_file_content(file_path)
         if not file_content:
             logger.warning(f"Skipping empty file: {file_info['name']}")
             continue
 
         # Generate metadata using AI
         file_metadata = generate_file_metadata_with_ai(
-            file_content, file_info["name"], ai_client
+            file_content, file_info["name"], file_info["language"], ai_client
         )
 
         # Add file path information
@@ -365,7 +484,7 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="Generate metadata for Python codebase"
+        description="Generate metadata for codebase (any programming language)"
     )
     parser.add_argument(
         "--codebase",

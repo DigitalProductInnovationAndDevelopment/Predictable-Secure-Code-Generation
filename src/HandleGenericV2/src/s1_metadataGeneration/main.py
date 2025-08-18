@@ -84,6 +84,10 @@ def main():
             codebase_root = getattr(config, "CODEBASE_ROOT", None)
             workspace = getattr(config, "WORKSPACE", "LOCAL")
             output_dir = getattr(config, "OUTPUT_DIR", None)
+            language_arch_file = (
+                getattr(config, "LANGUAGE_ARCHITECTURE", None)
+                or "language_architecture"
+            )
 
             # Validate required config values
             if not codebase_root:
@@ -91,9 +95,26 @@ def main():
             if not output_dir:
                 raise ValueError("OUTPUT_DIR must be set in config")
 
+            # Ensure filename has .json extension
+            if not language_arch_file.endswith(".json"):
+                language_arch_file += ".json"
+
+            # Read the language architecture file to get language info
+            language_arch_path = os.path.join(output_dir, language_arch_file)
+            try:
+                with open(language_arch_path, "r") as f:
+                    language_info = json.load(f)
+                logger.info(f"Language architecture loaded: {language_info}")
+            except Exception as e:
+                logger.error(f"Failed to read language architecture file: {e}")
+                raise
+
             logger.info(f"Using CODEBASE_ROOT: {codebase_root}")
             logger.info(f"Using WORKSPACE: {workspace}")
             logger.info(f"Using OUTPUT_DIR: {output_dir}")
+            logger.info(
+                f"Detected language: {language_info.get('programming_language', 'Unknown')}"
+            )
 
             # Generate metadata using the existing language architecture
             metadata_result = generate_codebase_metadata(
