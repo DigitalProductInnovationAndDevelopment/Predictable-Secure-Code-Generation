@@ -1,21 +1,40 @@
+#!/usr/bin/env python3
 """
-Main CLI interface for GenerateCodeFromRequirements system.
+Main CLI interface for S3 Code Validation system.
 
-This module provides command-line interface for generating code from requirements,
-integrating with metadata analysis, requirement checking, and validation systems.
+This module provides command-line interface for validating code using AI assistance,
+monitoring code quality, and tracking validation results.
 """
 
 import argparse
 import json
 import logging
 import sys
-import time
+import os
 from pathlib import Path
 
-from core.generator import CodeGenerator
-from utils.config import GenerationConfig
-from utils.helpers import GenerationHelper
-from models.generation_result import GenerationResult, GenerationStatus
+# Add the HandleGenericV2 directory to the path so we can import config
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.join(current_dir, "..", "..", "..")  # Go to HandleGenericV2
+sys.path.insert(0, project_root)
+
+try:
+    from config import Config
+    from .core.codeValidator import CodeValidator
+except ImportError as e:
+    print(f"❌ Import error: {e}")
+    # Try alternative import path
+    sys.path.insert(0, os.path.join(project_root, "src"))
+    try:
+        from config import Config
+        from .core.codeValidator import CodeValidator
+    except ImportError as e2:
+        print(f"❌ Alternative import also failed: {e2}")
+        # Try absolute path
+        absolute_path = "/Users/abdullahhesham/Documents/GitHub/Predictable-Secure-Code-Generation/src/HandleGenericV2"
+        sys.path.insert(0, absolute_path)
+        from config import Config
+        from .core.codeValidator import CodeValidator
 
 
 def setup_logging(verbose: bool = False) -> logging.Logger:
@@ -29,90 +48,284 @@ def setup_logging(verbose: bool = False) -> logging.Logger:
     return logging.getLogger(__name__)
 
 
+def validate_code(verbose: bool = False) -> dict:
+    """
+    Validate all code files using AI assistance.
+
+    Returns:
+        dict: Validation results and summary
+    """
+    try:
+        print("🚀 Starting comprehensive code validation...")
+
+        # Initialize configuration and validator
+        config = Config()
+        validator = CodeValidator(config)
+
+        # Perform validation
+        result = validator.validate_all_code()
+
+        if result["status"] == "success":
+            summary = result["summary"]
+            print(f"\n🎉 Validation completed successfully!")
+            print(f"📁 Total Files: {summary['total_files']}")
+            print(f"✅ Passed: {summary['passed_files']}")
+            print(f"❌ Failed: {summary['failed_files']}")
+            print(f"📊 Pass Rate: {summary['pass_rate']:.1f}%")
+            print(f"🎯 Overall Score: {summary['overall_score']:.1f}/100")
+
+            # Show detailed summary
+            print("\n📋 Detailed Summary:")
+            detailed_summary = validator.get_validation_summary()
+            if detailed_summary["status"] == "success":
+                issue_breakdown = detailed_summary["issue_breakdown"]
+                print(f"🚨 High Priority Issues: {issue_breakdown['high_priority']}")
+                print(f"⚠️ Medium Priority Issues: {issue_breakdown['medium_priority']}")
+                print(f"💡 Low Priority Issues: {issue_breakdown['low_priority']}")
+
+                print("\n💡 Recommendations:")
+                for rec in detailed_summary["recommendations"]:
+                    print(f"  {rec}")
+            else:
+                print(
+                    f"Could not generate detailed summary: {detailed_summary.get('error', 'Unknown error')}"
+                )
+        else:
+            print(f"❌ Validation failed: {result.get('error', 'Unknown error')}")
+
+        return result
+
+    except Exception as e:
+        print(f"❌ Error during validation: {e}")
+        return {"error": f"Validation failed: {str(e)}"}
+
+
+def show_validation_status() -> dict:
+    """
+    Show current validation status.
+
+    Returns:
+        dict: Current validation status
+    """
+    try:
+        print("📊 Current Validation Status")
+        print("=" * 50)
+
+        # Initialize configuration and validator
+        config = Config()
+        validator = CodeValidator(config)
+
+        # Get status
+        status = validator.get_validation_status()
+
+        print(f"📊 Current Status: {status['current_status']}")
+        print(f"📋 Total Validations: {status['total_validations']}")
+        print(f"✅ Passed: {status['passed_validations']}")
+        print(f"❌ Failed: {status['failed_validations']}")
+        print(f"🔤 Language: {status['language']}")
+        print(f"🌐 Workspace: {status['workspace']}")
+        print(
+            f"🤖 AI Client: {'Available' if status['ai_client_available'] else 'Not Available'}"
+        )
+
+        # Show last validation if available
+        if status.get("last_validation"):
+            last_val = status["last_validation"]
+            print(
+                f"\n📅 Last Validation: {last_val.get('validation_timestamp', 'Unknown')}"
+            )
+            print(f"📁 Files Validated: {last_val.get('total_files', 0)}")
+            print(f"✅ Passed: {last_val.get('passed_files', 0)}")
+            print(f"❌ Failed: {last_val.get('failed_files', 0)}")
+            print(f"📊 Pass Rate: {last_val.get('pass_rate', 0):.1f}%")
+            print(f"🎯 Overall Score: {last_val.get('overall_score', 0):.1f}/100")
+
+        return status
+
+    except Exception as e:
+        print(f"❌ Error getting status: {e}")
+        return {"error": f"Status check failed: {str(e)}"}
+
+
+def show_validation_summary() -> dict:
+    """
+    Show comprehensive validation summary.
+
+    Returns:
+        dict: Validation summary with recommendations
+    """
+    try:
+        print("📋 Validation Summary")
+        print("=" * 50)
+
+        # Initialize configuration and validator
+        config = Config()
+        validator = CodeValidator(config)
+
+        # Get summary
+        summary = validator.get_validation_summary()
+
+        if summary["status"] == "success":
+            overall_summary = summary["overall_summary"]
+            issue_breakdown = summary["issue_breakdown"]
+
+            print(f"📁 Total Files: {overall_summary.get('total_files', 0)}")
+            print(f"✅ Passed: {overall_summary.get('passed_files', 0)}")
+            print(f"❌ Failed: {overall_summary.get('failed_files', 0)}")
+            print(f"📊 Pass Rate: {overall_summary.get('pass_rate', 0):.1f}%")
+            print(
+                f"🎯 Overall Score: {overall_summary.get('overall_score', 0):.1f}/100"
+            )
+
+            print(f"\n🚨 Issue Breakdown:")
+            print(f"  High Priority: {issue_breakdown['high_priority']}")
+            print(f"  Medium Priority: {issue_breakdown['medium_priority']}")
+            print(f"  Low Priority: {issue_breakdown['low_priority']}")
+
+            print(f"\n💡 Recommendations:")
+            for rec in summary["recommendations"]:
+                print(f"  {rec}")
+
+            validation_history = summary["validation_history"]
+            print(f"\n📚 Validation History:")
+            print(f"  Total Validations: {validation_history['total_validations']}")
+            print(f"  Success Rate: {validation_history['success_rate']:.1f}%")
+
+        else:
+            print(
+                f"❌ Could not generate summary: {summary.get('error', 'Unknown error')}"
+            )
+
+        return summary
+
+    except Exception as e:
+        print(f"❌ Error getting summary: {e}")
+        return {"error": f"Summary generation failed: {str(e)}"}
+
+
+def reset_validation_log() -> dict:
+    """
+    Reset the validation log.
+
+    Returns:
+        dict: Reset confirmation
+    """
+    try:
+        print("🔄 Resetting validation log...")
+
+        # Initialize configuration and validator
+        config = Config()
+        validator = CodeValidator(config)
+
+        # Reset log
+        validator.reset_validation_log()
+
+        print("✅ Validation log reset successfully")
+        return {"status": "success", "message": "Validation log reset successfully"}
+
+    except Exception as e:
+        print(f"❌ Error resetting log: {e}")
+        return {"error": f"Log reset failed: {str(e)}"}
+
+
+def test_ai_connection() -> dict:
+    """
+    Test AI client connection.
+
+    Returns:
+        dict: Connection test results
+    """
+    try:
+        print("🤖 Testing AI client connection...")
+
+        # Initialize configuration and validator
+        config = Config()
+        validator = CodeValidator(config)
+
+        if validator.ai_client:
+            # Test connection
+            result = validator.ai_client.test_connection()
+            if result:
+                print("✅ AI client connection successful")
+                return {
+                    "status": "success",
+                    "message": "AI client connection successful",
+                }
+            else:
+                print("❌ AI client connection failed")
+                return {"status": "error", "message": "AI client connection failed"}
+        else:
+            print("❌ AI client not available")
+            return {"status": "error", "message": "AI client not available"}
+
+    except Exception as e:
+        print(f"❌ Error testing AI connection: {e}")
+        return {"error": f"AI connection test failed: {str(e)}"}
+
+
 def main():
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
-        description="Generate code from requirements with AI assistance",
+        description="S3 Code Validation - Validate code using AI assistance",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Basic code generation
-  python main.py --project-path /path/to/project --requirements requirements.csv --metadata metadata.json --output /path/to/output
+  # Validate all code files
+  python main.py --validate
 
-  # With existing requirements for comparison
-  python main.py --project-path /path/to/project --requirements new_requirements.csv --existing-requirements old_requirements.csv --metadata metadata.json --output /path/to/output
+  # Show current validation status
+  python main.py --status
 
-  # With custom configuration
-  python main.py --project-path /path/to/project --requirements requirements.csv --metadata metadata.json --output /path/to/output --config config.json
+  # Show comprehensive validation summary
+  python main.py --summary
 
-  # Verbose output with JSON format
-  python main.py --project-path /path/to/project --requirements requirements.csv --metadata metadata.json --output /path/to/output --verbose --format json
+  # Reset validation log
+  python main.py --reset
+
+  # Test AI client connection
+  python main.py --test-ai
+
+  # Validate with verbose logging
+  python main.py --validate --verbose
+
+  # Run all validations and show summary
+  python main.py --validate --summary
         """,
     )
 
-    # Required arguments
+    # Add arguments
     parser.add_argument(
-        "--project-path",
-        "-p",
-        required=True,
-        help="Path to the source project directory",
+        "--validate",
+        action="store_true",
+        help="Validate all code files using AI assistance",
     )
 
     parser.add_argument(
-        "--requirements", "-r", required=True, help="Path to requirements CSV file"
+        "--status",
+        action="store_true",
+        help="Show current validation status",
     )
 
     parser.add_argument(
-        "--metadata", "-m", required=True, help="Path to project metadata JSON file"
+        "--summary",
+        action="store_true",
+        help="Show comprehensive validation summary",
     )
 
     parser.add_argument(
-        "--output",
-        "-o",
-        required=True,
-        help="Path to output directory for generated code",
-    )
-
-    # Optional arguments
-    parser.add_argument(
-        "--existing-requirements",
-        "-e",
-        help="Path to existing requirements CSV file for comparison",
-    )
-
-    parser.add_argument("--config", "-c", help="Path to configuration JSON file")
-
-    parser.add_argument(
-        "--format",
-        "-f",
-        choices=["json", "yaml", "text"],
-        default="json",
-        help="Output format for results (default: json)",
+        "--reset",
+        action="store_true",
+        help="Reset the validation log",
     )
 
     parser.add_argument(
-        "--output-result", "-or", help="Path to save generation result file"
+        "--test-ai",
+        action="store_true",
+        help="Test AI client connection",
     )
 
     parser.add_argument(
         "--verbose", "-v", action="store_true", help="Enable verbose logging"
-    )
-
-    parser.add_argument(
-        "--dry-run",
-        "-d",
-        action="store_true",
-        help="Analyze requirements without generating code",
-    )
-
-    parser.add_argument("--no-tests", action="store_true", help="Skip test generation")
-
-    parser.add_argument(
-        "--no-validation", action="store_true", help="Skip validation step"
-    )
-
-    parser.add_argument(
-        "--no-metadata-update", action="store_true", help="Skip metadata update step"
     )
 
     args = parser.parse_args()
@@ -120,196 +333,79 @@ Examples:
     # Set up logging
     logger = setup_logging(args.verbose)
 
-    try:
-        # Load configuration
-        if args.config and Path(args.config).exists():
-            config = GenerationConfig.load_from_file(args.config)
-            logger.info(f"Loaded configuration from {args.config}")
-        else:
-            config = GenerationConfig()
-            logger.info("Using default configuration")
+    # Handle different command combinations
+    if args.validate:
+        print("🚀 Starting code validation...")
+        result = validate_code(verbose=args.verbose)
+        if "error" in result:
+            print(f"❌ Validation failed: {result['error']}")
+            return 1
+        return 0
 
-        # Override config with command line arguments
-        if args.format:
-            config.output_format = args.format
-        if args.verbose:
-            config.verbose_logging = True
-        if args.no_tests:
-            config.generate_tests = False
-        if args.no_validation:
-            config.run_tests_after_generation = False
-        if args.no_metadata_update:
-            config.update_metadata = False
+    elif args.status:
+        print("📊 Checking validation status...")
+        result = show_validation_status()
+        if "error" in result:
+            print(f"❌ Status check failed: {result['error']}")
+            return 1
+        return 0
 
-        # Validate configuration
-        config_errors = config.validate()
-        if config_errors:
-            logger.error("Configuration validation failed:")
-            for error in config_errors:
-                logger.error(f"  - {error}")
-            sys.exit(1)
+    elif args.summary:
+        print("📋 Generating validation summary...")
+        result = show_validation_summary()
+        if "error" in result:
+            print(f"❌ Summary generation failed: {result['error']}")
+            return 1
+        return 0
 
-        # Validate input paths
-        if not Path(args.project_path).exists():
-            logger.error(f"Project path does not exist: {args.project_path}")
-            sys.exit(1)
+    elif args.reset:
+        print("🔄 Resetting validation log...")
+        result = reset_validation_log()
+        if "error" in result:
+            print(f"❌ Log reset failed: {result['error']}")
+            return 1
+        return 0
 
-        if not Path(args.requirements).exists():
-            logger.error(f"Requirements file does not exist: {args.requirements}")
-            sys.exit(1)
+    elif args.test_ai:
+        print("🤖 Testing AI connection...")
+        result = test_ai_connection()
+        if "error" in result:
+            print(f"❌ AI test failed: {result['error']}")
+            return 1
+        return 0
 
-        if not Path(args.metadata).exists():
-            logger.error(f"Metadata file does not exist: {args.metadata}")
-            sys.exit(1)
-
-        if args.existing_requirements and not Path(args.existing_requirements).exists():
-            logger.error(
-                f"Existing requirements file does not exist: {args.existing_requirements}"
-            )
-            sys.exit(1)
-
-        # Display configuration summary if verbose
-        if args.verbose:
-            logger.info("Configuration summary:")
-            for line in config.get_summary().split("\n"):
-                logger.info(f"  {line}")
-
-        logger.info("Starting code generation process...")
-        start_time = time.time()
-
-        # Initialize generator
-        generator = CodeGenerator(logger)
-
-        if args.dry_run:
-            logger.info("DRY RUN MODE - No code will be generated")
-            # TODO: Implement dry run analysis
-            result = GenerationResult(GenerationStatus.SUCCESS)
-            result.execution_time = time.time() - start_time
-        else:
-            # Run code generation
-            result = generator.generate_from_requirements(
-                project_path=args.project_path,
-                requirements_path=args.requirements,
-                metadata_path=args.metadata,
-                output_path=args.output,
-                existing_requirements_path=args.existing_requirements,
-            )
-
-        # Display results
-        if result.status == GenerationStatus.SUCCESS:
-            logger.info("✅ Code generation completed successfully!")
-        elif result.status == GenerationStatus.PARTIAL_SUCCESS:
-            logger.warning("⚠️ Code generation completed with some issues")
-        else:
-            logger.error("❌ Code generation failed")
-
-        # Display summary
-        print("\n" + "=" * 60)
-        print("CODE GENERATION SUMMARY")
+    # Default behavior: validate and show summary
+    elif not any([args.validate, args.status, args.summary, args.reset, args.test_ai]):
+        print("🚀 S3 Code Validation - Default Mode")
         print("=" * 60)
-        print(result.get_summary())
+        print("No specific command provided - running full validation workflow")
+        print("=" * 60)
 
-        # Save result to file if requested
-        if args.output_result:
-            output_path = args.output_result
-        else:
-            output_path = str(
-                Path(args.output) / f"generation_result.{config.output_format}"
-            )
+        # Validate code
+        print("\n🔍 STEP 1: Validating code...")
+        validation_result = validate_code(verbose=args.verbose)
 
-        if GenerationHelper.save_result_to_file(
-            result.to_dict(), output_path, config.output_format
-        ):
-            logger.info(f"Results saved to: {output_path}")
-        else:
-            logger.error(f"Failed to save results to: {output_path}")
+        if "error" in validation_result:
+            print(f"❌ Validation failed: {validation_result['error']}")
+            return 1
 
-        # Exit with appropriate code
-        if result.status == GenerationStatus.FAILED:
-            sys.exit(1)
-        elif result.status == GenerationStatus.PARTIAL_SUCCESS:
-            sys.exit(2)
-        else:
-            sys.exit(0)
+        # Show summary
+        print("\n📋 STEP 2: Generating summary...")
+        summary_result = show_validation_summary()
 
-    except KeyboardInterrupt:
-        logger.info("Process interrupted by user")
-        sys.exit(130)
-    except Exception as e:
-        logger.error(f"Unexpected error: {str(e)}")
-        if args.verbose:
-            import traceback
+        if "error" in summary_result:
+            print(f"⚠️ Summary generation had issues: {summary_result['error']}")
 
-            traceback.print_exc()
-        sys.exit(1)
+        print("\n🎉 Default validation workflow completed!")
+        return 0
 
+    # If no arguments provided, show help
+    if len(sys.argv) == 1:
+        parser.print_help()
+        return
 
-def create_sample_config():
-    """Create a sample configuration file."""
-    config = GenerationConfig()
-    config_path = "config_example.json"
-
-    if config.save_to_file(config_path):
-        print(f"Sample configuration created: {config_path}")
-        print("Edit this file to customize your settings.")
-    else:
-        print("Failed to create sample configuration file.")
-
-
-def validate_installation():
-    """Validate that all dependencies are properly installed."""
-    import importlib
-
-    required_modules = ["pathlib", "json", "logging", "ast", "typing"]
-
-    optional_modules = [
-        ("yaml", "PyYAML - for YAML output format"),
-        ("black", "Black - for code formatting"),
-    ]
-
-    print("Validating installation...")
-
-    # Check required modules
-    missing_required = []
-    for module in required_modules:
-        try:
-            importlib.import_module(module)
-        except ImportError:
-            missing_required.append(module)
-
-    if missing_required:
-        print(f"❌ Missing required modules: {', '.join(missing_required)}")
-        return False
-
-    print("✅ All required modules available")
-
-    # Check optional modules
-    missing_optional = []
-    for module, description in optional_modules:
-        try:
-            importlib.import_module(module)
-        except ImportError:
-            missing_optional.append((module, description))
-
-    if missing_optional:
-        print("\n⚠️ Optional modules not available:")
-        for module, description in missing_optional:
-            print(f"  - {description}")
-        print("Install these for enhanced functionality.")
-
-    return True
+    print("❌ No valid command specified. Use --help to see available options.")
 
 
 if __name__ == "__main__":
-    # Handle special commands
-    if len(sys.argv) > 1:
-        if sys.argv[1] == "create-config":
-            create_sample_config()
-            sys.exit(0)
-        elif sys.argv[1] == "validate":
-            if validate_installation():
-                sys.exit(0)
-            else:
-                sys.exit(1)
-
     main()

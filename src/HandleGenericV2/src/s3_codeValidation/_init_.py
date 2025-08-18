@@ -1,40 +1,24 @@
 """
-GenerateCodeFromRequirements - AI-powered code generation from requirements
+S3 Code Validation Package
 
-This package provides a comprehensive system for generating code from requirements,
-integrating with metadata analysis, requirement checking, and validation systems.
+This package provides comprehensive code validation using AI assistance.
+It validates code against requirements, monitors code quality, and tracks validation results.
 
-Key Features:
-- Requirement analysis and identification of missing functionality
-- AI-powered code generation and integration
-- Automatic test case generation
-- Metadata updating and validation
-- Integration with existing codebases
-
-Usage:
-    from GenerateCodeFromRequirements import CodeGenerator
-
-    generator = CodeGenerator()
-    result = generator.generate_from_requirements(
-        project_path="./my_project",
-        requirements_path="./requirements.csv",
-        metadata_path="./metadata.json",
-        output_path="./output"
-    )
+Components:
+- CodeValidator: Main validation engine using AI
+- Validation monitoring and tracking
+- Issue detection and recommendations
+- Requirements coverage analysis
 """
 
 __version__ = "1.0.0"
-__author__ = "AI Assistant"
+__author__ = "AI Code Generation Team"
+__description__ = "AI-powered code validation and quality monitoring"
 
-from .core.generator import CodeGenerator
-from .core.analyzer import RequirementAnalyzer
-from .core.integrator import CodeIntegrator
-from .models.generation_result import GenerationResult, GenerationStatus
+# Import core components
+from .core.codeValidator import CodeValidator
 
+# Export main components
 __all__ = [
-    "CodeGenerator",
-    "RequirementAnalyzer",
-    "CodeIntegrator",
-    "GenerationResult",
-    "GenerationStatus",
+    "CodeValidator",
 ]
