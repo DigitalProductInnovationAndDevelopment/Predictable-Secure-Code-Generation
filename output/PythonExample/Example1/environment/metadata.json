@@ -7,15 +7,164 @@
     {
       "file_name": "code.py",
       "language": "PYTHON",
-      "description": "This file contains a collection of utility functions for performing basic mathematical operations, string processing, and list validation.",
-      "main_purpose": "To provide reusable functions for common operations such as addition, subtraction, multiplication, division, palindrome checking, and list processing.",
-      "functions": [],
+      "description": "This file contains various utility functions for mathematical operations, string processing, and list handling.",
+      "main_purpose": "To provide reusable functions for common operations such as arithmetic, string validation, and list processing.",
+      "functions": [
+        {
+          "name": "addition",
+          "description": "Returns the sum of two numbers.",
+          "parameters": [
+            "a",
+            "b"
+          ],
+          "returns": "Sum of a and b",
+          "purpose": "To perform addition of two numbers."
+        },
+        {
+          "name": "subtraction",
+          "description": "Returns the difference of two numbers.",
+          "parameters": [
+            "a",
+            "b"
+          ],
+          "returns": "Difference of a and b",
+          "purpose": "To perform subtraction of two numbers."
+        },
+        {
+          "name": "multiply_two_numbers",
+          "description": "Multiplies two numbers and returns the result.",
+          "parameters": [
+            "num1",
+            "num2"
+          ],
+          "returns": "The product of the two numbers.",
+          "purpose": "To perform multiplication with input validation."
+        },
+        {
+          "name": "divide_two_numbers",
+          "description": "Divides two numbers and returns the result.",
+          "parameters": [
+            "numerator",
+            "denominator"
+          ],
+          "returns": "The result of the division.",
+          "purpose": "To safely perform division with error handling for invalid inputs."
+        },
+        {
+          "name": "add_and_multiply_by_two",
+          "description": "Adds two numbers and multiplies the result by two.",
+          "parameters": [
+            "num1",
+            "num2"
+          ],
+          "returns": "The result of adding the two numbers and multiplying by two.",
+          "purpose": "To combine addition and multiplication in a single operation."
+        },
+        {
+          "name": "sum_list_elements",
+          "description": "Calculates the sum of all elements in a given list.",
+          "parameters": [
+            "numbers"
+          ],
+          "returns": "The sum of all elements in the list.",
+          "purpose": "To sum the elements of a list with validation."
+        },
+        {
+          "name": "is_palindrome",
+          "description": "Determines whether a given string is a palindrome.",
+          "parameters": [
+            "input_string"
+          ],
+          "returns": "True if the input string is a palindrome, False otherwise.",
+          "purpose": "To check if a string reads the same backward as forward."
+        },
+        {
+          "name": "validate_operation_inputs",
+          "description": "Validates the input types for mathematical operations.",
+          "parameters": [
+            "operation_name",
+            "param1",
+            "param2"
+          ],
+          "returns": "None",
+          "purpose": "To ensure inputs for operations are valid."
+        },
+        {
+          "name": "safe_division",
+          "description": "Safely performs division of two numbers.",
+          "parameters": [
+            "numerator",
+            "denominator"
+          ],
+          "returns": "The result of the division if valid.",
+          "purpose": "To handle division with error checks for invalid inputs."
+        },
+        {
+          "name": "sum_non_empty_list",
+          "description": "Sums the elements of a list, raising an error if the list is empty.",
+          "parameters": [
+            "numbers"
+          ],
+          "returns": "The sum of the numeric values in the list.",
+          "purpose": "To sum a list with validation for non-empty input."
+        },
+        {
+          "name": "sum_numeric_elements",
+          "description": "Sums a list of numeric elements.",
+          "parameters": [
+            "elements"
+          ],
+          "returns": "The sum of all numeric elements in the list.",
+          "purpose": "To sum numeric elements in a list with validation."
+        },
+        {
+          "name": "demonstrate_calculator_operations",
+          "description": "Provides a command-line interface to demonstrate calculator operations.",
+          "parameters": [],
+          "returns": "None",
+          "purpose": "To allow users to interactively perform addition and subtraction."
+        },
+        {
+          "name": "add_and_double",
+          "description": "Adds two numbers and multiplies the result by two.",
+          "parameters": [
+            "num1",
+            "num2"
+          ],
+          "returns": "The result of adding the two numbers and multiplying the sum by two.",
+          "purpose": "To combine addition and doubling in a single operation."
+        },
+        {
+          "name": "process_list",
+          "description": "Processes a given list by validating its contents and performing operations.",
+          "parameters": [
+            "input_list"
+          ],
+          "returns": "A processed version of the input list.",
+          "purpose": "To validate and process lists with error handling."
+        },
+        {
+          "name": "process_string",
+          "description": "Processes a given string by validating its type.",
+          "parameters": [
+            "input_string"
+          ],
+          "returns": "The processed string.",
+          "purpose": "To validate and process strings."
+        }
+      ],
       "classes": [],
-      "imports": [],
+      "imports": [
+        "sys"
+      ],
       "dependencies": [],
-      "complexity": "UNKNOWN",
-      "key_features": [],
-      "warning": "Response was truncated, metadata may be incomplete",
+      "complexity": "MEDIUM",
+      "key_features": [
+        "Mathematical operations with input validation",
+        "String processing and palindrome detection",
+        "List handling with error checks",
+        "Interactive calculator demonstration"
+      ],
       "file_path": "code.py",
       "file_size": 14036
     },
@@ -27,10 +176,10 @@
       "functions": [
         {
           "name": "main",
-          "description": "Main function to demonstrate calculator operations and handle errors.",
+          "description": "Main function to demonstrate calculator operations.",
           "parameters": [],
           "returns": "None",
-          "purpose": "Serves as the entry point to execute and demonstrate the Calculator class functionality."
+          "purpose": "Serves as the entry point for the script, demonstrating various Calculator methods and handling errors."
         }
       ],
       "classes": [],
@@ -38,14 +187,14 @@
         "calculator.Calculator"
       ],
       "dependencies": [
-        "calculator"
+        "calculator module"
       ],
       "complexity": "MEDIUM",
       "key_features": [
         "Demonstrates basic arithmetic operations (add, subtract, multiply, divide)",
-        "Includes special operations like add_and_multiply_by_two",
-        "Handles list operations such as summing elements",
-        "Showcases error handling for invalid inputs and edge cases"
+        "Showcases special operations like add_and_multiply_by_two",
+        "Handles errors such as division by zero, type errors, and empty lists",
+        "Performs list-based operations like summing elements"
       ],
       "file_path": "main.py",
       "file_size": 2515

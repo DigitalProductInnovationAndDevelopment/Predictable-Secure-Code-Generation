@@ -140,12 +140,12 @@ Return ONLY a JSON object with the following structure (no explanations, no mark
     "key_features": ["feature1", "feature2"]
 }}
 
-Be concise but thorough. Focus on the most important aspects.
-If the file doesn't have functions or classes, leave those arrays empty.
+IMPORTANT: Focus on extracting ALL functions and classes first, even if other fields are brief.
+Be concise but thorough. If the file doesn't have functions or classes, leave those arrays empty.
 """
 
     try:
-        result = ai_client.ask_question(prompt, max_tokens=1000, temperature=0.1)
+        result = ai_client.ask_question(prompt, max_tokens=4000, temperature=0.1)
 
         if result.get("status") == "success":
             # Parse the AI response to extract JSON
@@ -286,6 +286,57 @@ def _extract_partial_metadata(
             deps_text = deps_match.group(1)
             dependencies = re.findall(r'"([^"]*)"', deps_text)
             metadata["dependencies"] = dependencies
+
+        # Extract functions if available
+        functions_match = re.search(
+            r'"functions":\s*\[(.*?)\]', truncated_response, re.DOTALL
+        )
+        if functions_match:
+            functions_text = functions_match.group(1)
+            # Extract individual function objects
+            functions = []
+            # Look for function objects with name, description, parameters, returns, purpose
+            function_matches = re.findall(
+                r'\{[^}]*"name":\s*"([^"]*)"[^}]*"description":\s*"([^"]*)"[^}]*\}',
+                functions_text,
+                re.DOTALL,
+            )
+            for name, description in function_matches:
+                functions.append(
+                    {
+                        "name": name,
+                        "description": description,
+                        "parameters": [],
+                        "returns": "Unknown",
+                        "purpose": "Unknown",
+                    }
+                )
+            metadata["functions"] = functions
+
+        # Extract classes if available
+        classes_match = re.search(
+            r'"classes":\s*\[(.*?)\]', truncated_response, re.DOTALL
+        )
+        if classes_match:
+            classes_text = classes_match.group(1)
+            # Extract individual class objects
+            classes = []
+            # Look for class objects with name, description, methods, purpose
+            class_matches = re.findall(
+                r'\{[^}]*"name":\s*"([^"]*)"[^}]*"description":\s*"([^"]*)"[^}]*\}',
+                classes_text,
+                re.DOTALL,
+            )
+            for name, description in class_matches:
+                classes.append(
+                    {
+                        "name": name,
+                        "description": description,
+                        "methods": [],
+                        "purpose": "Unknown",
+                    }
+                )
+            metadata["classes"] = classes
 
         # Check if we got any useful information
         if (
