@@ -28,7 +28,8 @@ from config import Config
 # Import the required modules
 from adapters.read.readRequirements import requirements_csv_to_json
 from adapters.read.readJson import read_json_file
-from aiBrain.ai import AzureOpenAIClient
+
+# from aiBrain.ai import AzureOpenAIClient  # Commented out to avoid import issues
 
 
 def _simple_requirements_analysis(

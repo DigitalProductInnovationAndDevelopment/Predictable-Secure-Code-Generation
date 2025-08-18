@@ -12,52 +12,52 @@ class Config:
     """Configuration settings for the automated code update system"""
 
     # File paths
-    METADATA_FILE = os.getenv("METADATA_FILE", "data/metadata.json")
-    STATUS_LOG_FILE = os.getenv("STATUS_LOG_FILE", "data/status_log.json")
-    IMPLEMENTED_REQUIREMENTS_FILE = os.getenv(
+    METADATA_FILE: str = os.getenv("METADATA_FILE", "data/metadata.json")
+    STATUS_LOG_FILE: str = os.getenv("STATUS_LOG_FILE", "data/status_log.json")
+    IMPLEMENTED_REQUIREMENTS_FILE: str = os.getenv(
         "IMPLEMENTED_REQUIREMENTS_FILE",
         ".../output/PythonExample/environment/implementedRequirements.csv",
     )
-    REQUIREMENTS = os.getenv(
+    REQUIREMENTS: str = os.getenv(
         "REQUIREMENTS", "./input/PythonExample/environment/requirements.csv"
     )
-    CODEBASE_ROOT = os.getenv("CODEBASE_ROOT", "./input/PythonExample/code/")
+    CODEBASE_ROOT: str = os.getenv("CODEBASE_ROOT", "./input/PythonExample/code/")
 
     # AI Service Configuration - Azure OpenAI
     # NOTE: These must be set in environment variables or .env file
-    AZURE_OPENAI_API_KEY = os.getenv("AZURE_OPENAI_API_KEY")
-    AZURE_OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
-    AZURE_OPENAI_API_VERSION = os.getenv("AZURE_OPENAI_API_VERSION", "2024-02-01")
-    AZURE_OPENAI_DEPLOYMENT_NAME = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4o")
-    WORKSPACE = os.getenv("WORKSPACE", "LOCAL")
-    LANGUAGE_ARCHITECTURE = os.getenv("LANGUAGE_ARCHITECTURE")
-    OUTPUT_DIR = os.getenv("OUTPUT_DIR")
+    AZURE_OPENAI_API_KEY: str = os.getenv("AZURE_OPENAI_API_KEY")
+    AZURE_OPENAI_ENDPOINT: str = os.getenv("AZURE_OPENAI_ENDPOINT")
+    AZURE_OPENAI_API_VERSION: str = os.getenv("AZURE_OPENAI_API_VERSION", "2024-02-01")
+    AZURE_OPENAI_DEPLOYMENT_NAME: str = os.getenv(
+        "AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4o"
+    )
+    WORKSPACE: str = os.getenv("WORKSPACE", "LOCAL")
+    LANGUAGE_ARCHITECTURE: str = os.getenv("LANGUAGE_ARCHITECTURE")
+    OUTPUT_DIR: str = os.getenv("OUTPUT_DIR")
     # Legacy OpenAI Configuration (kept for backward compatibility)
     # NOTE: These must be set in environment variables or .env file
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-    OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4")
-    REGION = os.getenv("REGION", "swedencentral")
+    OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY")
+    OPENAI_MODEL: str = os.getenv("OPENAI_MODEL", "gpt-4")
+    REGION: str = os.getenv("REGION", "swedencentral")
 
     # AI Parameters
-    AI_MAX_TOKENS = int(os.getenv("AI_MAX_TOKENS", "4000"))
-    AI_TEMPERATURE = float(os.getenv("AI_TEMPERATURE", "0.1"))
-    AI_TOP_P = float(os.getenv("AI_TOP_P", "1.0"))
-    AI_FREQUENCY_PENALTY = float(os.getenv("AI_FREQUENCY_PENALTY", "0.0"))
-    AI_PRESENCE_PENALTY = float(os.getenv("AI_PRESENCE_PENALTY", "0.0"))
-    METADATA = os.getenv("METADATA")
-    IMPLEMENTED_REQUIREMENTS = os.getenv(
+    AI_MAX_TOKENS: int = int(os.getenv("AI_MAX_TOKENS", "4000"))
+    AI_TEMPERATURE: float = float(os.getenv("AI_TEMPERATURE", "0.1"))
+    AI_TOP_P: float = float(os.getenv("AI_TOP_P", "1.0"))
+    AI_FREQUENCY_PENALTY: float = float(os.getenv("AI_FREQUENCY_PENALTY", "0.0"))
+    AI_PRESENCE_PENALTY: float = float(os.getenv("AI_PRESENCE_PENALTY", "0.0"))
+    METADATA: str = os.getenv("METADATA")
+    IMPLEMENTED_REQUIREMENTS: str = os.getenv(
         "IMPLEMENTED_REQUIREMENTS",
         "/Users/abdullahhesham/Documents/GitHub/Predictable-Secure-Code-Generation/output/PythonExample/Example1/environment/IMPLEMENTED_REQUIREMENTS.csv",
     )
     # Default System Prompts
-    DEFAULT_SYSTEM_PROMPT = os.getenv(
+    DEFAULT_SYSTEM_PROMPT: str = os.getenv(
         "DEFAULT_SYSTEM_PROMPT",
         "You are a helpful AI assistant. Provide clear, accurate, and helpful responses.",
     )
 
-    REQUIREMENTS = os.getenv("REQUIREMENTS")
-
-    CODE_CORRECTION_PROMPT = os.getenv(
+    CODE_CORRECTION_PROMPT: str = os.getenv(
         "CODE_CORRECTION_PROMPT",
         (
             "You are a Python code corrector. Follow these rules: "
@@ -69,35 +69,42 @@ class Config:
     )
 
     # Validation settings
-    MAX_RETRIES = int(os.getenv("MAX_RETRIES", "3"))
-    VALIDATION_TIMEOUT = int(os.getenv("VALIDATION_TIMEOUT", "300"))  # 5 minutes
+    MAX_RETRIES: int = int(os.getenv("MAX_RETRIES", "3"))
+    VALIDATION_TIMEOUT: int = int(os.getenv("VALIDATION_TIMEOUT", "300"))  # 5 minutes
 
     # Code style settings
-    PYTHON_FORMATTER = os.getenv("PYTHON_FORMATTER", "black")
-    LINTER = os.getenv("LINTER", "flake8")
-    TEST_COMMAND = os.getenv("TEST_COMMAND", "pytest")
+    PYTHON_FORMATTER: str = os.getenv("PYTHON_FORMATTER", "black")
+    LINTER: str = os.getenv("LINTER", "flake8")
+    TEST_COMMAND: str = os.getenv("TEST_COMMAND", "pytest")
 
     # Directories to exclude from analysis
-    EXCLUDE_DIRS = [
-        "__pycache__",
-        ".git",
-        "node_modules",
-        "venv",
-        ".venv",
-        "env",
-        ".env",
-        "dist",
-        "build",
-    ]
+    EXCLUDE_DIRS: List[str] = None
 
     # Azure Function specific settings
-    FUNCTION_TIMEOUT = int(os.getenv("AZURE_FUNCTION_TIMEOUT", "600"))  # 10 minutes
+    FUNCTION_TIMEOUT: int = int(
+        os.getenv("AZURE_FUNCTION_TIMEOUT", "600")
+    )  # 10 minutes
 
     # Logging configuration
-    LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
-    LOG_FORMAT = os.getenv(
+    LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
+    LOG_FORMAT: str = os.getenv(
         "LOG_FORMAT", "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     )
+
+    def __post_init__(self):
+        """Initialize computed fields after dataclass initialization"""
+        if self.EXCLUDE_DIRS is None:
+            self.EXCLUDE_DIRS = [
+                "__pycache__",
+                ".git",
+                "node_modules",
+                "venv",
+                ".venv",
+                "env",
+                ".env",
+                "dist",
+                "build",
+            ]
 
     @classmethod
     def validate_config(cls) -> List[str]:
@@ -123,8 +130,8 @@ class Config:
             errors.append("AI_TEMPERATURE must be between 0.0 and 2.0")
 
         # Ensure required directories exist
-        if not os.path.exists(os.path.dirname(cls.REQUIREMENTS_FILE)):
-            os.makedirs(os.path.dirname(cls.REQUIREMENTS_FILE), exist_ok=True)
+        if not os.path.exists(os.path.dirname(cls.REQUIREMENTS)):
+            os.makedirs(os.path.dirname(cls.REQUIREMENTS), exist_ok=True)
 
         if not os.path.exists(os.path.dirname(cls.METADATA_FILE)):
             os.makedirs(os.path.dirname(cls.METADATA_FILE), exist_ok=True)
