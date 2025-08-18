@@ -18,8 +18,8 @@ class Config:
         "IMPLEMENTED_REQUIREMENTS_FILE",
         ".../output/PythonExample/environment/implementedRequirements.csv",
     )
-    REQUIREMENTS_FILE = os.getenv(
-        "REQUIREMENTS_FILE", "./input/PythonExample/environment/requirements.csv"
+    REQUIREMENTS = os.getenv(
+        "REQUIREMENTS", "./input/PythonExample/environment/requirements.csv"
     )
     CODEBASE_ROOT = os.getenv("CODEBASE_ROOT", "./input/PythonExample/code/")
 
@@ -44,6 +44,7 @@ class Config:
     AI_TOP_P = float(os.getenv("AI_TOP_P", "1.0"))
     AI_FREQUENCY_PENALTY = float(os.getenv("AI_FREQUENCY_PENALTY", "0.0"))
     AI_PRESENCE_PENALTY = float(os.getenv("AI_PRESENCE_PENALTY", "0.0"))
+    METADATA = os.getenv("METADATA")
     IMPLEMENTED_REQUIREMENTS = os.getenv(
         "IMPLEMENTED_REQUIREMENTS",
         "/Users/abdullahhesham/Documents/GitHub/Predictable-Secure-Code-Generation/output/PythonExample/Example1/environment/IMPLEMENTED_REQUIREMENTS.csv",
