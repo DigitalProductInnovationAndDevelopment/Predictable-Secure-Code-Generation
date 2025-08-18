@@ -1,0 +1,53 @@
+{
+  "codebase_path": "/Users/abdullahhesham/Documents/GitHub/Predictable-Secure-Code-Generation/input/PythonExamples/Example1/code",
+  "workspace": "LOCAL",
+  "total_files": 2,
+  "generation_timestamp": "/Users/abdullahhesham/Documents/GitHub/Predictable-Secure-Code-Generation/src/HandleGenericV2/src",
+  "files": [
+    {
+      "file_name": "code.py",
+      "description": "Metadata generation failed - fallback data",
+      "main_purpose": "Unknown",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "dependencies": [],
+      "complexity": "UNKNOWN",
+      "key_features": [],
+      "raw_content_length": 14036,
+      "error": "AI metadata generation failed",
+      "file_path": "code.py",
+      "file_size": 14036
+    },
+    {
+      "file_name": "main.py",
+      "description": "A script to demonstrate the functionality of a Calculator class with various arithmetic and list operations, including error handling.",
+      "main_purpose": "To showcase the capabilities of the Calculator class through examples of arithmetic operations, list operations, and error handling.",
+      "functions": [
+        {
+          "name": "main",
+          "description": "Demonstrates various operations of the Calculator class, including arithmetic, list operations, and error handling.",
+          "parameters": [],
+          "returns": "None",
+          "purpose": "Serves as the entry point to execute and demonstrate the Calculator class functionality."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        "calculator.Calculator"
+      ],
+      "dependencies": [
+        "calculator module"
+      ],
+      "complexity": "MEDIUM",
+      "key_features": [
+        "Demonstrates basic arithmetic operations (add, subtract, multiply, divide)",
+        "Showcases special operations like add_and_multiply_by_two",
+        "Handles errors such as division by zero, type errors, and empty lists",
+        "Performs list summation with support for mixed numeric types"
+      ],
+      "file_path": "main.py",
+      "file_size": 2515
+    }
+  ]
+}

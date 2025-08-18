@@ -3,8 +3,8 @@ import re
 import logging
 from typing import Dict, Any
 
-from adapters.local.read.readFilesNames import directory_to_json
-from adapters.local.write.writeJson import save_json_to_file
+from adapters.read.readFilesNames import directory_to_json
+from adapters.write.writeJson import save_json_to_file
 from aiBrain.ai import AzureOpenAIClient
 from config import Config
 
