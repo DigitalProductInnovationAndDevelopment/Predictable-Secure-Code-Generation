@@ -1,21 +1,31 @@
 """
-Main CLI interface for GenerateCodeFromRequirements system.
+Main CLI interface for S2 Code Generation system.
 
-This module provides command-line interface for generating code from requirements,
-integrating with metadata analysis, requirement checking, and validation systems.
+This module provides command-line interface for checking requirements status
+and generating code from requirements with AI assistance.
 """
 
 import argparse
 import json
 import logging
 import sys
-import time
+import os
 from pathlib import Path
 
-from core.generator import CodeGenerator
-from utils.config import GenerationConfig
-from utils.helpers import GenerationHelper
-from models.generation_result import GenerationResult, GenerationStatus
+# Add the HandleGenericV2 directory to the path so we can import config
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# Navigate: s2_codeGeneration -> core -> s1_metadataGeneration -> src -> HandleGenericV2
+project_root = os.path.join(
+    current_dir, "..", "..", "..", ".."
+)  # Go to HandleGenericV2
+sys.path.insert(0, project_root)
+
+try:
+    from config import Config
+except ImportError:
+    # Try alternative import path
+    sys.path.insert(0, os.path.join(project_root, "src"))
+    from config import Config
 
 
 def setup_logging(verbose: bool = False) -> logging.Logger:
@@ -29,90 +39,79 @@ def setup_logging(verbose: bool = False) -> logging.Logger:
     return logging.getLogger(__name__)
 
 
+def check_implemented_requirements_exists() -> bool:
+    """
+    Check if the IMPLEMENTED_REQUIREMENTS file exists according to config.
+
+    Returns:
+        bool: True if file exists, False otherwise
+    """
+    try:
+        config = Config()
+
+        # Debug: Print available attributes
+        print(f"🔍 Debug: Config object type: {type(config)}")
+        print(
+            f"🔍 Debug: Available config attributes: {[attr for attr in dir(config) if not attr.startswith('_')]}"
+        )
+
+        # Try different attribute names
+        if hasattr(config, "IMPLEMENTED_REQUIREMENTS_FILE"):
+            implemented_req_path = config.IMPLEMENTED_REQUIREMENTS_FILE
+        elif hasattr(config, "IMPLEMENTED_REQUIREMENTS"):
+            implemented_req_path = config.IMPLEMENTED_REQUIREMENTS
+        else:
+            print(
+                "❌ Config object does not have IMPLEMENTED_REQUIREMENTS_FILE or IMPLEMENTED_REQUIREMENTS attributes"
+            )
+            return False
+
+        # Check if the path is valid (not containing ...)
+        if "..." in implemented_req_path:
+            print(
+                f"⚠️ Warning: Config has invalid path with '...': {implemented_req_path}"
+            )
+            print("This path needs to be corrected in the config file.")
+            return False
+
+        if implemented_req_path and os.path.exists(implemented_req_path):
+            print(f"✅ IMPLEMENTED_REQUIREMENTS file exists at: {implemented_req_path}")
+            return True
+        else:
+            print(
+                f"❌ IMPLEMENTED_REQUIREMENTS file does not exist at: {implemented_req_path}"
+            )
+            return False
+
+    except Exception as e:
+        print(f"❌ Error checking IMPLEMENTED_REQUIREMENTS file: {e}")
+        return False
+
+
 def main():
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
-        description="Generate code from requirements with AI assistance",
+        description="S2 Code Generation - Check requirements status and generate code",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Basic code generation
-  python main.py --project-path /path/to/project --requirements requirements.csv --metadata metadata.json --output /path/to/output
+  # Check implemented requirements status
+  python main.py --check-requirements
 
-  # With existing requirements for comparison
-  python main.py --project-path /path/to/project --requirements new_requirements.csv --existing-requirements old_requirements.csv --metadata metadata.json --output /path/to/output
-
-  # With custom configuration
-  python main.py --project-path /path/to/project --requirements requirements.csv --metadata metadata.json --output /path/to/output --config config.json
-
-  # Verbose output with JSON format
-  python main.py --project-path /path/to/project --requirements requirements.csv --metadata metadata.json --output /path/to/output --verbose --format json
+  # Check with verbose logging
+  python main.py --check-requirements --verbose
         """,
     )
 
-    # Required arguments
+    # Add check requirements option
     parser.add_argument(
-        "--project-path",
-        "-p",
-        required=True,
-        help="Path to the source project directory",
-    )
-
-    parser.add_argument(
-        "--requirements", "-r", required=True, help="Path to requirements CSV file"
-    )
-
-    parser.add_argument(
-        "--metadata", "-m", required=True, help="Path to project metadata JSON file"
-    )
-
-    parser.add_argument(
-        "--output",
-        "-o",
-        required=True,
-        help="Path to output directory for generated code",
-    )
-
-    # Optional arguments
-    parser.add_argument(
-        "--existing-requirements",
-        "-e",
-        help="Path to existing requirements CSV file for comparison",
-    )
-
-    parser.add_argument("--config", "-c", help="Path to configuration JSON file")
-
-    parser.add_argument(
-        "--format",
-        "-f",
-        choices=["json", "yaml", "text"],
-        default="json",
-        help="Output format for results (default: json)",
-    )
-
-    parser.add_argument(
-        "--output-result", "-or", help="Path to save generation result file"
+        "--check-requirements",
+        action="store_true",
+        help="Check if IMPLEMENTED_REQUIREMENTS file exists according to config",
     )
 
     parser.add_argument(
         "--verbose", "-v", action="store_true", help="Enable verbose logging"
-    )
-
-    parser.add_argument(
-        "--dry-run",
-        "-d",
-        action="store_true",
-        help="Analyze requirements without generating code",
-    )
-
-    parser.add_argument("--no-tests", action="store_true", help="Skip test generation")
-
-    parser.add_argument(
-        "--no-validation", action="store_true", help="Skip validation step"
-    )
-
-    parser.add_argument(
-        "--no-metadata-update", action="store_true", help="Skip metadata update step"
     )
 
     args = parser.parse_args()
@@ -120,196 +119,25 @@ Examples:
     # Set up logging
     logger = setup_logging(args.verbose)
 
-    try:
-        # Load configuration
-        if args.config and Path(args.config).exists():
-            config = GenerationConfig.load_from_file(args.config)
-            logger.info(f"Loaded configuration from {args.config}")
+    # If just checking requirements, do that and exit
+    if args.check_requirements:
+        print("🔍 Checking IMPLEMENTED_REQUIREMENTS file status...")
+        exists = check_implemented_requirements_exists()
+        if exists:
+            print("✅ File exists - ready for code generation!")
         else:
-            config = GenerationConfig()
-            logger.info("Using default configuration")
+            print("❌ File does not exist - needs to be created first")
+        return
 
-        # Override config with command line arguments
-        if args.format:
-            config.output_format = args.format
-        if args.verbose:
-            config.verbose_logging = True
-        if args.no_tests:
-            config.generate_tests = False
-        if args.no_validation:
-            config.run_tests_after_generation = False
-        if args.no_metadata_update:
-            config.update_metadata = False
+    # If no arguments provided, show help
+    if len(sys.argv) == 1:
+        parser.print_help()
+        return
 
-        # Validate configuration
-        config_errors = config.validate()
-        if config_errors:
-            logger.error("Configuration validation failed:")
-            for error in config_errors:
-                logger.error(f"  - {error}")
-            sys.exit(1)
-
-        # Validate input paths
-        if not Path(args.project_path).exists():
-            logger.error(f"Project path does not exist: {args.project_path}")
-            sys.exit(1)
-
-        if not Path(args.requirements).exists():
-            logger.error(f"Requirements file does not exist: {args.requirements}")
-            sys.exit(1)
-
-        if not Path(args.metadata).exists():
-            logger.error(f"Metadata file does not exist: {args.metadata}")
-            sys.exit(1)
-
-        if args.existing_requirements and not Path(args.existing_requirements).exists():
-            logger.error(
-                f"Existing requirements file does not exist: {args.existing_requirements}"
-            )
-            sys.exit(1)
-
-        # Display configuration summary if verbose
-        if args.verbose:
-            logger.info("Configuration summary:")
-            for line in config.get_summary().split("\n"):
-                logger.info(f"  {line}")
-
-        logger.info("Starting code generation process...")
-        start_time = time.time()
-
-        # Initialize generator
-        generator = CodeGenerator(logger)
-
-        if args.dry_run:
-            logger.info("DRY RUN MODE - No code will be generated")
-            # TODO: Implement dry run analysis
-            result = GenerationResult(GenerationStatus.SUCCESS)
-            result.execution_time = time.time() - start_time
-        else:
-            # Run code generation
-            result = generator.generate_from_requirements(
-                project_path=args.project_path,
-                requirements_path=args.requirements,
-                metadata_path=args.metadata,
-                output_path=args.output,
-                existing_requirements_path=args.existing_requirements,
-            )
-
-        # Display results
-        if result.status == GenerationStatus.SUCCESS:
-            logger.info("✅ Code generation completed successfully!")
-        elif result.status == GenerationStatus.PARTIAL_SUCCESS:
-            logger.warning("⚠️ Code generation completed with some issues")
-        else:
-            logger.error("❌ Code generation failed")
-
-        # Display summary
-        print("\n" + "=" * 60)
-        print("CODE GENERATION SUMMARY")
-        print("=" * 60)
-        print(result.get_summary())
-
-        # Save result to file if requested
-        if args.output_result:
-            output_path = args.output_result
-        else:
-            output_path = str(
-                Path(args.output) / f"generation_result.{config.output_format}"
-            )
-
-        if GenerationHelper.save_result_to_file(
-            result.to_dict(), output_path, config.output_format
-        ):
-            logger.info(f"Results saved to: {output_path}")
-        else:
-            logger.error(f"Failed to save results to: {output_path}")
-
-        # Exit with appropriate code
-        if result.status == GenerationStatus.FAILED:
-            sys.exit(1)
-        elif result.status == GenerationStatus.PARTIAL_SUCCESS:
-            sys.exit(2)
-        else:
-            sys.exit(0)
-
-    except KeyboardInterrupt:
-        logger.info("Process interrupted by user")
-        sys.exit(130)
-    except Exception as e:
-        logger.error(f"Unexpected error: {str(e)}")
-        if args.verbose:
-            import traceback
-
-            traceback.print_exc()
-        sys.exit(1)
-
-
-def create_sample_config():
-    """Create a sample configuration file."""
-    config = GenerationConfig()
-    config_path = "config_example.json"
-
-    if config.save_to_file(config_path):
-        print(f"Sample configuration created: {config_path}")
-        print("Edit this file to customize your settings.")
-    else:
-        print("Failed to create sample configuration file.")
-
-
-def validate_installation():
-    """Validate that all dependencies are properly installed."""
-    import importlib
-
-    required_modules = ["pathlib", "json", "logging", "ast", "typing"]
-
-    optional_modules = [
-        ("yaml", "PyYAML - for YAML output format"),
-        ("black", "Black - for code formatting"),
-    ]
-
-    print("Validating installation...")
-
-    # Check required modules
-    missing_required = []
-    for module in required_modules:
-        try:
-            importlib.import_module(module)
-        except ImportError:
-            missing_required.append(module)
-
-    if missing_required:
-        print(f"❌ Missing required modules: {', '.join(missing_required)}")
-        return False
-
-    print("✅ All required modules available")
-
-    # Check optional modules
-    missing_optional = []
-    for module, description in optional_modules:
-        try:
-            importlib.import_module(module)
-        except ImportError:
-            missing_optional.append((module, description))
-
-    if missing_optional:
-        print("\n⚠️ Optional modules not available:")
-        for module, description in missing_optional:
-            print(f"  - {description}")
-        print("Install these for enhanced functionality.")
-
-    return True
+    print(
+        "❌ No valid command specified. Use --check-requirements to check file status."
+    )
 
 
 if __name__ == "__main__":
-    # Handle special commands
-    if len(sys.argv) > 1:
-        if sys.argv[1] == "create-config":
-            create_sample_config()
-            sys.exit(0)
-        elif sys.argv[1] == "validate":
-            if validate_installation():
-                sys.exit(0)
-            else:
-                sys.exit(1)
-
     main()

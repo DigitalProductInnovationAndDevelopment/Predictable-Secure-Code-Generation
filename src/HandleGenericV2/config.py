@@ -44,12 +44,17 @@ class Config:
     AI_TOP_P = float(os.getenv("AI_TOP_P", "1.0"))
     AI_FREQUENCY_PENALTY = float(os.getenv("AI_FREQUENCY_PENALTY", "0.0"))
     AI_PRESENCE_PENALTY = float(os.getenv("AI_PRESENCE_PENALTY", "0.0"))
-
+    IMPLEMENTED_REQUIREMENTS = os.getenv(
+        "IMPLEMENTED_REQUIREMENTS",
+        "/Users/abdullahhesham/Documents/GitHub/Predictable-Secure-Code-Generation/output/PythonExample/Example1/environment/IMPLEMENTED_REQUIREMENTS.csv",
+    )
     # Default System Prompts
     DEFAULT_SYSTEM_PROMPT = os.getenv(
         "DEFAULT_SYSTEM_PROMPT",
         "You are a helpful AI assistant. Provide clear, accurate, and helpful responses.",
     )
+
+    REQUIREMENTS = os.getenv("REQUIREMENTS")
 
     CODE_CORRECTION_PROMPT = os.getenv(
         "CODE_CORRECTION_PROMPT",

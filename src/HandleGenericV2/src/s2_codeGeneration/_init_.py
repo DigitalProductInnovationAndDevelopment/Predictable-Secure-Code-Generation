@@ -1,5 +1,5 @@
 """
-GenerateCodeFromRequirements - AI-powered code generation from requirements
+S2 Code Generation Package
 
 This package provides a comprehensive system for generating code from requirements,
 integrating with metadata analysis, requirement checking, and validation systems.
@@ -12,7 +12,7 @@ Key Features:
 - Integration with existing codebases
 
 Usage:
-    from GenerateCodeFromRequirements import CodeGenerator
+    from s2_codeGeneration import CodeGenerator
 
     generator = CodeGenerator()
     result = generator.generate_from_requirements(
@@ -24,8 +24,9 @@ Usage:
 """
 
 __version__ = "1.0.0"
-__author__ = "AI Assistant"
+__author__ = "Predictable Secure Code Generation Team"
 
+# Import core components
 from .core.generator import CodeGenerator
 from .core.analyzer import RequirementAnalyzer
 from .core.integrator import CodeIntegrator
