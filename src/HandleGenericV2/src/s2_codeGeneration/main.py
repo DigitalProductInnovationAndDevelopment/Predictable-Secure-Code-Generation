@@ -331,12 +331,96 @@ def _direct_check_unimplemented_requirements() -> dict:
         return {"error": f"Direct implementation failed: {str(e)}"}
 
 
-def implement_missing_requirements(count: int = None) -> dict:
+def update_implemented_requirements_metadata():
+    """
+    Call the S1 metadata generation main.py to update already implemented requirements.
+
+    Returns:
+        dict: Results of the metadata update process
+    """
+    try:
+        print("🔄 Updating implemented requirements metadata...")
+
+        # Import and run the S1 metadata generation main
+        from s1_metadataGeneration.main import main as s1_main
+
+        print("📊 Calling S1 Metadata Generation to update requirements...")
+
+        # Run the S1 main function
+        result = s1_main()
+
+        print("✅ S1 Metadata Generation completed successfully")
+        return {
+            "status": "success",
+            "message": "Metadata updated successfully",
+            "result": result,
+        }
+
+    except ImportError as e:
+        print(f"⚠️ Could not import S1 metadata generation: {e}")
+        print("🔄 Trying alternative approach...")
+
+        # Alternative: run as subprocess
+        try:
+            import subprocess
+            import sys
+
+            # Get the path to the S1 main.py
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            s1_main_path = os.path.join(
+                current_dir, "..", "s1_metadataGeneration", "main.py"
+            )
+
+            if os.path.exists(s1_main_path):
+                print(f"📁 Running S1 main from: {s1_main_path}")
+
+                # Run the S1 main.py as a subprocess
+                result = subprocess.run(
+                    [sys.executable, s1_main_path],
+                    capture_output=True,
+                    text=True,
+                    cwd=os.path.dirname(s1_main_path),
+                )
+
+                if result.returncode == 0:
+                    print("✅ S1 Metadata Generation completed successfully")
+                    return {
+                        "status": "success",
+                        "message": "Metadata updated successfully via subprocess",
+                        "stdout": result.stdout,
+                        "stderr": result.stderr,
+                    }
+                else:
+                    print(f"⚠️ S1 Metadata Generation completed with warnings")
+                    return {
+                        "status": "warning",
+                        "message": "Metadata updated with warnings",
+                        "stdout": result.stdout,
+                        "stderr": result.stderr,
+                        "returncode": result.returncode,
+                    }
+            else:
+                print(f"❌ S1 main.py not found at: {s1_main_path}")
+                return {"error": f"S1 main.py not found at {s1_main_path}"}
+
+        except Exception as subprocess_error:
+            print(f"❌ Error running S1 main as subprocess: {subprocess_error}")
+            return {"error": f"Subprocess execution failed: {str(subprocess_error)}"}
+
+    except Exception as e:
+        print(f"❌ Error updating metadata: {e}")
+        return {"error": f"Metadata update failed: {str(e)}"}
+
+
+def implement_missing_requirements(
+    count: int = None, update_metadata: bool = True
+) -> dict:
     """
     Implement missing requirements using implementMissingRequirements.
 
     Args:
         count: Number of requirements to implement (None for all available)
+        update_metadata: Whether to update metadata after implementation
 
     Returns:
         dict: Implementation results
@@ -390,7 +474,7 @@ def implement_missing_requirements(count: int = None) -> dict:
             print(f"   Failed: {final_status['failed_implementations']}")
             print(f"   Current Status: {final_status['current_status']}")
 
-            return {
+            implementation_result = {
                 "status": "completed",
                 "implementations": results,
                 "final_status": final_status,
@@ -428,11 +512,26 @@ def implement_missing_requirements(count: int = None) -> dict:
             print(f"   Failed: {final_status['failed_implementations']}")
             print(f"   Current Status: {final_status['current_status']}")
 
-            return {
+            implementation_result = {
                 "status": "completed",
                 "implementations": results,
                 "final_status": final_status,
             }
+
+        # Update metadata if requested and implementations were successful
+        if (
+            update_metadata
+            and results
+            and any(r.get("status") == "success" for r in results)
+        ):
+            print(
+                f"\n🔄 Metadata updates are now handled automatically after each implementation"
+            )
+            print("✅ No additional metadata update needed")
+        elif update_metadata:
+            print(f"\n⚠️ No successful implementations to update metadata for")
+
+        return implementation_result
 
     except Exception as e:
         print(f"❌ Error implementing requirements: {e}")
@@ -446,6 +545,9 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
+  # Default mode: implement missing requirements and update metadata
+  python main.py
+
   # Check implemented requirements status
   python main.py --check-requirements
 
@@ -458,8 +560,14 @@ Examples:
   # Implement specific number of requirements
   python main.py --implement-requirements --count 3
 
+  # Implement without updating metadata
+  python main.py --implement-requirements --count 2 --no-metadata-update
+
   # Check and implement in one command
   python main.py --check-and-implement
+
+  # Check and implement without metadata update
+  python main.py --check-and-implement --no-metadata-update
 
   # Check with verbose logging
   python main.py --check-requirements --verbose
@@ -498,6 +606,12 @@ Examples:
     )
 
     parser.add_argument(
+        "--no-metadata-update",
+        action="store_true",
+        help="Skip metadata update after implementing requirements",
+    )
+
+    parser.add_argument(
         "--verbose", "-v", action="store_true", help="Enable verbose logging"
     )
 
@@ -526,7 +640,10 @@ Examples:
 
     elif args.implement_requirements:
         print("🚀 Implementing missing requirements...")
-        result = implement_missing_requirements(count=args.count)
+        update_metadata = not args.no_metadata_update
+        result = implement_missing_requirements(
+            count=args.count, update_metadata=update_metadata
+        )
         if "error" in result:
             print(f"❌ Implementation failed: {result['error']}")
             return 1
@@ -586,23 +703,65 @@ Examples:
                 count = 1
 
             # Implement the requirements
-            impl_result = implement_missing_requirements(count=count)
+            update_metadata = not args.no_metadata_update
+            impl_result = implement_missing_requirements(
+                count=count, update_metadata=update_metadata
+            )
             if "error" in impl_result:
                 print(f"❌ Implementation failed: {impl_result['error']}")
                 return 1
 
             print("\n🎉 Check and implement process completed successfully!")
+
+            # Metadata updates are now handled automatically after each implementation
+            print("✅ Metadata updates handled automatically during implementation")
+
             return 0
         else:
             print("⏸️ Implementation cancelled by user.")
             return 0
 
-    # If no arguments provided, show help
-    if len(sys.argv) == 1:
-        parser.print_help()
-        return
+    # Default behavior: implement missing requirements and update metadata
+    else:
+        print("🚀 S2 Code Generation - Default Mode")
+        print("=" * 60)
+        print(
+            "No specific command provided - implementing missing requirements automatically"
+        )
+        print("=" * 60)
 
-    print("❌ No valid command specified. Use --help to see available options.")
+        # Check for unimplemented requirements first
+        print("\n🔍 STEP 1: Checking for unimplemented requirements...")
+        check_result = check_unimplemented_requirements()
+
+        if "error" in check_result:
+            print(f"❌ Check failed: {check_result['error']}")
+            return 1
+
+        # Check if there are any unimplemented requirements
+        summary = check_result.get("analysis_summary", {})
+        unimplemented_count = summary.get("unimplemented_count", 0)
+
+        if unimplemented_count == 0:
+            print("🎉 No unimplemented requirements found. Nothing to implement!")
+            return 0
+
+        print(f"\n❌ Found {unimplemented_count} unimplemented requirements.")
+        print("🔄 Automatically implementing all available requirements...")
+
+        # Implement all available requirements with metadata update
+        impl_result = implement_missing_requirements(count=None, update_metadata=True)
+
+        if "error" in impl_result:
+            print(f"❌ Implementation failed: {impl_result['error']}")
+            return 1
+
+        print("\n🎉 Default mode completed successfully!")
+
+        # Metadata updates are now handled automatically after each implementation
+        print("✅ Metadata updates handled automatically during implementation")
+
+        return 0
 
 
 if __name__ == "__main__":

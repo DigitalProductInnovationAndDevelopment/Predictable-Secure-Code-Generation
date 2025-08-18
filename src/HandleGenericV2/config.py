@@ -47,6 +47,7 @@ class Config:
     AI_FREQUENCY_PENALTY: float = float(os.getenv("AI_FREQUENCY_PENALTY", "0.0"))
     AI_PRESENCE_PENALTY: float = float(os.getenv("AI_PRESENCE_PENALTY", "0.0"))
     METADATA: str = os.getenv("METADATA")
+    OUTPUT_CODE: str = os.getenv("OUTPUT_CODE")
     IMPLEMENTED_REQUIREMENTS: str = os.getenv(
         "IMPLEMENTED_REQUIREMENTS",
         "/Users/abdullahhesham/Documents/GitHub/Predictable-Secure-Code-Generation/output/PythonExample/Example1/environment/IMPLEMENTED_REQUIREMENTS.csv",

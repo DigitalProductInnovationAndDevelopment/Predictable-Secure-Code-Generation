@@ -3,7 +3,9 @@
 Implement Missing Requirements Script
 
 This script implements missing requirements one at a time using AI assistance.
-It provides a robust workflow for implementing code based on requirements analysis.
+It first copies the entire codebase from CODEBASE_ROOT to OUTPUT_CODE,
+then implements missing functionality directly in the output directory
+while updating metadata after each requirement.
 """
 
 import os
@@ -11,6 +13,7 @@ import sys
 import json
 import time
 import logging
+import shutil
 from typing import Dict, Any, List, Optional, Tuple
 from pathlib import Path
 import datetime
@@ -48,10 +51,205 @@ class RequirementImplementationManager:
         self.workspace = config.WORKSPACE
         self.output_dir = config.OUTPUT_DIR
         self.metadata_path = config.METADATA
+        self.codebase_root = config.CODEBASE_ROOT
+        self.output_code = config.OUTPUT_CODE
         self.implementation_log_file = "requirement_implementation_log.json"
 
         # Load or create implementation log
         self.implementation_log = self._load_implementation_log()
+
+        # Ensure output code directory exists and is populated
+        self._setup_output_code_directory()
+
+    def _setup_output_code_directory(self):
+        """Set up the output code directory by copying from CODEBASE_ROOT."""
+        try:
+            if not self.output_code:
+                logger.error("OUTPUT_CODE not configured in config.py")
+                return False
+
+            if not self.codebase_root:
+                logger.error("CODEBASE_ROOT not configured in config.py")
+                return False
+
+            # Create output code directory if it doesn't exist
+            os.makedirs(self.output_code, exist_ok=True)
+
+            # Check if output directory is empty or needs updating
+            if not os.listdir(self.output_code) or self._should_update_output_code():
+                logger.info(
+                    f"🔄 Copying codebase from {self.codebase_root} to {self.output_code}"
+                )
+                print(
+                    f"🔄 Copying codebase from {self.codebase_root} to {self.output_code}"
+                )
+
+                # Remove existing content
+                if os.listdir(self.output_code):
+                    logger.info("🧹 Clearing existing output directory")
+                    print("🧹 Clearing existing output directory")
+                    for item in os.listdir(self.output_code):
+                        item_path = os.path.join(self.output_code, item)
+                        if os.path.isfile(item_path):
+                            os.remove(item_path)
+                        elif os.path.isdir(item_path):
+                            shutil.rmtree(item_path)
+
+                # Copy entire codebase
+                if os.path.exists(self.codebase_root):
+                    shutil.copytree(
+                        self.codebase_root, self.output_code, dirs_exist_ok=True
+                    )
+                    logger.info("✅ Codebase copied successfully")
+                    print("✅ Codebase copied successfully")
+
+                    # Update implementation log
+                    self.implementation_log["codebase_copied"] = {
+                        "from": self.codebase_root,
+                        "to": self.output_code,
+                        "timestamp": str(datetime.datetime.now()),
+                    }
+                    self._save_implementation_log()
+
+                    return True
+                else:
+                    logger.error(f"Source codebase not found: {self.codebase_root}")
+                    print(f"❌ Source codebase not found: {self.codebase_root}")
+                    return False
+            else:
+                logger.info("✅ Output code directory already up to date")
+                print("✅ Output code directory already up to date")
+                return True
+
+        except Exception as e:
+            logger.error(f"Error setting up output code directory: {e}")
+            print(f"❌ Error setting up output code directory: {e}")
+            return False
+
+    def _should_update_output_code(self) -> bool:
+        """Check if output code directory needs updating."""
+        try:
+            # Check if source codebase has newer files
+            if not os.path.exists(self.codebase_root):
+                return False
+
+            source_files = []
+            for root, dirs, files in os.walk(self.codebase_root):
+                for file in files:
+                    source_files.append(os.path.join(root, file))
+
+            if not source_files:
+                return False
+
+            # Check if any source files are newer than the copy timestamp
+            copy_info = self.implementation_log.get("codebase_copied", {})
+            if not copy_info:
+                return True
+
+            copy_time = datetime.datetime.fromisoformat(
+                copy_info["timestamp"].replace("Z", "+00:00")
+            )
+
+            for source_file in source_files:
+                if os.path.getmtime(source_file) > copy_time.timestamp():
+                    return True
+
+            return False
+
+        except Exception as e:
+            logger.warning(f"Could not determine if update needed: {e}")
+            return False
+
+    def _update_metadata_after_implementation(self, requirement_id: str):
+        """Update metadata after implementing a requirement."""
+        try:
+            logger.info(f"🔄 Updating metadata after implementing {requirement_id}")
+            print(f"🔄 Updating metadata after implementing {requirement_id}")
+
+            # Call S1 metadata generation to update metadata
+            try:
+                from s1_metadataGeneration.main import main as s1_main
+
+                logger.info("📊 Calling S1 Metadata Generation to update metadata...")
+                print("📊 Calling S1 Metadata Generation to update metadata...")
+
+                # Run the S1 main function
+                result = s1_main()
+
+                logger.info("✅ Metadata updated successfully")
+                print("✅ Metadata updated successfully")
+
+                return {
+                    "status": "success",
+                    "message": "Metadata updated successfully",
+                    "result": result,
+                }
+
+            except ImportError as e:
+                logger.warning(f"Could not import S1 metadata generation: {e}")
+                print(f"⚠️ Could not import S1 metadata generation: {e}")
+
+                # Alternative: run as subprocess
+                try:
+                    import subprocess
+
+                    # Get the path to the S1 main.py
+                    current_dir = os.path.dirname(os.path.abspath(__file__))
+                    s1_main_path = os.path.join(
+                        current_dir, "..", "..", "s1_metadataGeneration", "main.py"
+                    )
+
+                    if os.path.exists(s1_main_path):
+                        logger.info(f"📁 Running S1 main from: {s1_main_path}")
+                        print(f"📁 Running S1 main from: {s1_main_path}")
+
+                        # Run the S1 main.py as a subprocess
+                        result = subprocess.run(
+                            [sys.executable, s1_main_path],
+                            capture_output=True,
+                            text=True,
+                            cwd=os.path.dirname(s1_main_path),
+                        )
+
+                        if result.returncode == 0:
+                            logger.info(
+                                "✅ Metadata updated successfully via subprocess"
+                            )
+                            print("✅ Metadata updated successfully via subprocess")
+                            return {
+                                "status": "success",
+                                "message": "Metadata updated successfully via subprocess",
+                                "stdout": result.stdout,
+                                "stderr": result.stderr,
+                            }
+                        else:
+                            logger.warning("⚠️ Metadata update completed with warnings")
+                            print("⚠️ Metadata update completed with warnings")
+                            return {
+                                "status": "warning",
+                                "message": "Metadata updated with warnings",
+                                "stdout": result.stdout,
+                                "stderr": result.stderr,
+                                "returncode": result.returncode,
+                            }
+                    else:
+                        logger.error(f"S1 main.py not found at: {s1_main_path}")
+                        print(f"❌ S1 main.py not found at: {s1_main_path}")
+                        return {"error": f"S1 main.py not found at {s1_main_path}"}
+
+                except Exception as subprocess_error:
+                    logger.error(
+                        f"Error running S1 main as subprocess: {subprocess_error}"
+                    )
+                    print(f"❌ Error running S1 main as subprocess: {subprocess_error}")
+                    return {
+                        "error": f"Subprocess execution failed: {str(subprocess_error)}"
+                    }
+
+        except Exception as e:
+            logger.error(f"Error updating metadata: {e}")
+            print(f"❌ Error updating metadata: {e}")
+            return {"error": f"Metadata update failed: {str(e)}"}
 
     def _load_implementation_log(self) -> Dict[str, Any]:
         """Load existing implementation log or create new one."""
@@ -63,6 +261,7 @@ class RequirementImplementationManager:
                 return {
                     "created_at": str(datetime.datetime.now()),
                     "workspace": self.workspace,
+                    "codebase_copied": None,
                     "implementations": [],
                     "current_status": "ready",
                 }
@@ -71,6 +270,7 @@ class RequirementImplementationManager:
             return {
                 "created_at": str(datetime.datetime.now()),
                 "workspace": self.workspace,
+                "codebase_copied": None,
                 "implementations": [],
                 "current_status": "ready",
             }
@@ -422,6 +622,7 @@ class RequirementImplementationManager:
         try:
             req_id = requirement.get("id", "Unknown")
             logger.info(f"🚀 Starting implementation of {req_id}")
+            print(f"🚀 Starting implementation of {req_id}")
 
             # Record implementation start
             implementation_record = {
@@ -445,6 +646,7 @@ class RequirementImplementationManager:
             for i, step in enumerate(plan.get("steps", [])):
                 try:
                     logger.info(f"📋 Step {i+1}/{total_steps}: {step}")
+                    print(f"📋 Step {i+1}/{total_steps}: {step}")
 
                     # Simulate step execution (in real implementation, this would do actual work)
                     time.sleep(0.5)  # Simulate work
@@ -464,6 +666,7 @@ class RequirementImplementationManager:
 
                 except Exception as step_error:
                     logger.error(f"Error in step {i+1}: {step_error}")
+                    print(f"❌ Error in step {i+1}: {step_error}")
                     implementation_record["errors"].append(
                         {
                             "step": step,
@@ -482,16 +685,34 @@ class RequirementImplementationManager:
             self._save_implementation_log()
 
             logger.info(f"✅ Successfully implemented {req_id}")
+            print(f"✅ Successfully implemented {req_id}")
+
+            # Update metadata after successful implementation
+            print(f"🔄 Updating metadata after implementing {req_id}...")
+            metadata_result = self._update_metadata_after_implementation(req_id)
+
+            if "error" not in metadata_result:
+                print("✅ Metadata updated successfully")
+                implementation_record["metadata_updated"] = True
+                implementation_record["metadata_update_result"] = metadata_result
+            else:
+                print(f"⚠️ Metadata update had issues: {metadata_result.get('error')}")
+                implementation_record["metadata_updated"] = False
+                implementation_record["metadata_update_result"] = metadata_result
 
             return {
                 "status": "success",
                 "requirement_id": req_id,
                 "implementation_record": implementation_record,
                 "message": f"Requirement {req_id} implemented successfully",
+                "metadata_updated": implementation_record.get(
+                    "metadata_updated", False
+                ),
             }
 
         except Exception as e:
             logger.error(f"Error implementing requirement {req_id}: {e}")
+            print(f"❌ Error implementing requirement {req_id}: {e}")
 
             # Update implementation record with error
             if "implementation_record" in locals():
@@ -516,6 +737,7 @@ class RequirementImplementationManager:
         """Implement the next unimplemented requirement."""
         try:
             logger.info("🔍 Finding next requirement to implement...")
+            print("🔍 Finding next requirement to implement...")
 
             # Get next requirement
             requirement = self._get_next_unimplemented_requirement()
@@ -528,22 +750,28 @@ class RequirementImplementationManager:
 
             req_id = requirement.get("id", "Unknown")
             logger.info(f"📋 Next requirement to implement: {req_id}")
+            print(f"📋 Next requirement to implement: {req_id}")
             logger.info(
                 f"📝 Description: {requirement.get('description', 'No description')}"
             )
+            print(f"📝 Description: {requirement.get('description', 'No description')}")
 
             # Analyze context
             logger.info("🔍 Analyzing requirement context...")
+            print("🔍 Analyzing requirement context...")
             context = self._analyze_requirement_context(requirement)
 
             # Generate implementation plan
             logger.info("📋 Generating implementation plan...")
+            print("📋 Generating implementation plan...")
             plan = self._generate_implementation_plan(requirement, context)
 
             # Display plan
             logger.info("📋 Implementation Plan:")
+            print("📋 Implementation Plan:")
             for i, step in enumerate(plan.get("steps", [])):
                 logger.info(f"  {i+1}. {step}")
+                print(f"  {i+1}. {step}")
 
             # Ask for confirmation (in interactive mode)
             if self._should_proceed_with_implementation(requirement, plan):
@@ -559,6 +787,7 @@ class RequirementImplementationManager:
 
         except Exception as e:
             logger.error(f"Error in implement_next_requirement: {e}")
+            print(f"❌ Error in implement_next_requirement: {e}")
             return {
                 "status": "error",
                 "error": str(e),
@@ -602,6 +831,9 @@ class RequirementImplementationManager:
                 ]
             ),
             "last_updated": self.implementation_log.get("last_updated", "Never"),
+            "codebase_copied": self.implementation_log.get("codebase_copied")
+            is not None,
+            "output_code_directory": self.output_code,
         }
 
     def reset_implementation_log(self):
@@ -609,11 +841,13 @@ class RequirementImplementationManager:
         self.implementation_log = {
             "created_at": str(datetime.datetime.now()),
             "workspace": self.workspace,
+            "codebase_copied": None,
             "implementations": [],
             "current_status": "ready",
         }
         self._save_implementation_log()
         logger.info("🔄 Implementation log reset")
+        print("🔄 Implementation log reset")
 
 
 def main():
@@ -633,6 +867,8 @@ def main():
         print(f"✅ Successful: {status['successful_implementations']}")
         print(f"❌ Failed: {status['failed_implementations']}")
         print(f"🔄 In Progress: {status['in_progress']}")
+        print(f"📁 Output Code Directory: {status['output_code_directory']}")
+        print(f"📋 Codebase Copied: {status['codebase_copied']}")
         print()
 
         # Implement next requirement
@@ -641,6 +877,10 @@ def main():
 
         if result["status"] == "success":
             print(f"✅ {result['message']}")
+            if result.get("metadata_updated"):
+                print("✅ Metadata updated successfully")
+            else:
+                print("⚠️ Metadata update had issues")
         elif result["status"] == "no_requirements":
             print(f"🎉 {result['message']}")
         elif result["status"] == "cancelled":
